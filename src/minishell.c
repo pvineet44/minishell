@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:23:44 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:43:58 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main(int argc, const char *argv[])
 		parse(ms, line);
 		process(ms);
 		write(1, SHELL_BANNER, 14);
+		free(line);
 	}
 	return 0;
 }

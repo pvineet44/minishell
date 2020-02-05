@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:27:25 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:40:27 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef		struct	s_minishell_meta
 {
 	char cmd;
-	char *output;
 }					t_minishell_meta;
 
 t_minishell_meta			*init_minishell_meta(t_minishell_meta *ms);

@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:17:59 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:34:36 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:42:22 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 void					ms_pwd(t_minishell_meta *ms)
 {
 	char nl;
+	char *buff;
 
+	(void)ms;
+	buff = NULL;
 	nl = '\n';
-	ms->output = getcwd(ms->output, sizeof(ms->output));
-	write(1, ms->output, ft_strlen(ms->output));
+	buff = getcwd(buff, sizeof(buff));
+	write(1, buff, ft_strlen(buff));
 	write(1, &nl, 1);
+	free(buff);
 }
