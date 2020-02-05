@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 13:08:26 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 13:09:43 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:27:46 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 t_minishell_meta					*init_minishell_meta(t_minishell_meta *ms)
 {
 	ms->cmd = 0;
+	ms->output = 0;
 	return (ms);
 }

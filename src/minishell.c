@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:11:26 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:23:44 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int main(int argc, const char *argv[])
 	ms = malloc(sizeof(t_minishell_meta));
 	if (ms == NULL)
 		return (0);
-	ms = init_minishell_meta(ms);
 	fd = 0;
 	line = NULL;
 	write(1, SHELL_BANNER, 14);
 	while (get_next_line(fd, &line) > 0)
 	{
+		ms = init_minishell_meta(ms);
 		parse(ms, line);
 		process(ms);
 		write(1, SHELL_BANNER, 14);

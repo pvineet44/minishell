@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_parse.c                                         :+:      :+:    :+:   */
+/*   ms_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:16:41 by vparekh          ###   ########.fr       */
+/*   Created: 2020/02/05 15:17:59 by vparekh           #+#    #+#             */
+/*   Updated: 2020/02/05 15:34:36 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void					parse(t_minishell_meta *ms, char *line)
+void					ms_pwd(t_minishell_meta *ms)
 {
-	if (ft_strcmp(line, CMD_EXIT) == 0)
-		ms->cmd = 'x';
-	if (ft_strcmp(line, CMD_PWD) == 0)
-		ms->cmd = 'p';
-	return ;
+	char nl;
+
+	nl = '\n';
+	ms->output = getcwd(ms->output, sizeof(ms->output));
+	write(1, ms->output, ft_strlen(ms->output));
+	write(1, &nl, 1);
 }

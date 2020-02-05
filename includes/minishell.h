@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:10:42 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:27:25 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,18 @@
 # define SHELL_BANNER "minishell-1.0$"
 # define EXIT_MSG "bye!\n"
 # define CMD_EXIT "exit"
+# define CMD_PWD "pwd"
 typedef		struct	s_minishell_meta
 {
 	char cmd;
+	char *output;
 }					t_minishell_meta;
 
 t_minishell_meta			*init_minishell_meta(t_minishell_meta *ms);
 void						parse(t_minishell_meta *ms, char *line);
 void						process(t_minishell_meta *ms);
 void						sig_int_handler(int sig);
-void						ms_exit();
+void						ms_exit(t_minishell_meta *ms);
+void						ms_pwd(t_minishell_meta *ms);
+
 #endif

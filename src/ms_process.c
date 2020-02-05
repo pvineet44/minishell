@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:04:44 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:10:26 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:19:14 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,6 @@ void					process(t_minishell_meta *ms)
 {
 	if (ms->cmd == 'x')
 		ms_exit(ms);
+	if (ms->cmd == 'p')
+		ms_pwd(ms);
 }
