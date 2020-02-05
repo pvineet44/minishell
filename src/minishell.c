@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 14:22:42 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:11:26 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ int main(int argc, const char *argv[])
 	write(1, SHELL_BANNER, 14);
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (line[0] == 'x')
-		{
-			write(1, EXIT_MSG, 5);
-			break;
-		}
+		parse(ms, line);
+		process(ms);
 		write(1, SHELL_BANNER, 14);
 	}
 	return 0;

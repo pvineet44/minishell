@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_sig_handler.c                                   :+:      :+:    :+:   */
+/*   ms_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <>                                        +#+  +:+       +#+        */
+/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 14:21:08 by                   #+#    #+#             */
-/*   Updated: 2020/02/05 14:43:28 by vparekh          ###   ########.fr       */
+/*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
+/*   Updated: 2020/02/05 15:03:09 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
-void	sig_int_handler(int sig)
+void					parse(t_minishell_meta *ms, char *line)
 {
-	(void)sig;
-	signal(SIGINT, sig_int_handler);
+	if (ft_strcmp(line, CMD_EXIT) == 0)
+	{
+		ms->cmd = 'x';
+	}
+	return ;
 }

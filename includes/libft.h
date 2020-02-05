@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 19:18:08 by vparekh           #+#    #+#             */
-/*   Updated: 2019/10/12 18:29:39 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/05 14:52:54 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(const char *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
-char	*ft_strjoin(const char *s1, const char *s2);
 int		ft_strlcat(char *dst, const char *src, int dstsize);
 int		ft_strlcpy(char *dst, const char *src, int dstsize);
 int		ft_strlen(const char *s);
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
+int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strrchr(const char *s, int c);

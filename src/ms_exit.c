@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_sig_handler.c                                   :+:      :+:    :+:   */
+/*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <>                                        +#+  +:+       +#+        */
+/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 14:21:08 by                   #+#    #+#             */
-/*   Updated: 2020/02/05 14:43:28 by vparekh          ###   ########.fr       */
+/*   Created: 2020/02/05 15:06:45 by vparekh           #+#    #+#             */
+/*   Updated: 2020/02/05 15:12:44 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
-void	sig_int_handler(int sig)
+void						ms_exit(t_minishell_meta *ms)
 {
-	(void)sig;
-	signal(SIGINT, sig_int_handler);
+	write(1, EXIT_MSG, 5);
+	free(ms);
+	exit(EXIT_SUCCESS);
 }
