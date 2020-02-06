@@ -6,11 +6,24 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:43:58 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/06 16:25:41 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void			check_args(char **args)
+{
+	char nl;
+
+	nl = 10;
+	while (*args)
+	{
+		write(1, *args, ft_strlen(*args));
+		write(1, &nl, 1);
+		args++;
+	}
+}
 
 int main(int argc, const char *argv[])
 {
@@ -30,10 +43,12 @@ int main(int argc, const char *argv[])
 	while (get_next_line(fd, &line) > 0)
 	{
 		ms = init_minishell_meta(ms);
+		pre_parse(ms, line);
+//		check_args(ms->args);
 		parse(ms, line);
 		process(ms);
 		write(1, SHELL_BANNER, 14);
-		free(line);
+		free_all(ms, line);
 	}
 	return 0;
 }

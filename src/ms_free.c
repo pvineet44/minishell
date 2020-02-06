@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_init.c                                          :+:      :+:    :+:   */
+/*   ms_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 13:08:26 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/06 14:16:45 by vparekh          ###   ########.fr       */
+/*   Created: 2020/02/06 14:27:26 by vparekh           #+#    #+#             */
+/*   Updated: 2020/02/06 15:42:29 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_minishell_meta					*init_minishell_meta(t_minishell_meta *ms)
+void					free_all(t_minishell_meta *ms, char *line)
 {
-	ms->cmd = 0;
+	int i;
+
+	i = 0;
+	free(line);
+	while (ms->args[i])
+	{
+		free(ms->args[i]);
+		i++;
+	}
+	free(ms->args);
 	ms->args = 0;
-	return (ms);
 }
