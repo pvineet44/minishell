@@ -23,10 +23,11 @@
 typedef		struct	s_minishell_meta
 {
 	char cmd;
+	char *arg;
 }					t_minishell_meta;
 
 t_minishell_meta			*init_minishell_meta(t_minishell_meta *ms);
-void						parse(t_minishell_meta *ms, char *line);
+int						parse(t_minishell_meta *ms, char *line);
 void						process(t_minishell_meta *ms);
 void						sig_int_handler(int sig);
 void						ms_exit(t_minishell_meta *ms);

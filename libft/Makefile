@@ -17,6 +17,7 @@ NAME = libft.a
 HEADER = libft.h
 
 SRC = ft_atoi.c\
+		ft_putstr.c\
 		ft_bzero.c\
 		ft_calloc.c\
 		ft_isalnum.c\
