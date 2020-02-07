@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 11:33:17 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/07 14:26:22 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include<stdio.h>
@@ -19,10 +19,7 @@ void					pre_parse(t_minishell_meta *ms, char *line)
 
 	sc = ';';
 	if (ft_strchr(line, sc) != NULL)
-	{
 		ms->args = ft_split(line, sc);
-		ms->args_loaded= 1;
-	}
 	else
 	{
 		ms->args = (char **)malloc(2 * sizeof(char*));
@@ -33,30 +30,36 @@ void					pre_parse(t_minishell_meta *ms, char *line)
 
 char *line_param(t_minishell_meta *ms, char *line)
 {
-	int i;
+	int		i;
+	int		quote_cnt;
+	char	*arg;
+
+	quote_cnt = 1;
 	i = -1;
-	(void)ms;
-	// (void)line;
-	char *test;
-	test = NULL;
+	arg = NULL;
 	while (line[++i] != '\0')
 	{
 		if (line[i] != '\'')
-		{
-			test=ft_stradd(test,line[i]);
-		}
+			arg=ft_stradd(arg,line[i]);
+		else
+			quote_cnt *= -1;
 	}
-	ft_putstr(test);
+	if (quote_cnt < 0)
+		ft_putstr("multiline comments not supported\n");
+	else
+		ms->arg = ft_strdup(arg);
+	free(arg);
+	ft_putstr(ms->arg);
 	return (0);
 }
 
-void					parse(t_minishell_meta *ms, char *line)
-{	char *command;
+char						*get_command(char *command, char *line, t_minishell_meta *ms)
+{
+
 	int i;
 	int j;
 	int k;
-	char *param;
-	
+
 	i = 0;
 	j = 0;
 	k = 0;
@@ -66,19 +69,32 @@ void					parse(t_minishell_meta *ms, char *line)
 	while(ft_isalpha(line[i]) && line[i++] != '\0')
 		j++;
 	if(!(command = (char*)malloc(sizeof(char)* (j+1))))
-		return ;
+		ms_exit(ms, line);
 	j = 0;
 	while(ft_isalpha(line[k]) && line[k] != '\0')
 		command[j++] = line[k++];
 	command[j] = '\0';
+	ms->arg_start = k;
+	return command;
+}
+
+void					parse(t_minishell_meta *ms, char *line)
+{
+	char *command;
+
+	ms->opt_bit = 0;
+	command = NULL;
+	command = get_command(command, line, ms);
 	if (ft_strcmp(command, CMD_EXIT) == 0)
 		ms->cmd = 'x';
 	if (ft_strcmp(command, CMD_PWD) == 0)
 		ms->cmd = 'p';
 	if (ft_strcmp(command, CMD_ENV) == 0)
 		ms->cmd = 'n';
-	if (ms->cmd == 'g')
-		param = line_param(ms, &line[k]);
+	if (ft_strcmp(command, CMD_ECHO) == 0 && (ms->opt_bit = 1))
+		ms->cmd = 'e';
+	if (ms->opt_bit == 1)
+		ms->arg = line_param(ms, &line[ms->arg_start]);
 	free(command);
 	return;
 }

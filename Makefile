@@ -16,7 +16,7 @@ LIBFT = ./libft/libft.a
 LIBFT_SRC := $(wildcard libft/*.c)
 LIBFT_OBJ := $(patsubst libft/%.c, libft/%.o, $(LIBFT_SRC))
 
-COMP = gcc -Wall -Wextra -Werror -fsanitize=address -g3
+COMP = gcc -Wall -Wextra -Werror #-fsanitize=address -g3
 #COMP = gcc -Wall -Wextra -Werror  -g3
 INCLUDES = -Iincludes -Llibft -lft
 SRC := $(wildcard src/*.c)

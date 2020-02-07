@@ -6,11 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/02/07 11:48:47 by mashar           ###   ########.fr       */
-=======
-/*   Updated: 2020/02/07 11:20:03 by vparekh          ###   ########.fr       */
->>>>>>> 9f6aae083d1d0c5039fbc2e56dbe3c20d98950b3
+/*   Updated: 2020/02/07 12:52:01 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +18,16 @@
 # define SHELL_BANNER "minishell-1.0$"
 # define EXIT_MSG "bye!\n"
 # define CMD_EXIT "exit"
+# define CMD_ECHO "echo"
 # define CMD_PWD "pwd"
 # define CMD_ENV "env"
 typedef		struct	s_minishell_meta
 {
 	char	cmd;
 	char	**args;
+	int		arg_start;
 	char	*arg;
-	int		args_loaded;
+	int		opt_bit;
 }					t_minishell_meta;
 
 t_minishell_meta			*init_minishell_meta(t_minishell_meta *ms);
