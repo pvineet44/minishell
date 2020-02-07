@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/06 16:25:41 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/07 11:25:08 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,18 @@ int main(int argc, const char *argv[])
 	{
 		if(line[0] == '\0')
 		{
-			write(1, SHELL_BANNER, 14);	
+			write(1, SHELL_BANNER, 14);
+			free(line);
 			continue ;
 		}
 		ms = init_minishell_meta(ms);
 		pre_parse(ms, line);
 //		check_args(ms->args);
 		parse(ms, line);
-		process(ms);
+		process(ms, line);
 		write(1, SHELL_BANNER, 14);
 		free_all(ms, line);
 	}
+	free(ms);
 	return 0;
 }
