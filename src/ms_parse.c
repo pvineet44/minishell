@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/06 16:26:32 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/07 11:27:12 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include<stdio.h>
@@ -25,9 +25,9 @@ void					pre_parse(t_minishell_meta *ms, char *line)
 	}
 	else
 	{
-		ms->args = (char **)malloc(1 * sizeof(char*));
+		ms->args = (char **)malloc(2 * sizeof(char*));
 		ms->args[0] = ft_strdup(line);
-		ms->args[1] = NULL;
+		ms->args[1] = 0;
 	}
 }
 
@@ -79,6 +79,6 @@ void					parse(t_minishell_meta *ms, char *line)
 		ms->cmd = 'n';
 	if (ms->cmd == 'g')
 		param = line_param(ms, &line[k]);
-	
+	free(command);
 	return;
 }
