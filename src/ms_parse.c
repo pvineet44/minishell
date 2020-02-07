@@ -36,6 +36,7 @@ char *line_param(t_minishell_meta *ms, char *line)
 	int i;
 	i = -1;
 	(void)ms;
+	// (void)line;
 	char *test;
 	test = NULL;
 	while (line[++i] != '\0')
@@ -76,7 +77,7 @@ void					parse(t_minishell_meta *ms, char *line)
 		ms->cmd = 'p';
 	if (ft_strcmp(command, CMD_ENV) == 0)
 		ms->cmd = 'n';
-	if (ms->cmd != 'x' && ms->cmd != 'p' && ms->cmd != 'n')
+	if (ms->cmd == 'g')
 		param = line_param(ms, &line[k]);
 	
 	return;

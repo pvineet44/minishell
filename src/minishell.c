@@ -42,6 +42,11 @@ int main(int argc, const char *argv[])
 	write(1, SHELL_BANNER, 14);
 	while (get_next_line(fd, &line) > 0)
 	{
+		if(line[0] == '\0')
+		{
+			write(1, SHELL_BANNER, 14);	
+			continue ;
+		}
 		ms = init_minishell_meta(ms);
 		pre_parse(ms, line);
 //		check_args(ms->args);
