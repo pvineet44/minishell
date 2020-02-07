@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 12:59:01 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/07 16:30:48 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct				s_minishell_meta
 	char	**args;
 	int		arg_start;
 	char	*arg;
+	int		arg_bit;
 	int		opt_bit;
 }					t_minishell_meta;
 
@@ -40,5 +41,6 @@ void						sig_int_handler(int sig);
 void						ms_exit(t_minishell_meta *ms, char *line);
 void						ms_pwd(t_minishell_meta *ms);
 void						ms_env(t_minishell_meta *ms);
+void						ms_echo(t_minishell_meta *ms);
 void						free_all(t_minishell_meta *ms, char *line);
 #endif

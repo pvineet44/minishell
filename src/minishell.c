@@ -25,6 +25,13 @@ void			check_args(char **args)
 	}
 }
 
+void			reset_bits(t_minishell_meta *ms)
+{
+	ms->arg_bit = 0;
+	ms->opt_bit = 0;
+	ms->arg_start = 0;
+}
+
 void			invoke_minishell(t_minishell_meta *ms, char *line)
 {
 	int i;

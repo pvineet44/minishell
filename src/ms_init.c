@@ -15,5 +15,8 @@
 t_minishell_meta					*init_minishell_meta(t_minishell_meta *ms)
 {
 	ms->cmd = 0;
+	ms->arg_start = 0;
+	ms->arg_bit = 0;
+	ms->opt_bit = 0;
 	return (ms);
 }
