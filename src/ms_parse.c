@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 11:27:12 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/07 11:33:17 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include<stdio.h>
@@ -60,7 +60,7 @@ void					parse(t_minishell_meta *ms, char *line)
 	i = 0;
 	j = 0;
 	k = 0;
-	while(!ft_isalpha(line[i]))
+	while(line[i] && !ft_isalpha(line[i]))
 		i++;
 	k = i;
 	while(ft_isalpha(line[i]) && line[i++] != '\0')
