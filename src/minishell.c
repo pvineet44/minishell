@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 11:25:08 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/07 12:48:20 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,43 @@ void			check_args(char **args)
 	}
 }
 
-int main(int argc, const char *argv[])
+void			invoke_minishell(t_minishell_meta *ms, char *line)
 {
-	char *line;
-	int fd;
+	int i;
 
-	(void)argc;
-	(void)argv;
-	t_minishell_meta *ms;
-	signal (SIGINT, sig_int_handler);
-	ms = malloc(sizeof(t_minishell_meta));
-	if (ms == NULL)
+	i = 0;
+	ms = init_minishell_meta(ms);
+	pre_parse(ms, line);
+	while (ms->args[i])
+	{
+		parse(ms, ms->args[i]);
+		process(ms, line);
+		i++;
+	}
+	write(1, SHELL_BANNER, 14);
+	free_all(ms, line);
+}
+
+int				main(void)
+{
+	char				*line;
+	t_minishell_meta	*ms;
+
+	signal(SIGINT, sig_int_handler);
+	if (!(ms = malloc(sizeof(t_minishell_meta))))
 		return (0);
-	fd = 0;
 	line = NULL;
 	write(1, SHELL_BANNER, 14);
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
-		if(line[0] == '\0')
+		if (line[0] == '\0')
 		{
 			write(1, SHELL_BANNER, 14);
 			free(line);
 			continue ;
 		}
-		ms = init_minishell_meta(ms);
-		pre_parse(ms, line);
-//		check_args(ms->args);
-		parse(ms, line);
-		process(ms, line);
-		write(1, SHELL_BANNER, 14);
-		free_all(ms, line);
+		invoke_minishell(ms, line);
 	}
 	free(ms);
-	return 0;
+	return (0);
 }

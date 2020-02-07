@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 11:20:03 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/07 12:59:01 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # define CMD_EXIT "exit"
 # define CMD_PWD "pwd"
 # define CMD_ENV "env"
-typedef		struct	s_minishell_meta
+
+typedef struct				s_minishell_meta
 {
 	char	cmd;
 	char	**args;
 	char	*arg;
-	int		args_loaded;
-}					t_minishell_meta;
+}							t_minishell_meta;
 
 t_minishell_meta			*init_minishell_meta(t_minishell_meta *ms);
 void						pre_parse(t_minishell_meta*ms, char *line);

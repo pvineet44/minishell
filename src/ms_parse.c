@@ -6,12 +6,10 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 11:33:17 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/07 12:49:14 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include<stdio.h>
 #include "minishell.h"
-#include <stdio.h>
 
 void					pre_parse(t_minishell_meta *ms, char *line)
 {
@@ -21,7 +19,6 @@ void					pre_parse(t_minishell_meta *ms, char *line)
 	if (ft_strchr(line, sc) != NULL)
 	{
 		ms->args = ft_split(line, sc);
-		ms->args_loaded= 1;
 	}
 	else
 	{

@@ -20,4 +20,5 @@ void					process(t_minishell_meta *ms, char *line)
 		ms_pwd(ms);
 	if (ms->cmd == 'n')
 		ms_env(ms);
+	ms->cmd = 0;
 }
