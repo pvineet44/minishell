@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 15:00:09 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/07 19:05:25 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include<stdio.h>
@@ -28,33 +28,60 @@ void					pre_parse(t_minishell_meta *ms, char *line)
 	}
 }
 
+int		parse_quotes(char *line, int i, t_minishell_meta *ms)
+{
+	int		quote_bit;
+	char	quote;
+
+	quote = line[i];
+	quote_bit = line[i] == '\'' ? 1 : 0;/*zero for double quote, 1 for single quote*/
+	i++;
+	while((line[i] != '\0') && (line[i] != quote))
+	{
+		ms->arg = ft_stradd(ms->arg, line[i]);
+		i++;
+	}
+	if (line[i] != quote)
+		return (0);
+	return i;
+}
+
+int		substitute_value(char *line, int i, t_minishell_meta *ms)
+{
+	(void)ms;
+	(void)line;
+	return i;
+}
+
 void line_param(t_minishell_meta *ms, char *line)
 {
 	int		i;
-	int		quote_cnt;
-	char	*arg;
 
-	quote_cnt = 1;
 	i = 0;
-	arg = NULL;
+	ms->arg = NULL;
 	while(line && ft_isspace(line[i]))
 		i++;
 	while (line && line[i] != '\0')
 	{
-		if (line[i] != '\'')
-			arg=ft_stradd(arg,line[i]);
+		if (line[i] == '\'' || line[i] == '\"')
+		{
+			i = parse_quotes(line, i, ms);
+			if (i == 0)
+			{
+				if (ms->arg != NULL)
+					free(ms->arg);
+				ft_putstr("Multiline comments not supported\n");
+				return;
+			}
+		}
+		else if (line[i] == '$')
+			i = substitute_value(line, i, ms);
 		else
-			quote_cnt *= -1;
+			ms->arg = ft_stradd(ms->arg,line[i]);
 		i++;
 	}
-	if (arg == NULL)
+	if (ms->arg == NULL)
 		return ;
-	if (quote_cnt < 0)
-		ft_putstr("multiline comments not supported\n");
-	else
-		ms->arg = ft_strdup(arg);
-	free(arg);
-	ft_putstr(ms->arg);
 }
 
 void					command_not_found(char *command)
