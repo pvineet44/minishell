@@ -47,6 +47,13 @@ char *line_param(t_minishell_meta *ms, char *line)
 	return (0);
 }
 
+void					command_not_found(char *command)
+{
+		write(1, "minishell: ", 11);
+		write(1, command, ft_strlen(command));
+		write(1, COMMAND_NOT_FOUND, 20);
+	}
+
 void					parse(t_minishell_meta *ms, char *line)
 {	char *command;
 	int i;
@@ -76,6 +83,8 @@ void					parse(t_minishell_meta *ms, char *line)
 		ms->cmd = 'n';
 	if (ms->cmd == 'g')
 		param = line_param(ms, &line[k]);
+	else
+		command_not_found(command);
 	free(command);
 	return;
 }

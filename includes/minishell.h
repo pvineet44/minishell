@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <signal.h>
 # define SHELL_BANNER "minishell-1.0$"
+# define COMMAND_NOT_FOUND ": command not found\n"
 # define EXIT_MSG "bye!\n"
 # define CMD_EXIT "exit"
 # define CMD_PWD "pwd"
