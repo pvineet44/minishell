@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_env.c                                           :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mashar <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 16:44:57 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 12:56:05 by vparekh          ###   ########.fr       */
+/*   Created: 2020/02/07 14:45:49 by mashar            #+#    #+#             */
+/*   Updated: 2020/02/07 14:45:56 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-extern char **environ;
-
-void						ms_env(t_minishell_meta *ms)
+int		ft_isspace(int c)
 {
-	char nl;
-
-	nl = 10;
-	(void)ms;
-	while (*environ)
-	{
-		write(1, *environ, ft_strlen(*environ));
-		write(1, &nl, 1);
-		environ++;
-	}
+	c = (unsigned char)c;
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 12:52:01 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/07 12:59:01 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include "libft.h"
 # include <signal.h>
 # define SHELL_BANNER "minishell-1.0$"
+# define COMMAND_NOT_FOUND ": command not found\n"
 # define EXIT_MSG "bye!\n"
 # define CMD_EXIT "exit"
 # define CMD_ECHO "echo"
 # define CMD_PWD "pwd"
 # define CMD_ENV "env"
-typedef		struct	s_minishell_meta
+
+typedef struct				s_minishell_meta
 {
 	char	cmd;
 	char	**args;
