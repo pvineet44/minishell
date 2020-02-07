@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 19:05:25 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/07 15:54:42 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include<stdio.h>
@@ -68,7 +68,7 @@ void line_param(t_minishell_meta *ms, char *line)
 			i = parse_quotes(line, i, ms);
 			if (i == 0)
 			{
-				if (ms->arg != NULL)
+				if (ms->arg != NULL && (ms->process_bit = -1))
 					free(ms->arg);
 				ft_putstr("Multiline comments not supported\n");
 				return;
@@ -84,14 +84,14 @@ void line_param(t_minishell_meta *ms, char *line)
 		return ;
 }
 
-void					command_not_found(char *command)
+void			command_not_found(char *command)
 {
 		write(1, "minishell: ", 11);
 		write(1, command, ft_strlen(command));
 		write(1, COMMAND_NOT_FOUND, 20);
 }
 
-char						*get_command(char *command, char *line, t_minishell_meta *ms)
+char			*get_command(char *command, char *line, t_minishell_meta *ms)
 {
 
 	int i;
@@ -120,7 +120,7 @@ void					parse(t_minishell_meta *ms, char *line)
 {
 	char *command;
 
-	ms->opt_bit = 0;
+	ms->arg_bit = 0;
 	command = NULL;
 	command = get_command(command, line, ms);
 	if (ft_strcmp(command, CMD_EXIT) == 0)
@@ -129,11 +129,11 @@ void					parse(t_minishell_meta *ms, char *line)
 		ms->cmd = 'p';
 	else if (ft_strcmp(command, CMD_ENV) == 0)
 		ms->cmd = 'n';
-	else if (ft_strcmp(command, CMD_ECHO) == 0 && (ms->opt_bit = 1))
+	else if (ft_strcmp(command, CMD_ECHO) == 0 && (ms->arg_bit = 1))
 		ms->cmd = 'e';
 	else
 		command_not_found(command);
-	if (ms->opt_bit == 1)
+	if (ms->arg_bit == 1)
 		line_param(ms, &line[ms->arg_start]);
 	free(command);
 	return;
