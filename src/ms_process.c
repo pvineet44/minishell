@@ -23,10 +23,5 @@ void					process(t_minishell_meta *ms, char *line)
 	if (ms->cmd == 'e')
 		ms_echo(ms);
 	if (ms->arg_bit)
-	{
 		free(ms->arg);
-		ms->arg = 0;
-		ms->arg_bit = 0;
-	}
-	ms->cmd = 0;
 }

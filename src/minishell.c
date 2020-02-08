@@ -25,12 +25,14 @@ void			check_args(char **args)
 	}
 }
 
-void			reset_bits(t_minishell_meta *ms)
+void			init_ms(t_minishell_meta *ms)
 {
 	ms->arg_bit = 0;
 	ms->opt_bit = 0;
 	ms->arg_start = 0;
 	ms->process_bit = 0;
+	ms->arg = 0;
+	ms->cmd = 0;
 }
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)
@@ -38,15 +40,16 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	int i;
 
 	i = 0;
-	ms = init_minishell_meta(ms);
+	init_ms(ms);
 	pre_parse(ms, line);
 	while (ms->args[i])
 	{
-		reset_bits(ms);
+		init_ms(ms);
 		parse(ms, ms->args[i]);
 		if (ms->process_bit != -1)
 			process(ms, line);
 		i++;
+
 	}
 	write(1, SHELL_BANNER, 14);
 	free_all(ms, line);

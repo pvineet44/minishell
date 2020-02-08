@@ -32,9 +32,8 @@ typedef struct				s_minishell_meta
 	int		arg_bit;
 	int		opt_bit;
 	int		process_bit;
-}					t_minishell_meta;
+}							t_minishell_meta;
 
-t_minishell_meta			*init_minishell_meta(t_minishell_meta *ms);
 void						pre_parse(t_minishell_meta*ms, char *line);
 void						parse(t_minishell_meta *ms, char *line);
 void						process(t_minishell_meta *ms, char *line);
@@ -44,4 +43,11 @@ void						ms_pwd(t_minishell_meta *ms);
 void						ms_env(t_minishell_meta *ms);
 void						ms_echo(t_minishell_meta *ms);
 void						free_all(t_minishell_meta *ms, char *line);
+void						command_not_found(char *command);
+void						init_ms(t_minishell_meta *ms);
+int							parse_quotes(char *line, int i,
+							t_minishell_meta *ms);
+int							substitute_value(char *line, int i,
+							t_minishell_meta *ms);
+
 #endif

@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-t_minishell_meta					*init_minishell_meta(t_minishell_meta *ms)
+void			reset_bits(t_minishell_meta *ms)
 {
-	ms->cmd = 0;
-	ms->arg_start = 0;
 	ms->arg_bit = 0;
 	ms->opt_bit = 0;
-	return (ms);
+	ms->arg_start = 0;
+	ms->process_bit = 0;
+	ms->arg = 0;
 }
