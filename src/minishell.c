@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/08 15:02:41 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/08 15:19:40 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 		if (ms->process_bit != -1)
 			process(ms, line);
 		i++;
-
 	}
 	write(1, SHELL_BANNER, 14);
 	free_all(ms, line);

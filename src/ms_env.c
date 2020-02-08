@@ -6,12 +6,11 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:44:57 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/08 15:02:39 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/08 15:19:08 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void						ms_env(t_minishell_meta *ms)
 {
