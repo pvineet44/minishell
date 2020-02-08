@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 11:10:08 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/08 11:10:22 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/08 13:07:19 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ int		substitute_value(char *line, int i, t_minishell_meta *ms)
 {
 	(void)ms;
 	(void)line;
-        if (line[i] == '$')
-            i = substitute_dollar(line, i, ms);
-        if (line[i] == '*')
-            i = substitute_star(line, i, ms);
 	return (i);
 }
 

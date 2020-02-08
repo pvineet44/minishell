@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 16:50:39 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/08 15:02:41 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,17 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	free_all(ms, line);
 }
 
-int				main(void)
+int				main(int ac, char **av, char **env)
 {
 	char				*line;
 	t_minishell_meta	*ms;
 
+	(void)ac;
+	(void)av;
 	signal(SIGINT, sig_int_handler);
 	if (!(ms = malloc(sizeof(t_minishell_meta))))
 		return (0);
+	ms->env = env;
 	line = NULL;
 	write(1, SHELL_BANNER, 14);
 	while (get_next_line(0, &line) > 0)

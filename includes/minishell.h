@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 16:30:48 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/08 15:02:45 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct				s_minishell_meta
 	int		arg_bit;
 	int		opt_bit;
 	int		process_bit;
+	char	**env;
 }							t_minishell_meta;
 
 void						pre_parse(t_minishell_meta*ms, char *line);
