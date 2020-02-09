@@ -25,3 +25,13 @@ void					ms_pwd(t_minishell_meta *ms)
 	write(1, &nl, 1);
 	free(buff);
 }
+
+void					ms_pwd1()
+{
+	char *buff;
+
+	buff = NULL;
+	buff = getcwd(buff, sizeof(buff));
+	ft_putendl_fd(buff, 0);
+	free(buff);
+}

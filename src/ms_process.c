@@ -25,3 +25,20 @@ void					process(t_minishell_meta *ms, char *line)
 	if (ms->arg_bit)
 		free(ms->arg);
 }
+
+void					process1(t_minishell_meta *ms)
+{
+	int i;
+	char **cmds;
+	char **args;
+
+	i = 0;
+	cmds = ms->piped_cmds->cmds;
+	args = ms->piped_cmds->args;
+	while (ms->piped_cmds->cmds[i] != NULL)
+	{
+		if (ft_strcmp(cmds[i], CMD_PWD) == 0)
+			ms_pwd1();
+		i++;
+	}
+}

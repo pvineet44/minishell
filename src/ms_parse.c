@@ -112,8 +112,8 @@ void			parse_piped_commands(t_minishell_meta *ms, char *line)
 		i++;
 	}
 	ms->piped_cmds = pipe;
-	check_args(pipe->args);
-	exit(EXIT_SUCCESS);
+	// check_args(pipe->args);
+	// exit(EXIT_SUCCESS);
 	
 }
 
@@ -125,7 +125,8 @@ void			parse(t_minishell_meta *ms, char *line)
 	if (ft_strchr(line, '|') != NULL)
 	{
 		parse_piped_commands(ms, line);
-		return;	
+		process1(ms);
+		return ;
 	}
 	command = get_command(command, line, ms);
 	if (ft_strcmp(command, CMD_EXIT) == 0)
