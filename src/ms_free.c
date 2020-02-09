@@ -27,3 +27,47 @@ void					free_all(t_minishell_meta *ms, char *line)
 	free(ms->args);
 	ms->args = 0;
 }
+
+void					free_all1(t_minishell_meta *ms)
+{
+	int i;
+
+	i = 0;
+	char **cmds;
+	char **args;
+
+	cmds = ms->piped_cmds->cmds;
+	args = ms->piped_cmds->args;
+	while (cmds[i])
+	{
+		free(cmds[i]);
+		i++;
+	}
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(cmds);
+	cmds = 0;
+	free(args);
+	args = 0;
+	free(ms->piped_cmds);
+	ms->piped_cmds = 0;
+}
+
+void			free_tab(char **args)
+{
+	int i;
+
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		args[i] = 0;
+		i++;
+	}
+	free(args);
+	args = 0;
+}
