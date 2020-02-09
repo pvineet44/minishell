@@ -19,8 +19,7 @@ void			check_args(char **args)
 	nl = 10;
 	while (*args)
 	{
-		write(1, *args, ft_strlen(*args));
-		write(1, &nl, 1);
+		ft_putendl_fd(*args, 0);
 		args++;
 	}
 }

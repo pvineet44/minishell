@@ -23,18 +23,27 @@
 # define CMD_PWD "pwd"
 # define CMD_ENV "env"
 
+typedef	struct				s_piped_minishell_meta
+{
+	char	**cmds;
+	char	**args;
+	char	*options;
+}							t_piped_minishell_meta;
+
 typedef struct				s_minishell_meta
 {
-	char	cmd;
-	char	**args;
-	int		arg_start;
-	char	*arg;
-	int		arg_bit;
-	int		opt_bit;
-	int		process_bit;
-	char	**env;
+	char					cmd;
+	char					**args;
+	int						arg_start;
+	char					*arg;
+	int						arg_bit;
+	int						opt_bit;
+	int						process_bit;
+	char					**env;
+	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
 
+void						check_args(char **args);
 void						pre_parse(t_minishell_meta*ms, char *line);
 void						parse(t_minishell_meta *ms, char *line);
 void						process(t_minishell_meta *ms, char *line);
@@ -50,5 +59,6 @@ int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,
 							t_minishell_meta *ms);
+
 
 #endif

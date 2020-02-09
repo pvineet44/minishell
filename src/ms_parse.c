@@ -79,11 +79,54 @@ char			*get_command(char *command, char *line, t_minishell_meta *ms)
 	return (command);
 }
 
+void			parse_piped_commands(t_minishell_meta *ms, char *line)
+{
+	int i;
+	char					**line_splits;
+	t_piped_minishell_meta	*pipe;
+
+	(void)ms;
+	line_splits = NULL;
+	pipe = NULL;
+	i = 0;
+	line_splits = ft_split(line, '|');
+	if (!(pipe = malloc(sizeof(t_piped_minishell_meta))))
+		return ;
+	if (!(pipe->cmds = (char**)malloc(sizeof(char*) + (ft_strlen(line)
+	* sizeof(char*)))))
+		return ;
+	if (!(pipe->args = (char**)malloc(sizeof(char*) + (ft_strlen(line)
+	* sizeof(char*)))))
+		return ;
+	while (line_splits[i] != NULL)
+	{
+		pipe->cmds[i] = NULL;
+		pipe->args[i] = NULL;
+		pipe->cmds[i] = get_command(pipe->cmds[i], line_splits[i], ms);
+		ms->cmd = '|';
+		line_param(ms, &line_splits[i][ms->arg_start]);
+		if (ms->arg == NULL)
+			ms->arg = ft_strdup("");
+		pipe->args[i] = ft_strdup(ms->arg);
+		ft_free(&ms->arg);
+		i++;
+	}
+	ms->piped_cmds = pipe;
+	check_args(pipe->args);
+	exit(EXIT_SUCCESS);
+	
+}
+
 void			parse(t_minishell_meta *ms, char *line)
 {
 	char *command;
 
 	command = NULL;
+	if (ft_strchr(line, '|') != NULL)
+	{
+		parse_piped_commands(ms, line);
+		return;	
+	}
 	command = get_command(command, line, ms);
 	if (ft_strcmp(command, CMD_EXIT) == 0)
 		ms->cmd = 'x';
