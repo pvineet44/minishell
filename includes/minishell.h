@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/08 15:02:45 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:10:31 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define CMD_ECHO "echo"
 # define CMD_PWD "pwd"
 # define CMD_ENV "env"
+# define CMD_UNSET "unset"
+# define CMD_EXPORT "export"
 
 typedef	struct				s_piped_minishell_meta
 {
@@ -51,6 +53,8 @@ void						process1(t_minishell_meta *ms);
 void						sig_int_handler(int sig);
 void						ms_exit(t_minishell_meta *ms, char *line);
 void						ms_pwd(t_minishell_meta *ms);
+void						ms_unset(t_minishell_meta *ms);
+void						ms_export(t_minishell_meta *ms);
 void						ms_pwd1();
 void						ms_env(t_minishell_meta *ms);
 void						ms_echo(t_minishell_meta *ms);
