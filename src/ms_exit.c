@@ -12,16 +12,10 @@
 
 #include "minishell.h"
 
-void						ms_exit(t_minishell_meta *ms, char *line)
-{
-	write(1, EXIT_MSG, 5);
-	free_all(ms, line);
-	free(ms);
-	exit(EXIT_SUCCESS);
-}
 
-void						ms_exit1(t_minishell_meta *ms)
+void						ms_exit1(t_minishell_meta *ms, char *line)
 {
+	ft_free(&line);
 	write(STDOUT_FILENO, EXIT_MSG, 5);
 	free_all1(ms);
 	free(ms);

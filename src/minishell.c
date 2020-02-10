@@ -39,21 +39,11 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 
 	i = 0;
 	init_ms(ms);
-	parse1(ms, line);
+	parse(ms, line);
 	free(line);
-	process1(ms);
+	process(ms);
 	free_all1(ms);
-	// pre_parse(ms, line);
-	// while (ms->args[i])
-	// {
-	// 	init_ms(ms);
-	// 	parse(ms, ms->args[i]);
-	// 	if (ms->process_bit != -1)
-	// 		process(ms, line);
-	// 	i++;
-	// }
 	write(1, SHELL_BANNER, 14);
-	// free_all(ms, line);
 }
 
 int				main(int ac, char **av, char **env)

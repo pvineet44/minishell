@@ -55,7 +55,7 @@ char			*get_command(char *command, char *line, t_minishell_meta *ms)
 	while (!ft_isspace(line[i]) && line[i++] != '\0')
 		j++;
 	if (!(command = (char*)malloc(sizeof(char) * (j + 1))))
-		ms_exit(ms, line);
+		ms_exit1(ms, line);
 	j = 0;
 	while (!ft_isspace(line[k]) && line[k] != '\0')
 		command[j++] = line[k++];
@@ -122,7 +122,7 @@ void			parse_piped_commands(t_minishell_meta *ms, char *line)
 	// exit(EXIT_SUCCESS);	
 }
 
-void			parse1(t_minishell_meta *ms, char *line)
+void			parse(t_minishell_meta *ms, char *line)
 {
 	char **line_splits;
 	ms->piped_cmds = init_cmds(ft_strlen(line));

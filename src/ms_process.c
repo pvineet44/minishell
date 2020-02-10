@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void					process1(t_minishell_meta *ms)
+void					process(t_minishell_meta *ms)
 {
 	int i;
 	char **cmds;
@@ -24,7 +24,7 @@ void					process1(t_minishell_meta *ms)
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
 		if (ft_strcmp(cmds[i], CMD_EXIT) == 0)
-			ms_exit1(ms);
+			ms_exit1(ms, NULL);
 		if (ft_strcmp(cmds[i], CMD_PWD) == 0)
 			ms_pwd();
 		if (ft_strcmp(cmds[i], CMD_ENV) == 0)

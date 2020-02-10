@@ -12,22 +12,6 @@
 
 #include "minishell.h"
 
-void					free_all(t_minishell_meta *ms, char *line)
-{
-	int i;
-
-	i = 0;
-	free(line);
-	line = 0;
-	while (ms->args[i])
-	{
-		free(ms->args[i]);
-		i++;
-	}
-	free(ms->args);
-	ms->args = 0;
-}
-
 void					free_all1(t_minishell_meta *ms)
 {
 	int i;

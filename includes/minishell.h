@@ -34,7 +34,6 @@ typedef	struct				s_piped_minishell_meta
 
 typedef struct				s_minishell_meta
 {
-	char					**args;
 	int						arg_start;
 	char					*arg;
 	int						arg_bit;
@@ -45,20 +44,17 @@ typedef struct				s_minishell_meta
 }							t_minishell_meta;
 
 void						check_args(char **args);
-void						parse1(t_minishell_meta *ms, char *line);
-void						process1(t_minishell_meta *ms);
+void						parse(t_minishell_meta *ms, char *line);
+void						process(t_minishell_meta *ms);
 void						sig_int_handler(int sig);
-void						ms_exit(t_minishell_meta *ms, char *line);
+void						ms_exit1(t_minishell_meta *ms, char *line);
 void						ms_unset(t_minishell_meta *ms);
 void						ms_export(t_minishell_meta *ms);
-void						ms_pwd1();
-void						ms_exit1(t_minishell_meta *ms);
 void						ms_pwd();
 void						ms_env(char	**env);
 void						ms_echo(t_minishell_meta *ms);
-void						free_all(t_minishell_meta *ms, char *line);
-void						free_all1(t_minishell_meta *ms);
 void						free_tab(char **args);
+void						free_all1(t_minishell_meta *ms);
 void						command_not_found(char *command);
 void						init_ms(t_minishell_meta *ms);
 int							parse_quotes(char *line, int i,
