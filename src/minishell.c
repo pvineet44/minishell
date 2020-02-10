@@ -26,7 +26,6 @@ void			check_args(char **args)
 
 void			init_ms(t_minishell_meta *ms)
 {
-	ms->arg_bit = 0;
 	ms->opt_bit = 0;
 	ms->arg_start = 0;
 	ms->process_bit = 0;
@@ -40,9 +39,8 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	i = 0;
 	init_ms(ms);
 	parse(ms, line);
-	free(line);
-	process(ms);
-	free_all1(ms);
+	process(ms, line);
+	free_all(ms, line);
 	write(1, SHELL_BANNER, 14);
 }
 

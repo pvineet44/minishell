@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void					free_all1(t_minishell_meta *ms)
+void					free_all(t_minishell_meta *ms, char *line)
 {
 	int i;
 
@@ -33,6 +33,7 @@ void					free_all1(t_minishell_meta *ms)
 		free(args[i]);
 		i++;
 	}
+	ft_free(&line);
 	free(cmds);
 	cmds = 0;
 	free(args);
