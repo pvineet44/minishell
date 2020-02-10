@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 11:10:08 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/08 16:47:24 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/09 18:03:08 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	add_env(t_minishell_meta *ms, char *var)
 
 	i = -1;
 	var_len = ft_strlen(var);
-	while(ms->env[++i] != 0)
+	while (ms->env[++i] != 0)
 	{
 		env_len = 0;
 		while (ms->env[i][env_len] != '=')
@@ -59,7 +59,7 @@ void	add_env(t_minishell_meta *ms, char *var)
 			ms->arg = ft_stradd(ms->arg, ms->env[i][env_len]);
 			env_len++;
 		}
-		break;
+		break ;
 	}
 }
 
@@ -79,14 +79,14 @@ int		substitute_value(char *line, int i, t_minishell_meta *ms)
 			write(1, "$", 1);
 		return (i - 1);
 	}
-	while(line[i] && \
+	while (line[i] && \
 	(ft_isalpha(line[i]) || ft_isdigit(line[i]) || line[i] == '_'))
 	{
 		var = ft_stradd(var, line[i]);
 		i++;
 	}
 	add_env(ms, var);
-	free (var);
+	free(var);
 	return ((i - 1));
 }
 

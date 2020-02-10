@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:04:44 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 16:02:21 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/09 17:27:31 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void					process(t_minishell_meta *ms, char *line)
 		ms_env(ms);
 	if (ms->cmd == 'e')
 		ms_echo(ms);
+	if (ms->cmd == 'u')
+		ms_unset(ms);
+	if (ms->cmd == 't')
+		ms_export(ms);
 	if (ms->arg_bit)
 		free(ms->arg);
 }

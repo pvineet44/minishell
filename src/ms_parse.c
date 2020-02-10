@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/08 16:08:08 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:10:36 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,10 @@ void			parse(t_minishell_meta *ms, char *line)
 		ms->cmd = 'p';
 	else if (ft_strcmp(command, CMD_ENV) == 0)
 		ms->cmd = 'n';
+	else if (ft_strcmp(command, CMD_UNSET) == 0 && (ms->arg_bit = 1))
+		ms->cmd = 'u';
+	else if (ft_strcmp(command, CMD_EXPORT) == 0 && (ms->arg_bit = 1))
+		ms->cmd = 't';
 	else if (ft_strcmp(command, CMD_ECHO) == 0 && (ms->arg_bit = 1))
 		ms->cmd = 'e';
 	else
