@@ -12,21 +12,7 @@
 
 #include "minishell.h"
 
-void					ms_pwd(t_minishell_meta *ms)
-{
-	char nl;
-	char *buff;
-
-	(void)ms;
-	buff = NULL;
-	nl = '\n';
-	buff = getcwd(buff, sizeof(buff));
-	write(1, buff, ft_strlen(buff));
-	write(1, &nl, 1);
-	free(buff);
-}
-
-void					ms_pwd1()
+void					ms_pwd()
 {
 	char *buff;
 

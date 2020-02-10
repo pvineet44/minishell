@@ -31,7 +31,6 @@ void			init_ms(t_minishell_meta *ms)
 	ms->arg_start = 0;
 	ms->process_bit = 0;
 	ms->arg = 0;
-	ms->cmd = 0;
 }
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)
@@ -40,17 +39,21 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 
 	i = 0;
 	init_ms(ms);
-	pre_parse(ms, line);
-	while (ms->args[i])
-	{
-		init_ms(ms);
-		parse(ms, ms->args[i]);
-		if (ms->process_bit != -1)
-			process(ms, line);
-		i++;
-	}
+	parse1(ms, line);
+	free(line);
+	process1(ms);
+	free_all1(ms);
+	// pre_parse(ms, line);
+	// while (ms->args[i])
+	// {
+	// 	init_ms(ms);
+	// 	parse(ms, ms->args[i]);
+	// 	if (ms->process_bit != -1)
+	// 		process(ms, line);
+	// 	i++;
+	// }
 	write(1, SHELL_BANNER, 14);
-	free_all(ms, line);
+	// free_all(ms, line);
 }
 
 int				main(int ac, char **av, char **env)

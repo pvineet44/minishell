@@ -12,24 +12,6 @@
 
 #include "minishell.h"
 
-void					process(t_minishell_meta *ms, char *line)
-{
-	if (ms->cmd == 'x')
-		ms_exit(ms, line);
-	if (ms->cmd == 'p')
-		ms_pwd(ms);
-	if (ms->cmd == 'n')
-		ms_env(ms);
-	if (ms->cmd == 'e')
-		ms_echo(ms);
-	if (ms->cmd == 'u')
-		ms_unset(ms);
-	if (ms->cmd == 't')
-		ms_export(ms);
-	if (ms->arg_bit)
-		free(ms->arg);
-}
-
 void					process1(t_minishell_meta *ms)
 {
 	int i;
@@ -41,8 +23,13 @@ void					process1(t_minishell_meta *ms)
 	args = ms->piped_cmds->args;
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
+		if (ft_strcmp(cmds[i], CMD_EXIT) == 0)
+			ms_exit1(ms);
 		if (ft_strcmp(cmds[i], CMD_PWD) == 0)
-			ms_pwd1();
+			ms_pwd();
+		if (ft_strcmp(cmds[i], CMD_ENV) == 0)
+			ms_env(ms->env);
+		
 		i++;
 	}
 }

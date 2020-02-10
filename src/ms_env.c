@@ -12,18 +12,14 @@
 
 #include "minishell.h"
 
-void						ms_env(t_minishell_meta *ms)
+void						ms_env(char	**env)
 {
-	char	nl;
 	int		i;
 
 	i = 0;
-	nl = 10;
-	(void)ms;
-	while (ms->env[i])
+	while (env[i])
 	{
-		write(1, ms->env[i], ft_strlen(ms->env[i]));
-		write(1, &nl, 1);
+		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
 }
