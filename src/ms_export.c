@@ -35,16 +35,16 @@ int				check_var(char *var)
 	return (1);
 }
 
-void			ms_export(t_minishell_meta *ms)
+void			ms_export(char **env, char *arg)
 {
 	int		i;
 
 	i = 0;
-	if (check_var(ms->arg))
+	if (check_var(arg))
 	{
-		while (ms->env[i] != 0)
+		while (env[i] != 0)
 			i++;
-		ms->env[i] = ft_strdup(ms->arg);
-		ms->env[++i] = 0;
+		env[i] = ft_strdup(arg);
+		env[++i] = 0;
 	}
 }

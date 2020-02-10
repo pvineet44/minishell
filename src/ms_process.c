@@ -14,9 +14,9 @@
 
 void					process(t_minishell_meta *ms, char *line)
 {
-	int i;
-	char **cmds;
-	char **args;
+	int		i;
+	char	**cmds;
+	char	**args;
 
 	i = 0;
 	cmds = ms->piped_cmds->cmds;
@@ -31,7 +31,10 @@ void					process(t_minishell_meta *ms, char *line)
 			ms_env(ms->env);
 		if (ft_strcmp(cmds[i], CMD_ECHO) == 0)
 			ms_echo(args[i]);
-		
+		if (ft_strcmp(cmds[i], CMD_UNSET) == 0)
+			ms_unset(ms->env, args[i]);
+		if (ft_strcmp(cmds[i], CMD_EXPORT) == 0)
+			ms_export(ms->env, args[i]);
 		i++;
 	}
 }
