@@ -15,6 +15,7 @@
 # include "get_next_line.h"
 # include "libft.h"
 # include <signal.h>
+# include <fcntl.h>
 # define SHELL_BANNER "minishell-1.0$"
 # define COMMAND_NOT_FOUND ": command not found\n"
 # define EXIT_MSG "bye!\n"
@@ -40,11 +41,15 @@ typedef struct				s_minishell_meta
 	int						opt_bit;
 	int						process_bit;
 	char					**env;
+	char					redir;
+	int						in_fd;
+	int						out_fd;
 	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
 
 void						check_args(char **args);
 void						parse(t_minishell_meta *ms, char *line);
+void						parse_piped_commands(t_minishell_meta *ms, char *line, char d);
 void						process(t_minishell_meta *ms, char *line);
 void						sig_int_handler(int sig);
 void						ms_exit(t_minishell_meta *ms, char *line);
@@ -57,6 +62,9 @@ void						free_tab(char **args);
 void						free_all(t_minishell_meta *ms, char *line);
 void						command_not_found(char *command);
 void						init_ms(t_minishell_meta *ms);
+void   		                set_out_fd(char *arg, int *out);
+void     	 	            set_in_fd(char *arg, int *in);
+void	                    unset_fd(int *fd);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,

@@ -14,12 +14,9 @@
 
 void			check_args(char **args)
 {
-	char nl;
-
-	nl = 10;
 	while (*args)
 	{
-		ft_putendl_fd(*args, 0);
+		ft_putendl_fd(*args, STDOUT_FILENO);
 		args++;
 	}
 }
@@ -41,7 +38,7 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	parse(ms, line);
 	process(ms, line);
 	free_all(ms, line);
-	write(1, SHELL_BANNER, 14);
+	write(STDOUT_FILENO, SHELL_BANNER, 14);
 }
 
 int				main(int ac, char **av, char **env)
@@ -56,12 +53,12 @@ int				main(int ac, char **av, char **env)
 		return (0);
 	ms->env = env;
 	line = NULL;
-	write(1, SHELL_BANNER, 14);
+	write(STDOUT_FILENO, SHELL_BANNER, 14);
 	while (get_next_line(0, &line) > 0)
 	{
 		if (line[0] == '\0')
 		{
-			write(1, SHELL_BANNER, 14);
+			write(STDOUT_FILENO, SHELL_BANNER, 14);
 			free(line);
 			continue ;
 		}

@@ -104,7 +104,7 @@ void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 	args[i] = 0;
 }
 
-void			parse_piped_commands(t_minishell_meta *ms, char *line)
+void			parse_piped_commands(t_minishell_meta *ms, char *line, char d)
 {
 	int i;
 	char					**line_splits;
@@ -114,11 +114,11 @@ void			parse_piped_commands(t_minishell_meta *ms, char *line)
 	line_splits = NULL;
 	pipe = NULL;
 	i = 0;
-	line_splits = ft_split(line, '|');
+	line_splits = ft_split(line, d);
 	pipe = init_cmds(ft_strlen(line));
 	ms->piped_cmds = pipe;
 	load_cmds_args(ms, line_splits);
-	// check_args(pipe->args);
+	// check_args(pipe->cmds);
 	// exit(EXIT_SUCCESS);	
 }
 
@@ -126,9 +126,14 @@ void			parse(t_minishell_meta *ms, char *line)
 {
 	char **line_splits;
 	ms->piped_cmds = init_cmds(ft_strlen(line));
-	if (ft_strchr(line, '|') != NULL)
+	if (ft_strchr(line, '>') != NULL)
 	{
-		parse_piped_commands(ms, line);
+		parse_piped_commands(ms, line, '>');
+		return ;
+	}
+	else if (ft_strchr(line, '|') != NULL)
+	{
+		parse_piped_commands(ms, line, '|');
 		return ;
 	}
 	else if (ft_strchr(line, ';') != NULL)

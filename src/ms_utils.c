@@ -76,7 +76,7 @@ int		substitute_value(char *line, int i, t_minishell_meta *ms)
 	if (!ft_isalpha(line[i]) && line[i] != '_')
 	{
 		if (line[i] != '\'' && line[i] != '\"')
-			write(1, "$", 1);
+			write(STDOUT_FILENO, "$", 1);
 		return (i - 1);
 	}
 	while (line[i] && \
@@ -92,7 +92,7 @@ int		substitute_value(char *line, int i, t_minishell_meta *ms)
 
 void	command_not_found(char *command)
 {
-	write(1, "minishell: ", 11);
-	write(1, command, ft_strlen(command));
-	write(1, COMMAND_NOT_FOUND, 20);
+	write(STDOUT_FILENO, "minishell: ", 11);
+	write(STDOUT_FILENO, command, ft_strlen(command));
+	write(STDOUT_FILENO, COMMAND_NOT_FOUND, 20);
 }
