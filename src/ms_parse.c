@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-void			line_param(t_minishell_meta *ms, char *line)
+static int			line_param(t_minishell_meta *ms, char *line)
 {
 	int		i;
 
 	i = 0;
 	while (line && ft_isspace(line[i]))
 		i++;
-	while (line && line[i] != '\0')
+	while (line && !ft_isredir(line[i]) && line[i] != '\0')
 	{
 		if (line[i] == '\'' || line[i] == '\"')
 		{
@@ -28,8 +28,8 @@ void			line_param(t_minishell_meta *ms, char *line)
 			{
 				if (ms->arg != NULL && (ms->process_bit = -1))
 					free(ms->arg);
-				ft_putstr("Multiline comments not supported\n");
-				return ;
+				ft_putstr("Multiline commands not supported\n");
+				return (-1);
 			}
 		}
 		else if (line[i] == '$')
@@ -38,6 +38,7 @@ void			line_param(t_minishell_meta *ms, char *line)
 			ms->arg = ft_stradd(ms->arg, line[i]);
 		i++;
 	}
+	return (i);
 }
 
 char			*get_command(char *command, char *line, t_minishell_meta *ms)
@@ -76,32 +77,42 @@ t_piped_minishell_meta			*init_cmds(int length)
 	if (!(pipe->args = (char**)malloc(sizeof(char*) + (length
 	* sizeof(char*)))))
 		return (NULL);
+	if (!(pipe->redir = (char**)malloc(sizeof(char*) + (length
+	* sizeof(char*)))))
+		return (NULL);
+	if (!(pipe->files = (char**)malloc(sizeof(char*) + (length
+	* sizeof(char*)))))
+		return (NULL);
 	return (pipe);
 }
 
 void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 {
-	char	**cmds;
-	char	**args;
 	int		i;
+	int		arg_end;
 
-	i = 0;
-	cmds = ms->piped_cmds->cmds;
-	args = ms->piped_cmds->args;
-	while (line_splits[i] != NULL)
+	i = -1;
+	while (line_splits[++i] != NULL && (ft_free(&ms->arg)))
 	{
-		cmds[i] = NULL;
-		args[i] = NULL;
-		cmds[i] = get_command(cmds[i], line_splits[i], ms);
-		line_param(ms, &line_splits[i][ms->arg_start]);
+		ms->piped_cmds->cmds[i] = NULL;
+		ms->piped_cmds->args[i] = NULL;
+		ms->piped_cmds->cmds[i] = get_command(ms->piped_cmds->cmds[i],\
+		line_splits[i], ms);
+		arg_end = line_param(ms, &line_splits[i][ms->arg_start]);
+		if (arg_end == -1)
+			return;
 		if (ms->arg == NULL)
-			ms->arg = ft_strdup("");
-		args[i] = ft_strdup(ms->arg);
-		ft_free(&ms->arg);
-		i++;
+	  		ms->arg = ft_strdup("");
+		ms->piped_cmds->args[i] = ft_strdup(ms->arg);
+		ms->piped_cmds->redir[i] = get_redir(ms->piped_cmds->redir[i],\
+		&line_splits[i][arg_end+ms->arg_start], ms);
+		ms->piped_cmds->files[i] = get_file(ms->piped_cmds->files[i],\
+		&line_splits[i][arg_end+ms->arg_start], ms);
 	}
-	cmds[i] = 0;
-	args[i] = 0;
+	ms->piped_cmds->cmds[i] = 0;
+	ms->piped_cmds->args[i] = 0;
+	ms->piped_cmds->redir[i] = 0;
+	ms->piped_cmds->files[i] = 0;
 }
 
 void			parse_piped_commands(t_minishell_meta *ms, char *line, char d)
@@ -126,17 +137,7 @@ void			parse(t_minishell_meta *ms, char *line)
 {
 	char **line_splits;
 	ms->piped_cmds = init_cmds(ft_strlen(line));
-	if (ft_strchr(line, '>') != NULL)
-	{
-		parse_piped_commands(ms, line, '>');
-		return ;
-	}
-	else if (ft_strchr(line, '|') != NULL)
-	{
-		parse_piped_commands(ms, line, '|');
-		return ;
-	}
-	else if (ft_strchr(line, ';') != NULL)
+	if (ft_strchr(line, ';') != NULL)
 	{
 		line_splits = ft_split(line, ';');
 	}
@@ -148,6 +149,6 @@ void			parse(t_minishell_meta *ms, char *line)
 	}
 	load_cmds_args(ms, line_splits);
 	free_tab(line_splits);
-	// check_args(ms->piped_cmds->cmds);
+	// check_args(ms->piped_cmds->files);
 	// exit(EXIT_SUCCESS);
 }

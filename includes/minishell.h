@@ -31,6 +31,8 @@ typedef	struct				s_piped_minishell_meta
 	char	**cmds;
 	char	**args;
 	char	*options;
+	char	**redir;
+	char	**files;
 }							t_piped_minishell_meta;
 
 typedef struct				s_minishell_meta
@@ -41,7 +43,6 @@ typedef struct				s_minishell_meta
 	int						opt_bit;
 	int						process_bit;
 	char					**env;
-	char					redir;
 	int						in_fd;
 	int						out_fd;
 	t_piped_minishell_meta	*piped_cmds;
@@ -69,6 +70,9 @@ int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,
 							t_minishell_meta *ms);
+int							ft_isredir(char c);
+char       *get_redir(char *redir, char *line, t_minishell_meta *ms);
+char       *get_file(char *file, char *line, t_minishell_meta *ms);
 
 
 #endif

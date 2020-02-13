@@ -96,3 +96,10 @@ void	command_not_found(char *command)
 	write(STDOUT_FILENO, command, ft_strlen(command));
 	write(STDOUT_FILENO, COMMAND_NOT_FOUND, 20);
 }
+
+int		ft_isredir(char c)
+{
+	if (c == '>' || c == '<')
+		return (1);
+	return (0);
+}

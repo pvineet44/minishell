@@ -15,6 +15,7 @@
 void                    set_out_fd(char *arg, int *out)
 {
     *out = open(arg, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+    ft_putnbr_fd(*out, 0);
     dup2(*out, STDOUT_FILENO);
 }
 
