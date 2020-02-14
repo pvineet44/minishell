@@ -77,9 +77,6 @@ t_piped_minishell_meta			*init_cmds(int length)
 	if (!(pipe->args = (char**)malloc(sizeof(char*) + (length
 	* sizeof(char*)))))
 		return (NULL);
-	if (!(pipe->redir = (char**)malloc(sizeof(char*) + (length
-	* sizeof(char*)))))
-		return (NULL);
 	if (!(pipe->files = (char**)malloc(sizeof(char*) + (length
 	* sizeof(char*)))))
 		return (NULL);
@@ -104,14 +101,11 @@ void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 		if (ms->arg == NULL)
 	  		ms->arg = ft_strdup("");
 		ms->piped_cmds->args[i] = ft_strdup(ms->arg);
-		ms->piped_cmds->redir[i] = get_redir(ms->piped_cmds->redir[i],\
-		&line_splits[i][arg_end+ms->arg_start], ms);
 		ms->piped_cmds->files[i] = get_file(ms->piped_cmds->files[i],\
 		&line_splits[i][arg_end+ms->arg_start], ms);
 	}
 	ms->piped_cmds->cmds[i] = 0;
 	ms->piped_cmds->args[i] = 0;
-	ms->piped_cmds->redir[i] = 0;
 	ms->piped_cmds->files[i] = 0;
 }
 

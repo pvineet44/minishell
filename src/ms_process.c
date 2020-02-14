@@ -23,8 +23,8 @@ void					process(t_minishell_meta *ms, char *line)
 	args = ms->piped_cmds->args;
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
-		if (ms->piped_cmds->redir[0] != '\0')
-			set_out_fd(args[i], &ms->out_fd);
+		if (ft_strcmp(ms->piped_cmds->files[i], "") != 0)
+			handle_fd(ms->piped_cmds->files[i], ms);
 		if (ft_strcmp(cmds[i], CMD_EXIT) == 0)
 			ms_exit(ms, line);
 		else if (ft_strcmp(cmds[i], CMD_PWD) == 0)
@@ -37,8 +37,8 @@ void					process(t_minishell_meta *ms, char *line)
 			ms_unset(ms->env, args[i]);
 		else if (ft_strcmp(cmds[i], CMD_EXPORT) == 0)
 			ms_export(ms->env, args[i]);
-		if (ms->piped_cmds->redir[0] != '\0')
-			unset_fd(&ms->out_fd);
+		if (ft_strcmp(ms->piped_cmds->files[i], "") != 0)
+			unset_fd(ms);
 		i++;
 	}
 }
