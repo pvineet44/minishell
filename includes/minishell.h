@@ -31,7 +31,6 @@ typedef	struct				s_piped_minishell_meta
 	char	**cmds;
 	char	**args;
 	char	*options;
-	char	**redir;
 	char	**files;
 }							t_piped_minishell_meta;
 
@@ -45,6 +44,7 @@ typedef struct				s_minishell_meta
 	char					**env;
 	int						in_fd;
 	int						out_fd;
+	int						file_fd;
 	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
 
@@ -63,9 +63,10 @@ void						free_tab(char **args);
 void						free_all(t_minishell_meta *ms, char *line);
 void						command_not_found(char *command);
 void						init_ms(t_minishell_meta *ms);
-void   		                set_out_fd(char *arg, int *out);
+void   		                set_out_fd(char *arg, t_minishell_meta *ms);
 void     	 	            set_in_fd(char *arg, int *in);
-void	                    unset_fd(int *fd);
+void	                    unset_fd(t_minishell_meta *ms);
+void 		                handle_fd(char *line, t_minishell_meta *ms);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,
