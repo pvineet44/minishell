@@ -22,6 +22,21 @@ int main(int argc, const char *argv[])
 	char *buff;
 	int i;
 
+
+	int new0 = dup(0);
+	int new2 = dup(1);
+
+	close(0);
+	close(1);
+
+	int new_file = open("abc.txt", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+
+	dup2(out, STDOUT_FILENO);
+	dup2(in, STDIN_FILENO);
+
+	write(STDOUT_FILENO,"hello", 5);
+	write(STDIN_FILENO,"hello", 5);
+
 	i = 1;
 	buff = malloc(10);
 	while(argv[i] != NULL)

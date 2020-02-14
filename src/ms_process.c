@@ -23,7 +23,7 @@ void					process(t_minishell_meta *ms, char *line)
 	args = ms->piped_cmds->args;
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
-		if (ms->piped_cmds->redir[0] != '\0')
+		if (ms->piped_cmds->redir[i][0] != '\0')
 			set_out_fd(args[i], &ms->out_fd);
 		if (ft_strcmp(cmds[i], CMD_EXIT) == 0)
 			ms_exit(ms, line);
