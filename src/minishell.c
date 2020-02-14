@@ -27,6 +27,9 @@ void			init_ms(t_minishell_meta *ms)
 	ms->arg_start = 0;
 	ms->process_bit = 0;
 	ms->arg = 0;
+	ms->file_fd = -1;
+	ms->out_fd = -1;
+	ms->in_fd = -1;
 }
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)
