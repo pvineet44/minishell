@@ -55,7 +55,7 @@ static char		**ft_process_split(char **result, const char *s, int i, char c)
 	{
 		if (s[i] != c)
 			partition = ft_stradd(partition, s[i]);
-		else if (s[i + 1] != c && )
+		else if (s[i + 1] != c)
 		{
 			result[j] = (char*)malloc(sizeof(char)
 				* (ft_strlen(partition) + 1));
