@@ -40,7 +40,7 @@ char    *get_file(char *file, char *line, t_minishell_meta *ms)
         i++;
     if (line[i] == '\0')
         return (ft_strdup(""));
-    while (!ft_isspace(line[i]) && line[i] != '\0')
+    while (line[i] != '\0')
     {
         file = ft_stradd(file, line[i]);
         i++;

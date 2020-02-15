@@ -63,7 +63,7 @@ void						free_all(t_minishell_meta *ms, char *line);
 void						command_not_found(char *command);
 void						init_ms(t_minishell_meta *ms);
 void	                    unset_fd(t_minishell_meta *ms);
-void 		                handle_fd(char *line, t_minishell_meta *ms);
+void 		                handle_fd(char *line, t_minishell_meta *ms, int index);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,
