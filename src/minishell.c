@@ -29,6 +29,7 @@ void			init_ms(t_minishell_meta *ms)
 	ms->file_fd = -1;
 	ms->out_fd = -1;
 	ms->in_fd = -1;
+	ms->multiline = 0;
 }
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)
@@ -38,8 +39,11 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	i = 0;
 	init_ms(ms);
 	parse(ms, line);
-	process(ms, line);
-	free_all(ms, line);
+	if (!ms->multiline)
+	{
+		process(ms, line);
+		free_all(ms, line);
+	}
 	write(STDOUT_FILENO, SHELL_BANNER, 14);
 }
 
