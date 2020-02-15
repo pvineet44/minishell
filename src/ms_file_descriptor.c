@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-void                    set_out_fd(char *arg, t_minishell_meta *ms)
-{
-    ms->out_fd = dup(1);
-    close(1);
-    ms->file_fd = open(arg, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-}
-
-void                    set_in_fd(char *arg, int *in)
-{
-    *in = open(arg, O_RDONLY);
-    dup2(*in, STDIN_FILENO);
-}
 
 void                    unset_fd(t_minishell_meta *ms)
 {
@@ -53,7 +41,7 @@ void                    call_actual_handle(char *filename, char *redir, t_minish
         }
         else
             close (ms->file_fd);
-        ms->file_fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+        ms->file_fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
     }
     // else if (redir[0] == '<')
     // {

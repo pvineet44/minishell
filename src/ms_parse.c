@@ -107,6 +107,7 @@ void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 	ms->piped_cmds->cmds[i] = 0;
 	ms->piped_cmds->args[i] = 0;
 	ms->piped_cmds->files[i] = 0;
+	ft_free(&ms->arg);
 }
 
 void			parse_piped_commands(t_minishell_meta *ms, char *line, char d)

@@ -23,7 +23,6 @@ void			check_args(char **args)
 
 void			init_ms(t_minishell_meta *ms)
 {
-	ms->opt_bit = 0;
 	ms->arg_start = 0;
 	ms->process_bit = 0;
 	ms->arg = 0;

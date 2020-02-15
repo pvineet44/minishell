@@ -38,8 +38,6 @@ typedef struct				s_minishell_meta
 {
 	int						arg_start;
 	char					*arg;
-	int						arg_bit;
-	int						opt_bit;
 	int						process_bit;
 	char					**env;
 	int						in_fd;
@@ -63,8 +61,6 @@ void						free_tab(char **args);
 void						free_all(t_minishell_meta *ms, char *line);
 void						command_not_found(char *command);
 void						init_ms(t_minishell_meta *ms);
-void   		                set_out_fd(char *arg, t_minishell_meta *ms);
-void     	 	            set_in_fd(char *arg, int *in);
 void	                    unset_fd(t_minishell_meta *ms);
 void 		                handle_fd(char *line, t_minishell_meta *ms);
 int							parse_quotes(char *line, int i,
@@ -72,8 +68,8 @@ int							parse_quotes(char *line, int i,
 int							substitute_value(char *line, int i,
 							t_minishell_meta *ms);
 int							ft_isredir(char c);
-char       *get_redir(char *redir, char *line, t_minishell_meta *ms);
-char       *get_file(char *file, char *line, t_minishell_meta *ms);
+char       					*get_redir(char *redir, char *line, t_minishell_meta *ms);
+char       					*get_file(char *file, char *line, t_minishell_meta *ms);
 
 
 #endif
