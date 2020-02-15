@@ -24,7 +24,7 @@ void					process(t_minishell_meta *ms, char *line)
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
 		if (ft_strcmp(ms->piped_cmds->files[i], "") != 0)
-			handle_fd(ms->piped_cmds->files[i], ms);
+			handle_fd(ms->piped_cmds->files[i], ms, i);
 		if (ft_strcmp(cmds[i], CMD_EXIT) == 0)
 			ms_exit(ms, line);
 		else if (ft_strcmp(cmds[i], CMD_PWD) == 0)
