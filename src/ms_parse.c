@@ -21,6 +21,12 @@ static int			line_param(t_minishell_meta *ms, char *line)
 		i++;
 	while (line && !ft_isredir(line[i]) && line[i] != '\0')
 	{
+		if (line[i] == '\\')
+		{
+			ms->arg = ft_stradd(ms->arg, line[i+1]);
+			i = i + 2;
+			continue;
+		}
 		if (line[i] == '\'' || line[i] == '\"')
 		{
 			i = parse_quotes(line, i, ms);
