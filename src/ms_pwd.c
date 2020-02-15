@@ -6,13 +6,13 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:17:59 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/05 15:42:22 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/02/15 16:35:51 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void					ms_pwd()
+void					ms_pwd(void)
 {
 	char *buff;
 
@@ -20,4 +20,5 @@ void					ms_pwd()
 	buff = getcwd(buff, sizeof(buff));
 	ft_putendl_fd(buff, 0);
 	free(buff);
+	return ;
 }

@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 void						ms_exit(t_minishell_meta *ms, char *line)
 {
 	write(STDOUT_FILENO, EXIT_MSG, 5);
