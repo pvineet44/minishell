@@ -102,7 +102,7 @@ void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 		ms->piped_cmds->cmds[i] = get_command(ms->piped_cmds->cmds[i],\
 		line_splits[i], ms);
 		arg_end = line_param(ms, &line_splits[i][ms->arg_start]);
-		if (arg_end == -1)
+		if (arg_end == -1 && (ms->multiline = 1))
 			return;
 		if (ms->arg == NULL)
 	  		ms->arg = ft_strdup("");
