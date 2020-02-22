@@ -6,7 +6,7 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/09 17:10:31 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/15 17:10:23 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,17 @@ typedef struct				s_minishell_meta
 	int						end_quote;
 	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
-
+t_piped_minishell_meta		*init_cmds(int length);
+char						*get_command(char *command, char *line,
+							t_minishell_meta *ms);
 void						check_args(char **args);
 void						parse(t_minishell_meta *ms, char *line);
-void						parse_piped_commands(t_minishell_meta *ms, char *line, char d);
+void						parse_piped_commands(t_minishell_meta *ms,
+							char *line, char d);
 void						process(t_minishell_meta *ms, char *line);
 void						sig_int_handler(int sig);
 void						ms_exit(t_minishell_meta *ms, char *line);
-void						ms_unset(char **env,char *arg);
+void						ms_unset(char **env, char *arg);
 void						ms_export(char **env, char *arg);
 void						ms_pwd();
 void						ms_env(char	**env);
@@ -63,15 +66,20 @@ void						free_tab(char **args);
 void						free_all(t_minishell_meta *ms, char *line);
 void						command_not_found(char *command);
 void						init_ms(t_minishell_meta *ms);
-void	                    unset_fd(t_minishell_meta *ms);
-void 		                handle_fd(char *line, t_minishell_meta *ms, int index);
+void						unset_fd(t_minishell_meta *ms);
+void						handle_fd(char *line, t_minishell_meta *ms,
+							int index);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,
 							t_minishell_meta *ms);
 int							ft_isredir(char c);
-char       					*get_redir(char *redir, char *line, t_minishell_meta *ms);
-char       					*get_file(char *file, char *line, t_minishell_meta *ms);
-
+char						*get_redir(char *redir, char *line,
+							t_minishell_meta *ms);
+char						*get_file(char *file, char *line,
+							t_minishell_meta *ms);
+char						*parse_input_line(char *line, t_minishell_meta *ms);
+char						*replace_semi(char *line, int i, char quote,\
+							t_minishell_meta *ms);
 
 #endif

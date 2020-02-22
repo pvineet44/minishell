@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void						ms_env(char	**env)
+void	ms_env(char **env)
 {
 	int		i;
 
