@@ -46,10 +46,8 @@ static char		**ft_process_split(char **result, const char *s, int i, char c)
 {
 	char	*partition;
 	int		j;
-	int		x;
 
 	j = 0;
-	x = 0;
 	partition = 0;
 	while (s[++i] != '\0')
 	{

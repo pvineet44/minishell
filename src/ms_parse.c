@@ -134,13 +134,53 @@ void			parse_piped_commands(t_minishell_meta *ms, char *line, char d)
 	// exit(EXIT_SUCCESS);	
 }
 
+char				*replace_semi(char *line, int i, char quote,t_minishell_meta *ms)
+{
+	char c;
+	while (line[i] != quote && line[i] != '\0')
+	{
+		write(1, &c, 1);
+		i++;
+	}
+	ms->end_quote = i;
+	if (line[i] == '\0')
+		return (0);
+	return (line);
+}
+
+char			*parse_input_line(char *line, t_minishell_meta *ms)
+{
+	int i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == ';' && line[i - 1] != '\\')
+			line[i] =  25;
+		if (line[i] == '\''  || line[i] =='\"')
+		{
+			line = replace_semi(line, (i + 1), line[i], ms);
+			i = ms->end_quote;
+		if (line == NULL && (ms->multiline = 1))
+			return (0);
+		}
+			i++;
+	}
+	return (line);
+}
+
 void			parse(t_minishell_meta *ms, char *line)
 {
-	char **line_splits;
+	int		i;
+	char 	**line_splits;
+
+	i = 0;
 	ms->piped_cmds = init_cmds(ft_strlen(line));
 	if (ft_strchr(line, ';') != NULL)
 	{
-		line_splits = ft_split(line, ';');
+		if ((line  = parse_input_line(line, ms))  == NULL)
+			return;
+		line_splits = ft_split(line, 25);
 	}
 	else
 	{

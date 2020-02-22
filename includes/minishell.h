@@ -44,6 +44,7 @@ typedef struct				s_minishell_meta
 	int						out_fd;
 	int						file_fd;
 	int						multiline;
+	int						end_quote;
 	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
 
