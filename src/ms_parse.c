@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void			free_on_multiline(t_minishell_meta *ms)
+static void		free_on_multiline(t_minishell_meta *ms)
 {
 	if (ms->arg != NULL && (ms->process_bit = -1))
 		ft_free(&ms->arg);
@@ -20,7 +20,7 @@ static void			free_on_multiline(t_minishell_meta *ms)
 	return ;
 }
 
-static int			line_param(t_minishell_meta *ms, char *line)
+static int		line_param(t_minishell_meta *ms, char *line)
 {
 	int		i;
 
@@ -49,7 +49,7 @@ static int			line_param(t_minishell_meta *ms, char *line)
 	return (i);
 }
 
-void				load_cmds_args(t_minishell_meta *ms, char **line_splits)
+void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 {
 	int		i;
 	int		arg_end;
@@ -76,7 +76,7 @@ void				load_cmds_args(t_minishell_meta *ms, char **line_splits)
 	ft_free(&ms->arg);
 }
 
-void				parse_piped_commands(t_minishell_meta *ms,
+void			parse_piped_commands(t_minishell_meta *ms,
 char *line, char d)
 {
 	char					**line_splits;
@@ -91,14 +91,18 @@ char *line, char d)
 	load_cmds_args(ms, line_splits);
 }
 
-void				parse(t_minishell_meta *ms, char *line)
+void			parse(t_minishell_meta *ms, char *line)
 {
-	char **line_splits;
+	int		i;
+	char	**line_splits;
 
+	i = 0;
 	ms->piped_cmds = init_cmds(ft_strlen(line));
 	if (ft_strchr(line, ';') != NULL)
 	{
-		line_splits = ft_split(line, ';');
+		if ((line = parse_input_line(line, ms)) == NULL)
+			return ;
+		line_splits = ft_split(line, 25);
 	}
 	else
 	{

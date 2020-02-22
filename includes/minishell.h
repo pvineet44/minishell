@@ -46,6 +46,7 @@ typedef struct				s_minishell_meta
 	int						out_fd;
 	int						file_fd;
 	int						multiline;
+	int						end_quote;
 	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
 t_piped_minishell_meta		*init_cmds(int length);
@@ -79,6 +80,9 @@ int							ft_isredir(char c);
 char						*get_redir(char *redir, char *line,
 							t_minishell_meta *ms);
 char						*get_file(char *file, char *line,
+							t_minishell_meta *ms);
+char						*parse_input_line(char *line, t_minishell_meta *ms);
+char						*replace_semi(char *line, int i, char quote,\
 							t_minishell_meta *ms);
 
 #endif
