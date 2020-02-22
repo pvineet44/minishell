@@ -6,7 +6,7 @@ The objective of this project is to create a simple shell. A little bash or zsh.
 	
 	1. Test input redir '<'
 	2.	Allow tokens passed inside quotes -- DONE
-	3.	./ executable execution
+	3.	./ executable execution -- DONE
 	4.	cd - absolute/relative path -- DONE
 	5. Pipe | redirection
 	6. $?
