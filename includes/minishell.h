@@ -17,6 +17,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # define SHELL_BANNER "minishell-1.0$"
+# define SHELL_NAME "minishell-1.0"
 # define COMMAND_NOT_FOUND ": command not found\n"
 # define EXIT_MSG "bye!\n"
 # define CMD_EXIT "exit"
@@ -25,6 +26,7 @@
 # define CMD_ENV "env"
 # define CMD_UNSET "unset"
 # define CMD_EXPORT "export"
+# define CMD_CD "cd"
 
 typedef	struct				s_piped_minishell_meta
 {
@@ -68,6 +70,7 @@ void						init_ms(t_minishell_meta *ms);
 void						unset_fd(t_minishell_meta *ms);
 void						handle_fd(char *line, t_minishell_meta *ms,
 							int index);
+void                        ms_cd(char *path);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,

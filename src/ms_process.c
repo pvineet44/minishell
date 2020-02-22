@@ -25,6 +25,8 @@ void					process(t_minishell_meta *ms, char *line)
 			ms_exit(ms, line);
 		else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_PWD) == 0)
 			ms_pwd();
+		else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_CD) == 0)
+			ms_cd(ms->piped_cmds->args[i]);
 		else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_ENV) == 0)
 			ms_env(ms->env);
 		else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_ECHO) == 0)
