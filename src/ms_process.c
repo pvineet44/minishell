@@ -6,11 +6,20 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:04:44 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/09 17:27:31 by mashar           ###   ########.fr       */
+/*   Updated: 2020/02/22 18:18:45 by mashar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int						ft_isexecutable(char *cmd)
+{
+	if (cmd[0] == '.' && cmd[1] == '/')
+		return (1);
+	if (cmd[0] == '.' && cmd[1] == '.' && cmd[2] == '/')
+		return (1);
+	return (0);
+}
 
 void					process(t_minishell_meta *ms, char *line)
 {
@@ -25,6 +34,9 @@ void					process(t_minishell_meta *ms, char *line)
 			ms_exit(ms, line);
 		else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_PWD) == 0)
 			ms_pwd();
+		else if (ft_isexecutable(ms->piped_cmds->cmds[i]))
+			ms_execute(ms->piped_cmds->cmds[i], ms->piped_cmds->args[i],\
+			ms->env);
 		else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_CD) == 0)
 			ms_cd(ms->piped_cmds->args[i]);
 		else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_ENV) == 0)

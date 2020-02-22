@@ -16,6 +16,8 @@
 # include "libft.h"
 # include <signal.h>
 # include <fcntl.h>
+# include <unistd.h>
+# include <sys/wait.h>
 # define SHELL_BANNER "minishell-1.0$"
 # define SHELL_NAME "minishell-1.0"
 # define COMMAND_NOT_FOUND ": command not found\n"
@@ -64,6 +66,7 @@ void						ms_export(char **env, char *arg);
 void						ms_pwd();
 void						ms_env(char	**env);
 void						ms_echo(char *arg);
+void						ms_execute(char *path, char *args, char **env);
 void						free_tab(char **args);
 void						free_all(t_minishell_meta *ms, char *line);
 void						command_not_found(char *command);
@@ -71,7 +74,7 @@ void						init_ms(t_minishell_meta *ms);
 void						unset_fd(t_minishell_meta *ms);
 void						handle_fd(char *line, t_minishell_meta *ms,
 							int index);
-void                        ms_cd(char *path);
+void						ms_cd(char *path);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,
