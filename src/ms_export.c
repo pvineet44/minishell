@@ -17,15 +17,14 @@ int				check_var(char *var)
 	int		i;
 
 	i = 0;
-	if (!ft_isalpha(var[0]) && var[0] != '_')
-		return (0);
-	while (var[i] != '=' && var[i] != '\0')
+	while ((var[i] != '=' && var[i] != '\0') ||\
+	(!ft_isalpha(var[0]) && var[0] != '_'))
 	{
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
-			ft_putstr("minishell: export: `");
-			ft_putstr(var);
-			ft_putstr("\': not a valid identifier\n");
+			ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
+			ft_putstr_fd(var, STDOUT_FILENO);
+			ft_putstr_fd("\': not a valid identifier\n", STDOUT_FILENO);
 			return (0);
 		}
 		i++;
