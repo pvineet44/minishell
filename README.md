@@ -9,5 +9,5 @@ The objective of this project is to create a simple shell. A little bash or zsh.
 	3.	./ executable execution -- DONE
 	4.	cd - absolute/relative path -- DONE
 	5. Pipe | redirection
-	6. $?
+	6. $? -- DONE
 	7. ctrl-C, ctrl-D and ctrl-\
