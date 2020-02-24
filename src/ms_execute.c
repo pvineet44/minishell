@@ -29,6 +29,7 @@ void			ms_execute(char *path, char *args, char **env)
 	char	*args1;
 	char	*args2;
 
+	errno = 0;
 	args2 = ft_strjoin(path, " ");
 	args1 = ft_strjoin(args2, args);
 	av = ft_split(args1, ' ');
@@ -38,13 +39,13 @@ void			ms_execute(char *path, char *args, char **env)
 	if (x == -1)
 	{
 		write_error(path);
-		exit(EXIT_SUCCESS);
+		exit(127);
 		return ;
 	}
-	waitpid(pid, 0, 0);
+	wait(&errno);
+	errno = errno / 255;
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	free_tab(av);
 	ft_free(&args1);
 	ft_free(&args2);
-	return ;
 }

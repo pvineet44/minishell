@@ -76,6 +76,8 @@ int		substitute_value(char *line, int i, t_minishell_meta *ms)
 	var = NULL;
 	j = i;
 	i++;
+	if (line[i] == '?')
+		return (i + get_exit_status(ms));
 	if (ft_isdigit(line[i]))
 		return (i);
 	if (!ft_isalpha(line[i]) && line[i] != '_')
@@ -100,6 +102,7 @@ void	command_not_found(char *command)
 	write(STDOUT_FILENO, "minishell: ", 11);
 	write(STDOUT_FILENO, command, ft_strlen(command));
 	write(STDOUT_FILENO, COMMAND_NOT_FOUND, 20);
+	errno = 127;
 }
 
 int		ft_isredir(char c)

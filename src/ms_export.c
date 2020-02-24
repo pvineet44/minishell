@@ -22,6 +22,8 @@ int				check_var(char *var)
 	{
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
+			errno = 1;
+			ft_putnbr_fd(errno, STDOUT_FILENO);
 			ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
 			ft_putstr_fd(var, STDOUT_FILENO);
 			ft_putstr_fd("\': not a valid identifier\n", STDOUT_FILENO);
@@ -45,5 +47,7 @@ void			ms_export(char **env, char *arg)
 			i++;
 		env[i] = ft_strdup(arg);
 		env[++i] = 0;
+		errno = 0;
+		ft_putnbr_fd(errno, STDOUT_FILENO);
 	}
 }

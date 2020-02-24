@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# include <errno.h>
 # define SHELL_BANNER "minishell-1.0$"
 # define SHELL_NAME "minishell-1.0"
 # define COMMAND_NOT_FOUND ": command not found\n"
@@ -60,6 +61,7 @@ void						parse_piped_commands(t_minishell_meta *ms,
 							char *line, char d);
 void						process(t_minishell_meta *ms, char *line);
 void						sig_int_handler(int sig);
+int							get_exit_status(t_minishell_meta *ms);
 void						ms_exit(t_minishell_meta *ms, char *line);
 void						ms_unset(char **env, char *arg);
 void						ms_export(char **env, char *arg);

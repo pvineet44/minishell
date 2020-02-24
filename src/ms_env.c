@@ -17,6 +17,8 @@ void	ms_env(char **env)
 	int		i;
 
 	i = 0;
+	errno = 0;
+	ft_putnbr_fd(errno, STDOUT_FILENO);
 	while (env[i])
 	{
 		ft_putendl_fd(env[i], STDOUT_FILENO);

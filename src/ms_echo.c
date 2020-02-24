@@ -28,6 +28,7 @@ void				ms_echo(char *arg)
 	char	*buff;
 
 	buff = NULL;
+	errno = 0;
 	if (arg[0] == '\0')
 	{
 		write(STDOUT_FILENO, "\n", 1);

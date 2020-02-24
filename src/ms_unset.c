@@ -19,6 +19,7 @@ void	ms_unset(char **env, char *arg)
 	int		i;
 
 	i = -1;
+	errno = 0;
 	var_len = ft_strlen(arg);
 	while (env[++i] != '\0')
 	{
