@@ -43,3 +43,19 @@ char						*parse_input_line(char *line, t_minishell_meta *ms)
 	}
 	return (line);
 }
+
+int							get_frequency(char *str, char c)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (str && str[i] != '\0')
+	{
+		if (str[i] == c)
+			count++;
+		i++;
+	}
+	return (count);
+}
