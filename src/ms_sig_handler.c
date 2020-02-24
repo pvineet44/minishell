@@ -15,7 +15,15 @@
 void	sig_int_handler(int sig)
 {
 	(void)sig;
+	ft_putstr("\n");
+	write(STDOUT_FILENO, SHELL_BANNER, 14);
 	signal(SIGINT, sig_int_handler);
+}
+
+void	sig_quit_handler(int sig)
+{
+	(void)sig;
+	signal(SIGQUIT, sig_quit_handler);
 }
 
 int		get_exit_status(t_minishell_meta *ms)

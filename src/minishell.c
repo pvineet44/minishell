@@ -55,6 +55,7 @@ int				main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	signal(SIGINT, sig_int_handler);
+	signal(SIGQUIT, sig_quit_handler);
 	if (!(ms = malloc(sizeof(t_minishell_meta))))
 		return (0);
 	ms->env = env;
