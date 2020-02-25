@@ -107,7 +107,7 @@ void	command_not_found(char *command)
 
 int		ft_isredir(char c)
 {
-	if (c == '>' || c == '<')
+	if (c == '>' || c == '<' || c == '|')
 		return (1);
 	return (0);
 }

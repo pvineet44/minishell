@@ -19,7 +19,7 @@ void					ms_pwd(void)
 	errno = 0;
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
-	ft_putendl_fd(buff, 0);
+	ft_putendl_fd(buff, STDOUT_FILENO);
 	free(buff);
 	return ;
 }
