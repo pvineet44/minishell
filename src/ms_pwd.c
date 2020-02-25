@@ -17,7 +17,6 @@ void					ms_pwd(void)
 	char *buff;
 
 	errno = 0;
-	ft_putnbr_fd(errno, STDOUT_FILENO);
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
 	ft_putendl_fd(buff, 0);

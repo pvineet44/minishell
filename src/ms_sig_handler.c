@@ -15,6 +15,7 @@
 void	sig_int_handler(int sig)
 {
 	(void)sig;
+	ft_putstr(" \b\b \b\b ");
 	ft_putstr("\n");
 	write(STDOUT_FILENO, SHELL_BANNER, 14);
 	signal(SIGINT, sig_int_handler);
@@ -23,6 +24,7 @@ void	sig_int_handler(int sig)
 void	sig_quit_handler(int sig)
 {
 	(void)sig;
+	ft_putstr(" \b\b \b\b \b");
 	signal(SIGQUIT, sig_quit_handler);
 }
 

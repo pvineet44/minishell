@@ -19,11 +19,9 @@ void	ms_cd(char *path)
 	ret = 0;
 	ret = chdir(path);
 	errno = 0;
-	ft_putnbr_fd(errno, STDOUT_FILENO);
 	if (ret < 0)
 	{
 		errno = 1;
-		ft_putnbr_fd(errno, STDOUT_FILENO);
 		ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
 		ft_putstr_fd(": cd: ", STDOUT_FILENO);
 		ft_putstr_fd(path, STDOUT_FILENO);
