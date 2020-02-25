@@ -57,8 +57,9 @@ char						*get_command(char *command, char *line,
 							t_minishell_meta *ms);
 void						check_args(char **args);
 void						parse(t_minishell_meta *ms, char *line);
-void						parse_piped_commands(t_minishell_meta *ms,
-							char *line, char d);
+int							parse_piped_commands(t_minishell_meta *ms,
+							char *line, int j);
+int							get_frequency(char *str, char c);
 void						process(t_minishell_meta *ms, char *line);
 void						sig_int_handler(int sig);
 void						sig_quit_handler(int sig);
