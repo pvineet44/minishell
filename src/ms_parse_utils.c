@@ -25,12 +25,12 @@ t_minishell_meta *ms)
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
 	k = i;
-	while (!ft_isspace(line[i])  && !ft_isredir(line[i]) && line[i++] != '\0')
+	while (!ft_isspace(line[i]) && !ft_isredir(line[i]) && line[i++] != '\0')
 		j++;
 	if (!(command = (char*)malloc(sizeof(char) * (j + 1))))
 		ms_exit(ms, line);
 	j = 0;
-	while (!ft_isspace(line[k]) && line[k] != '\0'  && !ft_isredir(line[k]))
+	while (!ft_isspace(line[k]) && line[k] != '\0' && !ft_isredir(line[k]))
 		command[j++] = line[k++];
 	command[j] = '\0';
 	ms->arg_start = k;

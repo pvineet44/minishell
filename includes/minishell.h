@@ -78,7 +78,7 @@ void						init_ms(t_minishell_meta *ms);
 void						unset_fd(t_minishell_meta *ms);
 void						handle_fd(char *line, t_minishell_meta *ms,
 							int index);
-void						ms_cd(char *path);
+void						ms_cd(char *path, t_minishell_meta *ms);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
 int							substitute_value(char *line, int i,

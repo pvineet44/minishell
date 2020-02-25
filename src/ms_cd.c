@@ -12,13 +12,20 @@
 
 #include "minishell.h"
 
-void	ms_cd(char *path)
+void	ms_cd(char *path, t_minishell_meta *ms)
 {
 	int ret;
 
 	ret = 0;
-	ret = chdir(path);
 	errno = 0;
+	if (ft_strcmp(path, "") == 0)
+	{
+		substitute_value("$HOME", 0, ms);
+		ret = chdir(ms->arg);
+		ft_free(&ms->arg);
+		return ;
+	}
+	ret = chdir(path);
 	if (ret < 0)
 	{
 		errno = 1;
