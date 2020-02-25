@@ -44,7 +44,6 @@ void			ms_execute(char *path, char *args, char **env)
 	}
 	wait(&errno);
 	errno = errno / 255;
-	ft_putstr_fd("\n", STDOUT_FILENO);
 	free_tab(av);
 	ft_free(&args1);
 	ft_free(&args2);

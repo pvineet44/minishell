@@ -23,7 +23,6 @@ int				check_var(char *var)
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
 			errno = 1;
-			ft_putnbr_fd(errno, STDOUT_FILENO);
 			ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
 			ft_putstr_fd(var, STDOUT_FILENO);
 			ft_putstr_fd("\': not a valid identifier\n", STDOUT_FILENO);
@@ -36,11 +35,38 @@ int				check_var(char *var)
 	return (1);
 }
 
+static void		print_export_env(char **env)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (env[i] != 0)
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		j = 0;
+		while (env[i][j] != '\0')
+		{
+			ft_putchar_fd(env[i][j], STDOUT_FILENO);
+			if (env[i][j] == '=')
+				ft_putchar_fd('\"', STDOUT_FILENO);
+			j++;
+		}
+		ft_putstr_fd("\"\n", STDOUT_FILENO);
+		i++;
+	}
+}
+
 void			ms_export(char **env, char *arg)
 {
 	int		i;
 
 	i = 0;
+	if (ft_strcmp(arg, "") == 0)
+	{
+		print_export_env(env);
+		return ;
+	}
 	if (check_var(arg))
 	{
 		while (env[i] != 0)
@@ -48,6 +74,5 @@ void			ms_export(char **env, char *arg)
 		env[i] = ft_strdup(arg);
 		env[++i] = 0;
 		errno = 0;
-		ft_putnbr_fd(errno, STDOUT_FILENO);
 	}
 }
