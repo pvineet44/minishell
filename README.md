@@ -11,4 +11,4 @@ The objective of this project is to create a simple shell. A little bash or zsh.
 	5. Pipe | redirection
 	6. $? -- DONE
 	7. ctrl-C, ctrl-D and ctrl-\
-	8. cd without any argument should go to HOME
+	8. cd without any argument should go to HOME -- DONE
