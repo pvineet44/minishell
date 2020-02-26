@@ -42,6 +42,7 @@ typedef	struct				s_piped_minishell_meta
 
 typedef struct				s_minishell_meta
 {
+	int						mypipe[2];
 	int						arg_start;
 	char					*arg;
 	int						process_bit;
@@ -62,6 +63,7 @@ void						parse(t_minishell_meta *ms, char *line);
 int							parse_piped_commands(t_minishell_meta *ms,
 							char *line, int j);
 int							get_frequency(char *str, char c);
+int							process_builtin(t_minishell_meta *ms, int i, char *line);
 void						process(t_minishell_meta *ms, char *line);
 void						sig_int_handler(int sig);
 void						sig_quit_handler(int sig);
@@ -69,6 +71,7 @@ int							get_exit_status(t_minishell_meta *ms);
 void						ms_exit(t_minishell_meta *ms, char *line);
 void						ms_unset(char **env, char *arg);
 void						ms_export(char **env, char *arg);
+void                        process_pipe(t_minishell_meta *ms, int i, char *line);
 void						ms_pwd();
 void						ms_env(char	**env);
 void						ms_echo(char *arg);
@@ -81,6 +84,7 @@ void						unset_fd(t_minishell_meta *ms);
 void						handle_fd(char *line, t_minishell_meta *ms,
 							int index);
 void						search_and_execute_path(t_minishell_meta *ms, int i);
+void                        handle_pipe(t_minishell_meta *ms, int i);
 void						ms_cd(char *path, t_minishell_meta *ms);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
