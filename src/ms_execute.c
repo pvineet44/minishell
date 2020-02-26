@@ -18,7 +18,7 @@ static void		write_error(char *path)
 	ft_putstr_fd(": ", STDOUT_FILENO);
 	ft_putstr_fd(path, STDOUT_FILENO);
 	ft_putstr_fd(": ", STDOUT_FILENO);
-	ft_putstr_fd("No such file or directory", STDOUT_FILENO);
+	ft_putstr_fd("No such file or directory\n", STDOUT_FILENO);
 }
 
 void			ms_execute(char *path, char *args, char **env)

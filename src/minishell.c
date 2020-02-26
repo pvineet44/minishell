@@ -47,6 +47,15 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	write(STDOUT_FILENO, SHELL_BANNER, 14);
 }
 
+void			set_path(t_minishell_meta *ms)
+{
+	ms->arg = 0;
+	substitute_value("$PATH", 0 , ms);
+	// ft_putendl_fd(ms->arg, 0);
+	ms->path = ft_split(ms->arg, ':');
+	ft_free(&ms->arg);
+}
+
 int				main(int ac, char **av, char **env)
 {
 	char				*line;
@@ -59,6 +68,7 @@ int				main(int ac, char **av, char **env)
 	if (!(ms = malloc(sizeof(t_minishell_meta))))
 		return (0);
 	ms->env = env;
+	set_path(ms);
 	line = NULL;
 	write(STDOUT_FILENO, SHELL_BANNER, 14);
 	while (get_next_line(0, &line) > 0)

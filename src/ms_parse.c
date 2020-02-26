@@ -139,6 +139,7 @@ void			parse(t_minishell_meta *ms, char *line)
 	}
 	load_cmds_args(ms, line_splits);
 	free_tab(line_splits);
+	// check_args(ms->path);
 	// check_args(ms->piped_cmds->cmds);
 	// check_args(ms->piped_cmds->args);
 	// check_args(ms->piped_cmds->files);

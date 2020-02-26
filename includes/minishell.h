@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <errno.h>
 # define SHELL_BANNER "minishell-1.0$"
 # define SHELL_NAME "minishell-1.0"
@@ -45,6 +46,7 @@ typedef struct				s_minishell_meta
 	char					*arg;
 	int						process_bit;
 	char					**env;
+	char					**path;
 	int						in_fd;
 	int						out_fd;
 	int						file_fd;
@@ -78,9 +80,11 @@ void						init_ms(t_minishell_meta *ms);
 void						unset_fd(t_minishell_meta *ms);
 void						handle_fd(char *line, t_minishell_meta *ms,
 							int index);
+void						search_and_execute_path(t_minishell_meta *ms, int i);
 void						ms_cd(char *path, t_minishell_meta *ms);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
+int							check_and_execute_path(t_minishell_meta *ms, int i);
 int							substitute_value(char *line, int i,
 							t_minishell_meta *ms);
 int							ft_isredir(char c);
