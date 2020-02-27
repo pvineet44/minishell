@@ -17,15 +17,11 @@ void                            handle_pipe(t_minishell_meta *ms, int i)
     (void)i;
     ms->in_fd = dup(STDIN_FILENO);
     ms->out_fd = dup(STDOUT_FILENO);
-    close(1);
-    close(0);
     if (pipe(ms->mypipe))
     {
         write(1,"Failed\n", 7);
         exit(EXIT_FAILURE);
     }
-    dup2(ms->mypipe[0], STDIN_FILENO);
-    dup2(ms->mypipe[1], STDOUT_FILENO);
 }
 
 void                            process_pipe(t_minishell_meta *ms, int i, char *line)
@@ -33,19 +29,18 @@ void                            process_pipe(t_minishell_meta *ms, int i, char *
     int stat;
     pid_t pid;
     pid = fork();
-
     if (pid == (pid_t) 0)
     {
+        close(ms->mypipe[0]);
+        dup2(ms->mypipe[1], STDOUT_FILENO);
         if (process_builtin(ms, i, line) == 0)
 			search_and_execute_path(ms, i);
-        write(2, "ba\n", 3);
         exit(EXIT_SUCCESS);
     }
     wait(&stat);
-    unset_fd(ms);
-    // close(ms->mypipe[0]);
     close(ms->mypipe[1]);
-    ft_putnbr_fd(ms->mypipe[0], 1);
-    ft_putnbr_fd(ms->mypipe[1], 1);
+    dup2(ms->mypipe[0], STDIN_FILENO);
+    close(ms->mypipe[0]);
+    // unset_fd(ms);
     return ;
 }

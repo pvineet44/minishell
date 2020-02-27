@@ -46,7 +46,6 @@ int						process_builtin(t_minishell_meta *ms, int i, char *line)
 
 void					search_and_execute_path(t_minishell_meta *ms, int i)
 {
-	write(1, "bb\n", 3);
 	if (ft_strchr(ms->piped_cmds->cmds[i], '/') != NULL)
 		ms_execute(ms->piped_cmds->cmds[i], ms->piped_cmds->args[i], ms->env);
 	else
