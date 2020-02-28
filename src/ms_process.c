@@ -56,7 +56,6 @@ void					search_and_execute_path(t_minishell_meta *ms, int i)
 void					process(t_minishell_meta *ms, char *line)
 {
 	int		i;
-	int		k;
 
 	i = 0;
 	while (ms->piped_cmds->cmds[i] != NULL)
