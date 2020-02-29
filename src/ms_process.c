@@ -53,17 +53,62 @@ void					search_and_execute_path(t_minishell_meta *ms, int i)
 			command_not_found(ms->piped_cmds->cmds[i]);
 }
 
+void					spawn_proc(t_minishell_meta *ms, char *line, int in, int i)
+{
+	pid_t pid;
+	int out;
+
+	out = ms->mypipe[1];
+	if ((pid = fork ()) == 0)
+	{
+		if (in != 0)
+		{
+			dup2(in, 0);
+			close(in);
+		}
+		if (out != 1)
+		{
+			dup2(out, 1);
+			close(out);
+		}
+		if (process_builtin(ms, i, line) == 0)
+			search_and_execute_path(ms, i);
+		exit(0);
+	}
+	waitpid(pid, NULL, 0);
+}
+
 void					process(t_minishell_meta *ms, char *line)
 {
 	int		i;
-
+	int		in;
+	pid_t	pid;
+	
 	i = 0;
+	in = 0;
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
 		if (ft_strchr(ms->piped_cmds->files[i], '|') != NULL)
 			{
-				handle_pipe(ms, i);
-				process_pipe(ms, i, line);
+				if (!ms->piped_cmds->files[i + 1])
+				{
+					if ((pid = fork ()) == 0)
+					{
+						if (in != 0)
+							dup2(in, 0);
+						if (process_builtin(ms, i, line) == 0)
+							search_and_execute_path(ms, i);
+						exit(0);
+					}
+					waitpid(pid, NULL, 0);
+				}
+				else
+				{
+					pipe(ms->mypipe);
+					spawn_proc(ms, line, in, i);
+					close(ms->mypipe[1]);
+					in = ms->mypipe[0];
+				}
 				i++;
 				continue;
 			}
