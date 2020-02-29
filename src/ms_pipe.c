@@ -30,9 +30,14 @@ void					spawn_proc(t_minishell_meta *ms, char *line, int in, int i)
 			dup2(out, 1);
 			close(out);
 		}
+    if (ms->piped_cmds->files[i][0] != '\0')
+			handle_fd(ms->piped_cmds->files[i], ms, i);
 		if (process_builtin(ms, i, line) == 0)
 			search_and_execute_path(ms, i);
-		exit(0);
+		if (ms->piped_cmds->files[i][0] != '\0')
+			unset_fd(ms);
+    ft_putnbr_fd(errno, 1);
+		exit(errno);
 	}
 	waitpid(pid, NULL, 0);
 }

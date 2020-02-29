@@ -58,24 +58,32 @@ void					process(t_minishell_meta *ms, char *line)
 	int		i;
 	int		in;
 	pid_t	pid;
+	int		stat;
 	
 	i = 0;
 	in = 0;
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
-		if (ft_strchr(ms->piped_cmds->files[i], '|') != NULL)
+		if (ms->piped_cmds->pipe[i] == '|')
 			{
-				if (!ms->piped_cmds->files[i + 1] || ft_strchr(ms->piped_cmds->files[i + 1], '|') == NULL)
+				if (!ms->piped_cmds->pipe[i + 1] || (ms->piped_cmds->pipe[i + 1] != '|'))
 				{
 					if ((pid = fork ()) == 0)
 					{
 						if (in != 0)
 							dup2(in, 0);
+						if (ms->piped_cmds->files[i][0] != '\0')
+						{
+							handle_fd(ms->piped_cmds->files[i], ms, i);
+						}
 						if (process_builtin(ms, i, line) == 0)
 							search_and_execute_path(ms, i);
-						exit(0);
+						if (ms->piped_cmds->files[i][0] != '\0')
+							unset_fd(ms);
+						exit(errno);
 					}
-					waitpid(pid, NULL, 0);
+					waitpid(pid, &stat, 0);
+					errno = stat / 255;
 				}
 				else
 				{
@@ -87,11 +95,13 @@ void					process(t_minishell_meta *ms, char *line)
 				i++;
 				continue;
 			}
-		if (ft_strcmp(ms->piped_cmds->files[i], "") != 0)
+		if (ms->piped_cmds->files[i][0] != '\0')
+		{
 			handle_fd(ms->piped_cmds->files[i], ms, i);
+		}
 		if (process_builtin(ms, i, line) == 0)
 			search_and_execute_path(ms, i);
-		if (ft_strcmp(ms->piped_cmds->files[i], "") != 0)
+		if (ms->piped_cmds->files[i][0] != '\0')
 			unset_fd(ms);
 		i++;
 	}

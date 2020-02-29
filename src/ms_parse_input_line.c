@@ -32,6 +32,8 @@ char						*parse_input_line(char *line, t_minishell_meta *ms)
 	{
 		if (line[i] == ';' && line[i - 1] != '\\')
 			line[i] = 25;
+		if (line[i] == '|' && line[i - 1] != '\\')
+			line[i] = 26;
 		if (line[i] == '\'' || line[i] == '\"')
 		{
 			line = replace_semi(line, (i + 1), line[i], ms);

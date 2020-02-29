@@ -27,7 +27,7 @@ static int		line_param(t_minishell_meta *ms, char *line)
 	i = 0;
 	while (line && ft_isspace(line[i]))
 		i++;
-	while (line && !ft_isredir(line[i]) && line[i] != '\0')
+	while (line && line[i] != 26 && !ft_isredir(line[i]) && line[i] != '\0')
 	{
 		if (line[i] == '\\')
 			i++;
@@ -59,7 +59,7 @@ char *line, int j)
 
 	arg_end = 0;
 	start = 0;
-	freq = get_frequency(line, '|');
+	freq = get_frequency(line, 26);
 	while (freq >= 0 && ft_free(&ms->arg))
 	{
 		ms->piped_cmds->cmds[j] = get_command(ms->piped_cmds->cmds[j],\
@@ -75,10 +75,9 @@ char *line, int j)
 		&line[arg_end], ms);
 		freq--;
 		j++;
-		while(line[arg_end] != '\0' && line[arg_end] != '|')
+		while(line[arg_end] != '\0' && line[arg_end] != 26)
 			arg_end++;
 		start = arg_end + 1;
-		//ft_putnbr_fd(start, 1);
 	}
 	return (j);
 }
@@ -95,7 +94,7 @@ void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 	{
 		ms->piped_cmds->cmds[j] = NULL;
 		ms->piped_cmds->args[j] = NULL;
-		if (ft_strchr(line_splits[i], '|'))
+		if (ft_strchr(line_splits[i], 26))
 		{
 			j = parse_piped_commands(ms, line_splits[i], j);
 			continue;
@@ -125,7 +124,7 @@ void			parse(t_minishell_meta *ms, char *line)
 
 	i = 0;
 	ms->piped_cmds = init_cmds(ft_strlen(line));
-	if (ft_strchr(line, ';') != NULL)
+	if (ft_strchr(line, ';') != NULL || ft_strchr(line, '|') != NULL)
 	{
 		if ((line = parse_input_line(line, ms)) == NULL)
 			return ;
@@ -140,9 +139,9 @@ void			parse(t_minishell_meta *ms, char *line)
 	load_cmds_args(ms, line_splits);
 	free_tab(line_splits);
 	// check_args(ms->path);
-	check_args(ms->piped_cmds->cmds);
-	check_args(ms->piped_cmds->args);
-	check_args(ms->piped_cmds->files);
-	ft_putstr_fd(ms->piped_cmds->pipe, 1);
-	exit(EXIT_SUCCESS);
+	// check_args(ms->piped_cmds->cmds);
+	// check_args(ms->piped_cmds->args);
+	// check_args(ms->piped_cmds->files);
+	// ft_putstr_fd(ms->piped_cmds->pipe, 1);
+	// exit(EXIT_SUCCESS);
 }
