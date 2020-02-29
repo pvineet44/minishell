@@ -38,6 +38,7 @@ typedef	struct				s_piped_minishell_meta
 	char	**args;
 	char	*options;
 	char	**files;
+	char	*pipe;
 }							t_piped_minishell_meta;
 
 typedef struct				s_minishell_meta

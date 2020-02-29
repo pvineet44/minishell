@@ -65,7 +65,7 @@ void					process(t_minishell_meta *ms, char *line)
 	{
 		if (ft_strchr(ms->piped_cmds->files[i], '|') != NULL)
 			{
-				if (!ms->piped_cmds->files[i + 1])
+				if (!ms->piped_cmds->files[i + 1] || ft_strchr(ms->piped_cmds->files[i + 1], '|') == NULL)
 				{
 					if ((pid = fork ()) == 0)
 					{

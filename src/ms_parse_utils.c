@@ -52,6 +52,10 @@ t_piped_minishell_meta		*init_cmds(int length)
 	if (!(pipe->files = (char**)malloc(sizeof(char*) + (length
 	* sizeof(char*)))))
 		return (NULL);
+	if (!(pipe->pipe = (char*)malloc(sizeof(char) * (length + 1))))
+		return (NULL);
+	pipe->pipe = ft_memset(pipe->pipe, 'x', length);
+	pipe->pipe[length] = '\0';
 	return (pipe);
 }
 
@@ -81,11 +85,11 @@ char *line, t_minishell_meta *ms)
 	i = 0;
 	(void)ms;
 	file = NULL;
-	while (ft_isspace(line[i]))
+	while (line[i] && ft_isspace(line[i]))
 		i++;
-	if (line[i] == '\0')
+	if (line[i] == '\0' || (line[i] != '<' && line[i] != '>'))
 		return (ft_strdup(""));
-	while (line[i] != '\0')
+	while (line[i] != '\0' && line[i] != '|')
 	{
 		file = ft_stradd(file, line[i]);
 		i++;

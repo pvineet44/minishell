@@ -70,12 +70,15 @@ char *line, int j)
 		if (ms->arg == NULL)
 			ms->arg = ft_strdup("");
 		ms->piped_cmds->args[j] = ft_strdup(ms->arg);
-		ms->piped_cmds->files[j] = ft_strdup("|");
+		ms->piped_cmds->pipe[j] = '|';
+		ms->piped_cmds->files[j] = get_file(ms->piped_cmds->files[j],\
+		&line[arg_end], ms);
 		freq--;
 		j++;
-		while(line[arg_end] != '\0' && ft_isredir(line[arg_end]) != 1)
+		while(line[arg_end] != '\0' && line[arg_end] != '|')
 			arg_end++;
 		start = arg_end + 1;
+		//ft_putnbr_fd(start, 1);
 	}
 	return (j);
 }
@@ -137,8 +140,9 @@ void			parse(t_minishell_meta *ms, char *line)
 	load_cmds_args(ms, line_splits);
 	free_tab(line_splits);
 	// check_args(ms->path);
-	// check_args(ms->piped_cmds->cmds);
-	// check_args(ms->piped_cmds->args);
-	// check_args(ms->piped_cmds->files);
-	// exit(EXIT_SUCCESS);
+	check_args(ms->piped_cmds->cmds);
+	check_args(ms->piped_cmds->args);
+	check_args(ms->piped_cmds->files);
+	ft_putstr_fd(ms->piped_cmds->pipe, 1);
+	exit(EXIT_SUCCESS);
 }
