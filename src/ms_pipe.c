@@ -11,28 +11,28 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
-void     spawn_proc (int in, t_minishell_meta *ms, char *line, int i)
+void					spawn_proc(t_minishell_meta *ms, char *line, int in, int i)
 {
-  pid_t pid;
-  int   out;
+	pid_t pid;
+	int out;
 
-  out = ms->mypipe[1];
-  if ((pid = fork ()) == 0)
-  {
-    if (in != 0)
-    {
-      dup2 (in, 0);
-      close (in);
-    }
-    if (out != 1)
-    {
-      dup2 (out, 1);
-      close (out);
-    }
-    if (process_builtin(ms, i, line) == 0)
+	out = ms->mypipe[1];
+	if ((pid = fork ()) == 0)
+	{
+		if (in != 0)
+		{
+			dup2(in, 0);
+			close(in);
+		}
+		if (out != 1)
+		{
+			dup2(out, 1);
+			close(out);
+		}
+		if (process_builtin(ms, i, line) == 0)
 			search_and_execute_path(ms, i);
-		exit(0) ;
-  }
+		exit(0);
+	}
+	waitpid(pid, NULL, 0);
 }

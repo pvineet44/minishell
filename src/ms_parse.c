@@ -70,10 +70,7 @@ char *line, int j)
 		if (ms->arg == NULL)
 			ms->arg = ft_strdup("");
 		ms->piped_cmds->args[j] = ft_strdup(ms->arg);
-		if (freq > 0)
-			ms->piped_cmds->files[j] = ft_strdup("|");
-		else
-			ms->piped_cmds->files[j] = ft_strdup("|");
+		ms->piped_cmds->files[j] = ft_strdup("|");
 		freq--;
 		j++;
 		while(line[arg_end] != '\0' && ft_isredir(line[arg_end]) != 1)
