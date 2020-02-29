@@ -72,6 +72,7 @@ void						ms_exit(t_minishell_meta *ms, char *line);
 void						ms_unset(char **env, char *arg);
 void						ms_export(char **env, char *arg);
 void                        process_pipe(t_minishell_meta *ms, int i, char *line);
+void 					    spawn_proc (int in, t_minishell_meta *ms, char *line, int i);
 void						ms_pwd();
 void						ms_env(char	**env);
 void						ms_echo(char *arg);
