@@ -20,6 +20,8 @@ void	ms_unset(char **env, char *arg)
 
 	i = -1;
 	errno = 0;
+	if (!check_var(arg, "unset"))
+		return ;
 	var_len = ft_strlen(arg);
 	while (env[++i] != '\0')
 	{
@@ -30,12 +32,8 @@ void	ms_unset(char **env, char *arg)
 			continue;
 		if (ft_strncmp(arg, env[i], var_len) != 0)
 			continue;
-		i++;
-		while (env[i] != 0)
-		{
+		while (env[++i] != 0)
 			env[i - 1] = env[i];
-			i++;
-		}
 		env[--i] = 0;
 		break ;
 	}
