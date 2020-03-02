@@ -17,6 +17,7 @@ static void				free_on_multiline(t_minishell_meta *ms)
 	if (ms->arg != NULL && (ms->process_bit = -1))
 		ft_free(&ms->arg);
 	ft_putstr("Multiline commands not supported\n");
+	errno = 1;
 	return ;
 }
 
