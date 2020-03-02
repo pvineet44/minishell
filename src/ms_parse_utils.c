@@ -30,7 +30,8 @@ t_minishell_meta *ms)
 	if (!(command = (char*)malloc(sizeof(char) * (j + 1))))
 		ms_exit(ms, line);
 	j = 0;
-	while (!ft_isspace(line[k]) && line[k] != '\0' && !ft_isredir(line[k]) && line[k] != 26)
+	while (!ft_isspace(line[k]) && line[k] != '\0' &&
+			!ft_isredir(line[k]) && line[k] != 26)
 		command[j++] = line[k++];
 	command[j] = '\0';
 	ms->arg_start = k;

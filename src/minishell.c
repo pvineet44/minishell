@@ -50,8 +50,7 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 void			set_path(t_minishell_meta *ms)
 {
 	ms->arg = 0;
-	substitute_value("$PATH", 0 , ms);
-	// ft_putendl_fd(ms->arg, 0);
+	substitute_value("$PATH", 0, ms);
 	ms->path = ft_split(ms->arg, ':');
 	ft_free(&ms->arg);
 }
