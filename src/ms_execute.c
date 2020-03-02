@@ -21,6 +21,16 @@ static void		write_error(char *path)
 	ft_putstr_fd("No such file or directory\n", STDOUT_FILENO);
 }
 
+static void		write_permission_denied(char *path)
+{
+	ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
+	ft_putstr_fd(": ", STDOUT_FILENO);
+	ft_putstr_fd(path, STDOUT_FILENO);
+	ft_putstr_fd(": ", STDOUT_FILENO);
+	ft_putstr_fd("Permission denied\n", STDOUT_FILENO);
+	errno = 126;
+}
+
 void			ms_execute(char *path, char *args, char **env)
 {
 	pid_t	pid;
@@ -28,12 +38,18 @@ void			ms_execute(char *path, char *args, char **env)
 	char	**av;
 	char	*args1;
 	char	*args2;
+	struct	stat fileStat;
 
 	errno = 0;
 	args2 = ft_strjoin(path, " ");
 	args1 = ft_strjoin(args2, args);
 	av = ft_split(args1, ' ');
 	x = 1;
+	if (stat(path , &fileStat) >=0 && ((fileStat.st_mode & S_IXUSR) == 0))
+	{
+		write_permission_denied(path);
+		return ;
+	}
 	if ((pid = fork()) == 0)
 		x = execve(path, av, env);
 	if (x == -1)
