@@ -27,6 +27,7 @@ void					free_all(t_minishell_meta *ms, char *line)
 	free_tab(args);
 	free_tab(files);
 	ft_free(&line);
+	ft_free(&ms->piped_cmds->pipe);
 	free(ms->piped_cmds);
 	ms->piped_cmds = 0;
 }

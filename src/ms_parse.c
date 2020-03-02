@@ -6,13 +6,13 @@
 /*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/15 17:25:31 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/03/02 11:44:55 by vparekh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		free_on_multiline(t_minishell_meta *ms)
+static void				free_on_multiline(t_minishell_meta *ms)
 {
 	if (ms->arg != NULL && (ms->process_bit = -1))
 		ft_free(&ms->arg);
@@ -20,7 +20,7 @@ static void		free_on_multiline(t_minishell_meta *ms)
 	return ;
 }
 
-static int		line_param(t_minishell_meta *ms, char *line)
+static int				line_param(t_minishell_meta *ms, char *line)
 {
 	int		i;
 
@@ -49,40 +49,37 @@ static int		line_param(t_minishell_meta *ms, char *line)
 	return (i);
 }
 
-
-int			parse_piped_commands(t_minishell_meta *ms,
+int						parse_piped_commands(t_minishell_meta *ms,
 char *line, int j)
 {
-	int freq;
-	int start;
-	int arg_end;
+	int	freq;
+	int	start;
+	int	arg_end;
 
-	arg_end = 0;
 	start = 0;
 	freq = get_frequency(line, 26);
-	while (freq >= 0 && ft_free(&ms->arg))
+	while (freq-- >= 0 && ft_free(&ms->arg))
 	{
 		ms->piped_cmds->cmds[j] = get_command(ms->piped_cmds->cmds[j],\
 		&line[start], ms);
-		arg_end = line_param(ms, &line[start + ms->arg_start]) - 1 + start + ms->arg_start;
+		arg_end = line_param(ms, &line[start + ms->arg_start]) - 1
+		+ start + ms->arg_start;
 		if (arg_end == -1 && (ms->multiline = 1))
 			return (-99);
 		if (ms->arg == NULL)
 			ms->arg = ft_strdup("");
 		ms->piped_cmds->args[j] = ft_strdup(ms->arg);
-		ms->piped_cmds->pipe[j] = '|';
 		ms->piped_cmds->files[j] = get_file(ms->piped_cmds->files[j],\
 		&line[arg_end], ms);
-		freq--;
-		j++;
-		while(line[arg_end] != '\0' && line[arg_end] != 26)
+		ms->piped_cmds->pipe[j++] = '|';
+		while (line[arg_end] != '\0' && line[arg_end] != 26)
 			arg_end++;
 		start = arg_end + 1;
 	}
 	return (j);
 }
 
-void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
+void					load_cmds_args(t_minishell_meta *ms, char **line_splits)
 {
 	int		i;
 	int		arg_end;
@@ -92,8 +89,6 @@ void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 	j = 0;
 	while (line_splits[++i] != NULL && (ft_free(&ms->arg)))
 	{
-		ms->piped_cmds->cmds[j] = NULL;
-		ms->piped_cmds->args[j] = NULL;
 		if (ft_strchr(line_splits[i], 26))
 		{
 			j = parse_piped_commands(ms, line_splits[i], j);
@@ -111,13 +106,10 @@ void			load_cmds_args(t_minishell_meta *ms, char **line_splits)
 		&line_splits[i][arg_end + ms->arg_start], ms);
 		j++;
 	}
-	ms->piped_cmds->cmds[j] = 0;
-	ms->piped_cmds->args[j] = 0;
-	ms->piped_cmds->files[j] = 0;
-	ft_free(&ms->arg);
+	terminate_tabs(ms, j);
 }
 
-void			parse(t_minishell_meta *ms, char *line)
+void					parse(t_minishell_meta *ms, char *line)
 {
 	int		i;
 	char	**line_splits;
