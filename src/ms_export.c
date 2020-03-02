@@ -12,7 +12,17 @@
 
 #include "minishell.h"
 
-int				check_var(char *var)
+void			print_invalid(char *var, char *cmd)
+{
+	errno = 1;
+	ft_putstr_fd("minishell: ", STDOUT_FILENO);
+	ft_putstr_fd(cmd, STDOUT_FILENO);
+	ft_putstr_fd(": `", STDOUT_FILENO);
+	ft_putstr_fd(var, STDOUT_FILENO);
+	ft_putstr_fd("\': not a valid identifier\n", STDOUT_FILENO);
+}
+
+int				check_var(char *var, char *cmd)
 {
 	int		i;
 
@@ -22,16 +32,18 @@ int				check_var(char *var)
 	{
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
-			errno = 1;
-			ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
-			ft_putstr_fd(var, STDOUT_FILENO);
-			ft_putstr_fd("\': not a valid identifier\n", STDOUT_FILENO);
+			print_invalid(var, cmd);
 			return (0);
 		}
 		i++;
 	}
-	if (var[i] == '\0')
+	if (var[i] == '\0' && (ft_strcmp(cmd, "export") == 0))
 		return (0);
+	if (var[i] != '\0' && (ft_strcmp(cmd, "unset") == 0))
+	{
+		print_invalid(var, cmd);
+		return (0);
+	}
 	return (1);
 }
 
@@ -67,7 +79,7 @@ void			ms_export(char **env, char *arg)
 		print_export_env(env);
 		return ;
 	}
-	if (check_var(arg))
+	if (check_var(arg, "export"))
 	{
 		while (env[i] != 0)
 			i++;
