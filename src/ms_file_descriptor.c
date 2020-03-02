@@ -71,11 +71,8 @@ t_minishell_meta *ms, int i)
 	}
 	if (ft_strcmp(redir, ">>") == 0)
 		set_out_fd(ms, filename, 1);
-	else if ((ft_strcmp(redir, "<>") == 0) || (ft_strcmp(redir, "><") == 0))
-	{
+	else if ((ft_strcmp(redir, "<>") == 0))
 		set_in_fd(ms, filename);
-		set_out_fd(ms, filename, 0);
-	}
 	else if (redir[0] == '>')
 		set_out_fd(ms, filename, 0);
 	else if (redir[0] == '<')

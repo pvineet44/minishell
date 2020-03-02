@@ -55,8 +55,6 @@ void					process(t_minishell_meta *ms, char *line)
 {
 	int		i;
 	int		in;
-	pid_t	pid;
-	int		stat;
 
 	i = 0;
 	in = 0;
@@ -64,39 +62,11 @@ void					process(t_minishell_meta *ms, char *line)
 	{
 		if (ms->piped_cmds->pipe[i] == '|')
 		{
-			if (!ms->piped_cmds->pipe[i + 1] || (ms->piped_cmds->pipe[i + 1] != '|'))
-			{
-				if ((pid = fork()) == 0)
-				{
-					if (in != 0)
-						dup2(in, 0);
-					if (ms->piped_cmds->files[i][0] != '\0')
-						handle_fd(ms->piped_cmds->files[i], ms, i);
-					if (process_builtin(ms, i, line) == 0)
-						search_and_execute_path(ms, i);
-					if (ms->piped_cmds->files[i][0] != '\0')
-						unset_fd(ms);
-					exit(errno);
-				}
-				waitpid(pid, &stat, 0);
-				errno = stat / 255;
-			}
-			else
-			{
-				pipe(ms->mypipe);
-				spawn_proc(ms, line, in, i);
-				close(ms->mypipe[1]);
-				in = ms->mypipe[0];
-			}
+			process_piped_cmd(ms, line, i, &in);
 			i++;
 			continue;
 		}
-		if (ms->piped_cmds->files[i][0] != '\0')
-			handle_fd(ms->piped_cmds->files[i], ms, i);
-		if (process_builtin(ms, i, line) == 0)
-			search_and_execute_path(ms, i);
-		if (ms->piped_cmds->files[i][0] != '\0')
-			unset_fd(ms);
+		process_cmd(ms, line, i);
 		i++;
 	}
 }

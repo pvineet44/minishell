@@ -16,7 +16,7 @@ static	int			check_opt_bit(char *arg)
 {
 	if (ft_strncmp("-n ", arg, 3) == 0)
 		return (1);
-	if (ft_strncmp("-n", arg, 2) == 0 && arg[3] == '\0')
+	if (ft_strncmp("-n", arg, 2) == 0 && arg[2] == '\0')
 		return (1);
 	return (0);
 }
@@ -39,7 +39,7 @@ void				ms_echo(char *arg)
 	buff = arg;
 	c = check_opt_bit(arg);
 	if (c == 1)
-		buff = &arg[3];
+		buff = &arg[2];
 	i = ft_strlen(buff);
 	while (buff && ft_isspace(buff[i - 1]))
 		i--;

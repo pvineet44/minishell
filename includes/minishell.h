@@ -106,5 +106,8 @@ char						*parse_input_line(char *line, t_minishell_meta *ms);
 char						*replace_semi(char *line, int i, char quote,\
 							t_minishell_meta *ms);
 void						terminate_tabs(t_minishell_meta *ms, int j);
-
+void						process_cmd(t_minishell_meta *ms, char *line,
+int i);
+void						process_piped_cmd(t_minishell_meta *ms, char *line,
+int i, int *in);
 #endif

@@ -16,6 +16,7 @@ void			spawn_proc(t_minishell_meta *ms, char *line, int in, int i)
 {
 	pid_t	pid;
 	int		out;
+	int		stat;
 
 	out = ms->mypipe[1];
 	if ((pid = fork()) == 0)
@@ -30,13 +31,9 @@ void			spawn_proc(t_minishell_meta *ms, char *line, int in, int i)
 			dup2(out, 1);
 			close(out);
 		}
-		if (ms->piped_cmds->files[i][0] != '\0')
-			handle_fd(ms->piped_cmds->files[i], ms, i);
-		if (process_builtin(ms, i, line) == 0)
-			search_and_execute_path(ms, i);
-		if (ms->piped_cmds->files[i][0] != '\0')
-			unset_fd(ms);
+		process_cmd(ms, line, i);
 		exit(errno);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &stat, 0);
+	errno = stat / 255;
 }
