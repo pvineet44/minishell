@@ -25,6 +25,7 @@ void					unset_fd(t_minishell_meta *ms)
 
 void					set_in_fd(t_minishell_meta *ms, char *filename)
 {
+	write(2, "in\n", 3);
 	if (ms->file_fd != 1)
 	{
 		ms->in_fd = dup(STDIN_FILENO);
@@ -71,7 +72,9 @@ t_minishell_meta *ms, int i)
 	}
 	if (ft_strcmp(redir, ">>") == 0)
 		set_out_fd(ms, filename, 1);
-	else if ((ft_strcmp(redir, "<>") == 0))
+	else if ((ft_strcmp(redir, "><") == 0) && (ms->process_bit = -1))
+		return syntax_error();
+	else if ((ft_strcmp(redir, "<>") == 0) &&(ms->multiline = -99))
 		set_in_fd(ms, filename);
 	else if (redir[0] == '>')
 		set_out_fd(ms, filename, 0);

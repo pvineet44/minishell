@@ -24,7 +24,7 @@ void				process_cmd(t_minishell_meta *ms, char *line, int i)
 {
 	if (ms->piped_cmds->files[i][0] != '\0')
 		handle_fd(ms->piped_cmds->files[i], ms, i);
-	if (process_builtin(ms, i, line) == 0)
+	if (ms->process_bit >= 0 && process_builtin(ms, i, line) == 0)
 		search_and_execute_path(ms, i);
 	if (ms->piped_cmds->files[i][0] != '\0')
 		unset_fd(ms);
@@ -59,4 +59,9 @@ int i, int *in)
 		*in = ms->mypipe[0];
 	}
 	return ;
+}
+
+void				syntax_error()
+{
+	ft_putstr("minishell: syntax error near unexpected token `<'\n");
 }

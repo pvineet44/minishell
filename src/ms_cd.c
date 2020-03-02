@@ -14,10 +14,12 @@
 
 void	ms_cd(char *path, t_minishell_meta *ms)
 {
-	int ret;
+	int		ret;
+	char	**tmp;
 
 	ret = 0;
 	errno = 0;
+	tmp = ft_split(path, ' ');
 	if (ft_strcmp(path, "") == 0)
 	{
 		substitute_value("$HOME", 0, ms);
@@ -25,7 +27,7 @@ void	ms_cd(char *path, t_minishell_meta *ms)
 		ft_free(&ms->arg);
 		return ;
 	}
-	ret = chdir(path);
+	ret = chdir(tmp[0]);
 	if (ret < 0)
 	{
 		errno = 1;
@@ -35,4 +37,5 @@ void	ms_cd(char *path, t_minishell_meta *ms)
 		ft_putstr_fd(": No such file or directory\n", STDOUT_FILENO);
 		return ;
 	}
+	free_tab(tmp);
 }
