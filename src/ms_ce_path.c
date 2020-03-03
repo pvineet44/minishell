@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+int				no_path_set(char *cmd)
+{
+	no_file_or_directory(cmd, 0);
+	errno = 127;
+	return (-1);
+}
+
 int				check_and_execute_path(t_minishell_meta *ms, int i)
 {
 	char			*path;
@@ -20,6 +27,8 @@ int				check_and_execute_path(t_minishell_meta *ms, int i)
 	char			*tmp_cmd;
 
 	j = 0;
+	if (ms->path[0] == 0)
+		return (no_path_set(ms->piped_cmds->cmds[i]));
 	while (ms->path[j] != NULL)
 	{
 		tmp_cmd = ft_strjoin(ms->path[j], "/");
