@@ -16,6 +16,7 @@ void						ms_exit(t_minishell_meta *ms, char *line)
 {
 	write(STDOUT_FILENO, EXIT_MSG, 5);
 	free_all(ms, line);
+	free_tab(ms->path);
 	free(ms);
 	exit(EXIT_SUCCESS);
 }
