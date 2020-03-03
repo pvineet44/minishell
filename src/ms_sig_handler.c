@@ -17,8 +17,17 @@ void	sig_int_handler(int sig)
 	(void)sig;
 	ft_putstr(" \b\b \b\b ");
 	ft_putstr("\n");
-	write(STDOUT_FILENO, SHELL_BANNER, 14);
+	write(STDERR_FILENO, SHELL_BANNER, 14);
 	signal(SIGINT, sig_int_handler);
+}
+
+void	proc_signal_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		ft_putstr_fd("\n", 2);
+		signal(SIGINT, proc_signal_handler);
+	}
 }
 
 void	sig_quit_handler(int sig)

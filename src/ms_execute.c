@@ -66,8 +66,12 @@ void			ms_execute(char *path, char *args, char **env)
 	args1 = replace_tabs(args1);
 	av = ft_split(args1, ' ');
 	x = 1;
-	if (((pid = fork()) == 0))
-		x = execve(path, av, env);
+	pid = fork();
+	signal(SIGINT, proc_signal_handler);
+	if (pid == 0)
+	{
+	 	x = execve(path, av, env);
+	}
 	if (x == -1)
 	{
 		write_error(path);

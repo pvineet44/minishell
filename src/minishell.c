@@ -64,6 +64,7 @@ int				main(int ac, char **av, char **env)
 {
 	char				*line;
 	t_minishell_meta	*ms;
+	int					ret;
 
 	(void)ac;
 	(void)av;
@@ -75,8 +76,15 @@ int				main(int ac, char **av, char **env)
 	set_path(ms);
 	line = NULL;
 	write(STDOUT_FILENO, SHELL_BANNER, 14);
-	while (get_next_line(0, &line) > 0)
+	while ((ret = get_next_line(0, &line)) >= 0)
 	{
+		if (ret == 0)
+		{
+			free(ms);
+			ft_free(&line);
+			write(1, " exit\n", 6);
+			exit(0);
+		}
 		if (line[0] == '\0')
 		{
 			write(STDOUT_FILENO, SHELL_BANNER, 14);
