@@ -65,3 +65,17 @@ void				syntax_error()
 {
 	ft_putstr("minishell: syntax error near unexpected token `<'\n");
 }
+
+char				*replace_tabs(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line && line[i])
+	{
+		if (ft_isspace(line[i]))
+			line[i] = ' ';
+		i++;
+	}
+	return (line);
+}

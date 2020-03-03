@@ -33,7 +33,7 @@ void	ms_cd(char *path, t_minishell_meta *ms)
 		errno = 1;
 		ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
 		ft_putstr_fd(": cd: ", STDOUT_FILENO);
-		ft_putstr_fd(path, STDOUT_FILENO);
+		ft_putstr_fd(tmp[0], STDOUT_FILENO);
 		ft_putstr_fd(": No such file or directory\n", STDOUT_FILENO);
 		return ;
 	}

@@ -112,4 +112,5 @@ int i);
 void						process_piped_cmd(t_minishell_meta *ms, char *line,
 int i, int *in);
 void						syntax_error();
+char						*replace_tabs(char *line);
 #endif

@@ -34,12 +34,17 @@ void			init_ms(t_minishell_meta *ms)
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)
 {
-	int i;
+	int 	i;
+	char	*tmp;
 
 	i = 0;
+	tmp = ft_strtrim(line, "\t \n\v\f\r");
+	ft_free(&line);
+	line = ft_strdup(tmp);
+	ft_free(&tmp);
 	init_ms(ms);
 	parse(ms, line);
-	if (!ms->multiline)
+	if (!ms->multiline && line[0] != '\0')
 	{
 		process(ms, line);
 		free_all(ms, line);
