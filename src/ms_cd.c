@@ -12,6 +12,14 @@
 
 #include "minishell.h"
 
+void	print_home_not_set(void)
+{
+	errno = 1;
+	ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
+	ft_putstr_fd(": cd: ", STDOUT_FILENO);
+	ft_putstr_fd("HOME not set\n", STDOUT_FILENO);
+}
+
 void	ms_cd(char *path, t_minishell_meta *ms)
 {
 	int		ret;
@@ -23,7 +31,8 @@ void	ms_cd(char *path, t_minishell_meta *ms)
 	if (ft_strcmp(path, "") == 0)
 	{
 		substitute_value("$HOME", 0, ms);
-		ret = chdir(ms->arg);
+		if ((ret = chdir(ms->arg)) == -1)
+			print_home_not_set();
 		ft_free(&ms->arg);
 		return ;
 	}
