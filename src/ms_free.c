@@ -43,6 +43,6 @@ void					free_tab(char **args)
 		args[i] = 0;
 		i++;
 	}
-	ft_free(args);
+	free(args);
 	args = 0;
 }

@@ -82,6 +82,7 @@ int				main(int ac, char **av, char **env)
 		{
 			free(ms);
 			ft_free(&line);
+			free_tab(ms->path);
 			write(1, " exit\n", 6);
 			exit(0);
 		}
@@ -93,6 +94,7 @@ int				main(int ac, char **av, char **env)
 		}
 		invoke_minishell(ms, line);
 	}
+	free_tab(ms->path);
 	free(ms);
 	return (0);
 }
