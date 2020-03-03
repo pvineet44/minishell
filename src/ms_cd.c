@@ -40,10 +40,11 @@ void	ms_cd(char *path, t_minishell_meta *ms)
 	if (ret < 0)
 	{
 		errno = 1;
-		ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
-		ft_putstr_fd(": cd: ", STDOUT_FILENO);
-		ft_putstr_fd(tmp[0], STDOUT_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDOUT_FILENO);
+		no_file_or_directory("cd", tmp[0]);
+		// ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
+		// ft_putstr_fd(": cd: ", STDOUT_FILENO);
+		// ft_putstr_fd(tmp[0], STDOUT_FILENO);
+		// ft_putstr_fd(": No such file or directory\n", STDOUT_FILENO);
 		return ;
 	}
 	free_tab(tmp);
