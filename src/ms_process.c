@@ -37,9 +37,9 @@ int						process_builtin(t_minishell_meta *ms, int i, char *line)
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_ECHO) == 0 && (stat = 1))
 		ms_echo(ms->piped_cmds->args[i]);
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_UNSET) == 0 && (stat = 1))
-		ms_unset(ms->env, ms->piped_cmds->args[i]);
+		ms_unset(ms->env, ms->piped_cmds->args[i], ms->path);
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_EXPORT) == 0 && (stat = 1))
-		ms_export(ms->env, ms->piped_cmds->args[i]);
+		ms_export(ms, i);
 	return (stat);
 }
 

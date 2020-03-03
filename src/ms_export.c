@@ -69,22 +69,24 @@ static void		print_export_env(char **env)
 	}
 }
 
-void			ms_export(char **env, char *arg)
+void			ms_export(t_minishell_meta *ms, int i)
 {
-	int		i;
+	int		j;
 
-	i = 0;
-	if (ft_strcmp(arg, "") == 0)
+	j = 0;
+	if (ft_strcmp(ms->piped_cmds->args[i], "") == 0)
 	{
-		print_export_env(env);
+		print_export_env(ms->env);
 		return ;
 	}
-	if (check_var(arg, "export"))
+	if (check_var(ms->piped_cmds->args[i], "export"))
 	{
-		while (env[i] != 0)
-			i++;
-		env[i] = ft_strdup(arg);
-		env[++i] = 0;
+		while (ms->env[j] != 0)
+			j++;
+		ms->env[j] = ft_strdup(ms->piped_cmds->args[i]);
+		ms->env[++j] = 0;
 		errno = 0;
 	}
+	if (ft_strncmp(ms->piped_cmds->args[i], "PATH=",5) == 0)
+		set_path(ms);
 }

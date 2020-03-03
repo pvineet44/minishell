@@ -70,8 +70,9 @@ void						sig_int_handler(int sig);
 void						sig_quit_handler(int sig);
 int							get_exit_status(t_minishell_meta *ms);
 void						ms_exit(t_minishell_meta *ms, char *line);
-void						ms_unset(char **env, char *arg);
-void						ms_export(char **env, char *arg);
+void						ms_unset(char **env, char *arg, char **path);
+void						ms_export(t_minishell_meta *ms, int i);
+void						set_path(t_minishell_meta *ms);
 int							check_var(char *var, char *cmd);
 void						process_pipe(t_minishell_meta *ms, int i,
 char *line);

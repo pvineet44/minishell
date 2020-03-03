@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ms_unset(char **env, char *arg)
+void	ms_unset(char **env, char *arg, char **path)
 {
 	int		env_len;
 	int		var_len;
@@ -37,4 +37,6 @@ void	ms_unset(char **env, char *arg)
 		env[--i] = 0;
 		break ;
 	}
+	if (ft_strcmp(arg, "PATH") == 0)
+		free_tab(path);
 }

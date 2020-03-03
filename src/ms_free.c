@@ -39,10 +39,10 @@ void					free_tab(char **args)
 	i = 0;
 	while (args[i])
 	{
-		free(args[i]);
+		ft_free(&args[i]);
 		args[i] = 0;
 		i++;
 	}
-	free(args);
+	ft_free(args);
 	args = 0;
 }
