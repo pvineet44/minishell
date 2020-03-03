@@ -25,7 +25,6 @@ void					unset_fd(t_minishell_meta *ms)
 
 void					set_in_fd(t_minishell_meta *ms, char *filename)
 {
-	write(2, "in\n", 3);
 	if (ms->file_fd != 1)
 	{
 		ms->in_fd = dup(STDIN_FILENO);
@@ -34,6 +33,13 @@ void					set_in_fd(t_minishell_meta *ms, char *filename)
 	else
 		close(ms->file_fd);
 	ms->file_fd = open(filename, O_RDONLY);
+	if (ms->file_fd < 0 && (ms->process_bit = -1))
+	{
+		close(ms->file_fd);
+		ms->file_fd = -1;
+		dup2(ms->in_fd, 0);
+		no_file_or_directory(NULL, filename);
+	}
 }
 
 void					set_out_fd(t_minishell_meta *ms, char *filename,

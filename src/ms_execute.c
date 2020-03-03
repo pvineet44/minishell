@@ -63,6 +63,7 @@ void			ms_execute(char *path, char *args, char **env)
 		return ;
 	args2 = ft_strjoin(path, " ");
 	args1 = ft_strjoin(args2, args);
+	args1 = replace_tabs(args1);
 	av = ft_split(args1, ' ');
 	x = 1;
 	if (((pid = fork()) == 0))

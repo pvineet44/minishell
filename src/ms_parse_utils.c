@@ -88,6 +88,8 @@ char *line, t_minishell_meta *ms)
 	file = NULL;
 	while (line[i] && ft_isspace(line[i]))
 		i++;
+	while (line[i] && !ft_isredir(line[i]))
+		i++;
 	if (line[i] == '\0' || (line[i] != '<' && line[i] != '>'))
 		return (ft_strdup(""));
 	while (line[i] != '\0' && line[i] != 26)

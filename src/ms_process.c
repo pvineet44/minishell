@@ -60,8 +60,11 @@ void					process(t_minishell_meta *ms, char *line)
 	in = 0;
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
-		ms->piped_cmds->args[i] = ft_strtrim(ms->piped_cmds->args[i],
+		ms->arg = ft_strtrim(ms->piped_cmds->args[i],
 		"\t \n\v\f\r");
+		ft_free(&ms->piped_cmds->args[i]);
+		ms->piped_cmds->args[i] = ft_strdup(ms->arg);
+		ft_free(&ms->arg);
 		if (ms->piped_cmds->pipe[i] == '|')
 		{
 			process_piped_cmd(ms, line, i, &in);
