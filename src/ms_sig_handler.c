@@ -30,6 +30,15 @@ void	proc_signal_handler(int sig)
 	}
 }
 
+void	proc_sigquit_handler(int sig)
+{
+	if (sig == SIGQUIT)
+	{
+		ft_putstr_fd("Quit: 3\n", 2);
+		signal(SIGINT, proc_sigquit_handler);
+	}
+}
+
 void	sig_quit_handler(int sig)
 {
 	(void)sig;
