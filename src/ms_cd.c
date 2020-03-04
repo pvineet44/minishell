@@ -34,6 +34,7 @@ void	ms_cd(char *path, t_minishell_meta *ms)
 		if ((ret = chdir(ms->arg)) == -1)
 			print_home_not_set();
 		ft_free(&ms->arg);
+		free_tab(tmp);
 		return ;
 	}
 	ret = chdir(tmp[0]);
@@ -41,6 +42,7 @@ void	ms_cd(char *path, t_minishell_meta *ms)
 	{
 		errno = 1;
 		no_file_or_directory("cd", tmp[0]);
+		free_tab(tmp);
 		// ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
 		// ft_putstr_fd(": cd: ", STDOUT_FILENO);
 		// ft_putstr_fd(tmp[0], STDOUT_FILENO);

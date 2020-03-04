@@ -49,6 +49,8 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 		process(ms, line);
 		free_all(ms, line);
 	}
+	else
+		free_all(ms, line);
 	write(STDOUT_FILENO, SHELL_BANNER, 14);
 }
 

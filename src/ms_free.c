@@ -28,8 +28,11 @@ void					free_all(t_minishell_meta *ms, char *line)
 	free_tab(files);
 	ft_free(&line);
 	ft_free(&ms->piped_cmds->pipe);
-	free(ms->piped_cmds);
-	ms->piped_cmds = 0;
+	if (ms->piped_cmds)
+	{
+		free(ms->piped_cmds);
+		ms->piped_cmds = 0;
+	}
 }
 
 void					free_tab(char **args)
@@ -43,6 +46,9 @@ void					free_tab(char **args)
 		args[i] = 0;
 		i++;
 	}
-	free(args);
-	args = 0;
+	if (args)
+	{
+		free(args);
+		args = 0;
+	}
 }
