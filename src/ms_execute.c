@@ -68,6 +68,8 @@ void			ms_execute(char *path, char *args, char **env)
 	x = 1;
 	pid = fork();
 	signal(SIGINT, proc_signal_handler);
+	signal(SIGQUIT, proc_sigquit_handler);
+
 	if (pid == 0)
 	{
 	 	x = execve(path, av, env);

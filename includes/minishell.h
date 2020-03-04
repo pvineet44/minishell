@@ -69,6 +69,7 @@ void						process(t_minishell_meta *ms, char *line);
 void						sig_int_handler(int sig);
 void						sig_quit_handler(int sig);
 void						proc_signal_handler(int sig);
+void						proc_sigquit_handler(int sig);
 int							get_exit_status(t_minishell_meta *ms);
 void						ms_exit(t_minishell_meta *ms, char *line);
 void						ms_unset(char **env, char *arg, char **path);
