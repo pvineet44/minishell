@@ -54,6 +54,7 @@ void						ms_exit(t_minishell_meta *ms, char *line, int i)
 	}
 	free_all(ms, line);
 	free_tab(ms->path);
-	free(ms);
+	if (ms)
+		free(ms);
 	exit(stat);
 }

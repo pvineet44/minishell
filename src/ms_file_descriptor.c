@@ -33,7 +33,7 @@ void					set_in_fd(t_minishell_meta *ms, char *filename)
 	else
 		close(ms->file_fd);
 	ms->file_fd = open(filename, O_RDONLY);
-	if (ms->file_fd < 0)
+	if (ms->file_fd < 0 && (ms->process_bit = -1))
 	{
 		close(ms->file_fd);
 		ms->file_fd = -1;
