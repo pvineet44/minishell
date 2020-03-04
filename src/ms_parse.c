@@ -116,6 +116,8 @@ void					parse(t_minishell_meta *ms, char *line)
 	char	**line_splits;
 
 	i = 0;
+	if (check_line(line) && (ms->multiline = 1))
+		return;
 	ms->piped_cmds = init_cmds(ft_strlen(line));
 	if (ft_strchr(line, ';') != NULL || ft_strchr(line, '|') != NULL)
 	{

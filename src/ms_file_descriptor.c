@@ -79,7 +79,7 @@ t_minishell_meta *ms, int i)
 	if (ft_strcmp(redir, ">>") == 0)
 		set_out_fd(ms, filename, 1);
 	else if ((ft_strcmp(redir, "><") == 0) && (ms->process_bit = -1))
-		return syntax_error();
+		return syntax_error("<");
 	else if ((ft_strcmp(redir, "<>") == 0) &&(ms->multiline = -99))
 		set_in_fd(ms, filename);
 	else if (redir[0] == '>')

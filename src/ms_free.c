@@ -15,24 +15,18 @@
 void					free_all(t_minishell_meta *ms, char *line)
 {
 	int				i;
-	char			**cmds;
-	char			**args;
-	char			**files;
 
 	i = 0;
-	cmds = ms->piped_cmds->cmds;
-	args = ms->piped_cmds->args;
-	files = ms->piped_cmds->files;
-	free_tab(cmds);
-	free_tab(args);
-	free_tab(files);
-	ft_free(&line);
-	ft_free(&ms->piped_cmds->pipe);
-	if (ms->piped_cmds)
+	if (ms->piped_cmds!= 0)
 	{
+		free_tab(ms->piped_cmds->cmds);
+		free_tab(ms->piped_cmds->args);
+		free_tab(ms->piped_cmds->files);
+		ft_free(&ms->piped_cmds->pipe);
 		free(ms->piped_cmds);
 		ms->piped_cmds = 0;
 	}
+	ft_free(&line);
 }
 
 void					free_tab(char **args)

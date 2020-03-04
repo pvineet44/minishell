@@ -21,8 +21,9 @@
 # include <sys/stat.h>
 # include <errno.h>
 # define SHELL_BANNER "minishell-1.0$"
-# define SHELL_NAME "minishell-1.0"
+# define SHELL_NAME "minishell"
 # define COMMAND_NOT_FOUND ": command not found\n"
+# define SYNTAX_ERROR ": syntax error near unexpected token `"
 # define EXIT_MSG "bye!\n"
 # define CMD_EXIT "exit"
 # define CMD_ECHO "echo"
@@ -114,7 +115,8 @@ void						process_cmd(t_minishell_meta *ms, char *line,
 int i);
 void						process_piped_cmd(t_minishell_meta *ms, char *line,
 int i, int *in);
-void						syntax_error();
 char						*replace_tabs(char *line);
 void        			    no_file_or_directory(char *cmd, char *name);
+void						syntax_error(char *token);
+int             			check_line(char *line);
 #endif

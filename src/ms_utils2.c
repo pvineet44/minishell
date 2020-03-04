@@ -61,11 +61,6 @@ int i, int *in)
 	return ;
 }
 
-void				syntax_error()
-{
-	ft_putstr("minishell: syntax error near unexpected token `<'\n");
-}
-
 char				*replace_tabs(char *line)
 {
 	int i;

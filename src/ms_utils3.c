@@ -28,3 +28,28 @@ void            no_file_or_directory(char *cmd, char *name)
     }
     ft_putstr_fd("No such file or directory\n", STDERR_FILENO);
 }
+
+void            syntax_error(char *token)
+{
+    ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
+    ft_putstr_fd(SYNTAX_ERROR, STDERR_FILENO);
+    ft_putstr_fd(token, STDERR_FILENO);
+    ft_putstr_fd("'\n", STDERR_FILENO);
+}
+
+int             check_line(char *line)
+{
+    int stat;
+    stat = 0;
+    if (line[0] == ';' && line[1] == ';')
+    {
+        stat++;
+        syntax_error(";;");
+    }
+    else if (line[0] == ';')
+    {
+        stat++;
+        syntax_error(";");
+    }
+    return (stat);
+}

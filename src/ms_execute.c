@@ -14,20 +14,20 @@
 
 static void		write_error(char *path)
 {
-	ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
-	ft_putstr_fd(": ", STDOUT_FILENO);
-	ft_putstr_fd(path, STDOUT_FILENO);
-	ft_putstr_fd(": ", STDOUT_FILENO);
-	ft_putstr_fd("No such file or directory\n", STDOUT_FILENO);
+	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(path, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("No such file or directory\n", STDERR_FILENO);
 }
 
 static void		write_permission_denied(char *path)
 {
-	ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
-	ft_putstr_fd(": ", STDOUT_FILENO);
-	ft_putstr_fd(path, STDOUT_FILENO);
-	ft_putstr_fd(": ", STDOUT_FILENO);
-	ft_putstr_fd("Permission denied\n", STDOUT_FILENO);
+	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(path, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("Permission denied\n", STDERR_FILENO);
 	errno = 126;
 }
 

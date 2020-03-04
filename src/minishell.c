@@ -30,6 +30,7 @@ void			init_ms(t_minishell_meta *ms)
 	ms->out_fd = -1;
 	ms->in_fd = -1;
 	ms->multiline = 0;
+	ms->piped_cmds = 0;
 }
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)

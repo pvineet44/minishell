@@ -15,9 +15,9 @@
 void	print_home_not_set(void)
 {
 	errno = 1;
-	ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
-	ft_putstr_fd(": cd: ", STDOUT_FILENO);
-	ft_putstr_fd("HOME not set\n", STDOUT_FILENO);
+	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
+	ft_putstr_fd(": cd: ", STDERR_FILENO);
+	ft_putstr_fd("HOME not set\n", STDERR_FILENO);
 }
 
 void	ms_cd(char *path, t_minishell_meta *ms)
