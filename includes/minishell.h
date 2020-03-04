@@ -24,7 +24,8 @@
 # define SHELL_NAME "minishell"
 # define COMMAND_NOT_FOUND ": command not found\n"
 # define SYNTAX_ERROR ": syntax error near unexpected token `"
-# define EXIT_MSG "bye!\n"
+# define NUMERIC_ARGUMENT_REQUIRED ": numeric argument required\n"
+# define EXIT_MSG "exit\n"
 # define CMD_EXIT "exit"
 # define CMD_ECHO "echo"
 # define CMD_PWD "pwd"
@@ -72,7 +73,7 @@ void						sig_quit_handler(int sig);
 void						proc_signal_handler(int sig);
 void						proc_sigquit_handler(int sig);
 int							get_exit_status(t_minishell_meta *ms);
-void						ms_exit(t_minishell_meta *ms, char *line);
+void						ms_exit(t_minishell_meta *ms, char *line, int i);
 void						ms_unset(char **env, char *arg, char **path);
 void						ms_export(t_minishell_meta *ms, int i);
 void						set_path(t_minishell_meta *ms);

@@ -28,7 +28,7 @@ t_minishell_meta *ms)
 	while (!ft_isspace(line[i]) && !ft_isredir(line[i]) && line[i++] != '\0')
 		j++;
 	if (!(command = (char*)malloc(sizeof(char) * (j + 1))))
-		ms_exit(ms, line);
+		ms_exit(ms, line, 127);
 	j = 0;
 	while (!ft_isspace(line[k]) && line[k] != '\0' &&
 			!ft_isredir(line[k]) && line[k] != 26)
@@ -88,8 +88,8 @@ char *line, t_minishell_meta *ms)
 	file = NULL;
 	while (line[i] && ft_isspace(line[i]))
 		i++;
-	while (line[i] && !ft_isredir(line[i]))
-		i++;
+	// while (line[i] && !ft_isredir(line[i]))
+	// 	i++;
 	if (line[i] == '\0' || (line[i] != '<' && line[i] != '>'))
 		return (ft_strdup(""));
 	while (line[i] != '\0' && line[i] != 26)
