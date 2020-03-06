@@ -22,32 +22,22 @@ void	print_home_not_set(void)
 
 void	ms_cd(char *path, t_minishell_meta *ms)
 {
-	int		ret;
-	char	**tmp;
+	int ret;
 
-	ret = 0;
 	errno = 0;
-	tmp = ft_split(path, ' ');
 	if (ft_strcmp(path, "") == 0)
 	{
 		substitute_value("$HOME", 0, ms);
 		if ((ret = chdir(ms->arg)) == -1)
 			print_home_not_set();
 		ft_free(&ms->arg);
-		free_tab(tmp);
 		return ;
 	}
-	ret = chdir(tmp[0]);
+	ret = chdir(path);
 	if (ret < 0)
 	{
 		errno = 1;
-		no_file_or_directory("cd", tmp[0]);
-		free_tab(tmp);
-		// ft_putstr_fd(SHELL_NAME, STDOUT_FILENO);
-		// ft_putstr_fd(": cd: ", STDOUT_FILENO);
-		// ft_putstr_fd(tmp[0], STDOUT_FILENO);
-		// ft_putstr_fd(": No such file or directory\n", STDOUT_FILENO);
-		return ;
+		no_file_or_directory("cd", path);
 	}
-	free_tab(tmp);
+	return ;
 }

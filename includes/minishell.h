@@ -36,8 +36,9 @@
 typedef	struct				s_piped_minishell_meta
 {
 	char	**cmds;
-	char	**args;
-	char	**files;
+	char	***args1;
+	char	***files1;
+	char	***redir;
 	char	*pipe;
 }							t_piped_minishell_meta;
 
@@ -45,6 +46,7 @@ typedef struct				s_minishell_meta
 {
 	int						mypipe[2];
 	int						arg_start;
+	int						arg_last;
 	char					*arg;
 	int						process_bit;
 	char					**env;
@@ -57,10 +59,9 @@ typedef struct				s_minishell_meta
 	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
 t_piped_minishell_meta		*init_cmds(int length);
-char						*get_command(char *command, char *line,
-							t_minishell_meta *ms);
+char						*get_command(char *line, t_minishell_meta *ms);
 void						check_args(char **args);
-void						parse(t_minishell_meta *ms, char *line);
+char						*parse(t_minishell_meta *ms, char *line);
 int							parse_piped_commands(t_minishell_meta *ms,
 							char *line, int j);
 int							get_frequency(char *str, char c);
@@ -73,7 +74,8 @@ void						proc_signal_handler(int sig);
 void						proc_sigquit_handler(int sig);
 int							get_exit_status(t_minishell_meta *ms);
 void						ms_exit(t_minishell_meta *ms, char *line);
-void						ms_unset(char **env, char *arg, char **path);
+void						ms_unset(char **env, char **args, char **path);
+void						ms_unset_single(char **env, char *arg, char **path);
 void						ms_export(t_minishell_meta *ms, int i);
 void						set_path(t_minishell_meta *ms);
 int							check_var(char *var, char *cmd);
@@ -83,14 +85,14 @@ void						spawn_proc(t_minishell_meta *ms, char *line,
 int in, int i);
 void						ms_pwd();
 void						ms_env(char	**env);
-void						ms_echo(char *arg);
-void						ms_execute(char *path, char *args, char **env);
+void						ms_echo(char **args);
+void						ms_execute(char *path, char **args, char **env, int len);
 void						free_tab(char **args);
 void						free_all(t_minishell_meta *ms, char *line);
 void						command_not_found(t_minishell_meta *ms, int i);
 void						init_ms(t_minishell_meta *ms);
 void						unset_fd(t_minishell_meta *ms);
-void						handle_fd(char *line, t_minishell_meta *ms,
+void						handle_fd(t_minishell_meta *ms,
 							int index);
 void						search_and_execute_path(t_minishell_meta *ms,
 int i);
@@ -107,6 +109,7 @@ char						*get_redir(char *redir, char *line,
 							t_minishell_meta *ms);
 char						*get_file(char *file, char *line,
 							t_minishell_meta *ms);
+void						get_files(char *line, t_minishell_meta *ms, int index);
 char						*parse_input_line(char *line, t_minishell_meta *ms);
 char						*replace_semi(char *line, int i, char quote,\
 							t_minishell_meta *ms);

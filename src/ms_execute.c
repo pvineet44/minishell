@@ -50,26 +50,29 @@ void			free_used_values(char *args1, char *args2, char **av)
 	ft_free(&args2);
 }
 
-void			ms_execute(char *path, char *args, char **env)
+void			ms_execute(char *path, char **args, char **env, int len)
 {
 	pid_t	pid;
+	int		i;
 	int		x;
-	char	**av;
-	char	*args1;
-	char	*args2;
 
-	errno = 0;
-	if (check_file_permission(path) == 0)
-		return ;
-	args2 = ft_strjoin(path, " ");
-	args1 = ft_strjoin(args2, args);
-	args1 = replace_tabs(args1);
-	av = ft_split(args1, ' ');
+	i = 0;
 	x = 1;
+	ft_putnbr_fd(len, 2);
+	char **av = (char**)malloc(sizeof(char*) * (len + 2));
+	if (av == NULL)
+		ms_exit(NULL, NULL);
+	av[0] = ft_strdup(path);
+	while (args[i] != 0 && len != 0)
+	{
+		av[i + 1] = ft_strdup(args[i]);
+		i++;
+	}
+	av[i + 1] = 0;
+	check_args(av);
 	pid = fork();
 	signal(SIGINT, proc_signal_handler);
 	signal(SIGQUIT, proc_sigquit_handler);
-
 	if (pid == 0)
 	{
 	 	x = execve(path, av, env);
@@ -82,5 +85,5 @@ void			ms_execute(char *path, char *args, char **env)
 	}
 	wait(&errno);
 	errno = errno / 255;
-	free_used_values(args1, args2, av);
+	free_tab(av);
 }

@@ -20,6 +20,6 @@ void					ms_pwd(void)
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
 	ft_putendl_fd(buff, STDOUT_FILENO);
-	free(buff);
+	ft_free(&buff);
 	return ;
 }

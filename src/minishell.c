@@ -16,7 +16,8 @@ void			check_args(char **args)
 {
 	while (*args)
 	{
-		ft_putendl_fd(*args, STDOUT_FILENO);
+		ft_putstr_fd(*args, STDOUT_FILENO);
+			ft_putstr_fd("|\n",1);
 		args++;
 	}
 }
@@ -31,6 +32,7 @@ void			init_ms(t_minishell_meta *ms)
 	ms->in_fd = -1;
 	ms->multiline = 0;
 	ms->piped_cmds = 0;
+	ms->arg_last = 0;
 }
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)
@@ -44,7 +46,7 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	line = ft_strdup(tmp);
 	ft_free(&tmp);
 	init_ms(ms);
-	parse(ms, line);
+	line = parse(ms, line);
 	if (!ms->multiline && line[0] != '\0')
 	{
 		process(ms, line);
@@ -83,9 +85,9 @@ int				main(int ac, char **av, char **env)
 	{
 		if (ret == 0)
 		{
-			free(ms);
 			ft_free(&line);
 			free_tab(ms->path);
+			free(ms);
 			write(1, " exit\n", 6);
 			exit(0);
 		}

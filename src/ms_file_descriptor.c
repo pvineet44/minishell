@@ -60,21 +60,16 @@ int is_append)
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 }
 
-void					call_actual_handle(char *filename, char *redir,
+void					call_actual_handle(char *filename, char *redir, 
 t_minishell_meta *ms, int i)
 {
-	int j;
-
-	j = 0;
 	if (filename == NULL && redir == NULL)
 		return ;
 	if (redir == NULL)
 	{
-		while (filename[j] != '\0')
-			ms->piped_cmds->args[i] = ft_stradd(ms->piped_cmds->args[i],
-			filename[j++]);
-		ms->piped_cmds->args[i] = ft_stradd(ms->piped_cmds->args[i], 32);
-		return ;
+		ms->piped_cmds->args1[i][ms->arg_last] = ft_strdup(filename);
+		ms->arg_last++;
+		ms->piped_cmds->args1[i][ms->arg_last] = 0;
 	}
 	if (ft_strcmp(redir, ">>") == 0)
 		set_out_fd(ms, filename, 1);
@@ -87,30 +82,14 @@ t_minishell_meta *ms, int i)
 	else if (redir[0] == '<')
 		set_in_fd(ms, filename);
 }
-
-void					handle_fd(char *line, t_minishell_meta *ms, int index)
+void					handle_fd(t_minishell_meta *ms, int index)
 {
-	char			*filename;
-	char			*redir;
-	int				i;
+	int i;
 
 	i = 0;
-	if (line == NULL)
-		return ;
-	filename = NULL;
-	redir = NULL;
-	while (line[i] != '\0')
+	while (ms->piped_cmds->files1[index][i])
 	{
-		while ((line[i] != '\0' && ft_isspace(line[i])))
-			i++;
-		while (line[i] != '\0' && ft_isredir(line[i]))
-			redir = ft_stradd(redir, line[i++]);
-		while ((line[i] != '\0' && ft_isspace(line[i])))
-			i++;
-		while (line[i] != '\0' && !ft_isspace(line[i]) && !ft_isredir(line[i]))
-			filename = ft_stradd(filename, line[i++]);
-		call_actual_handle(filename, redir, ms, index);
-		ft_free(&redir);
-		ft_free(&filename);
+		call_actual_handle(ms->piped_cmds->files1[index][i], ms->piped_cmds->redir[index][i], ms, index);
+		i++;
 	}
 }

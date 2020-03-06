@@ -31,13 +31,13 @@ int						process_builtin(t_minishell_meta *ms, int i, char *line)
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_PWD) == 0 && (stat = 1))
 		ms_pwd();
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_CD) == 0 && (stat = 1))
-		ms_cd(ms->piped_cmds->args[i], ms);
+		ms_cd(ms->piped_cmds->args1[i][0], ms);
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_ENV) == 0 && (stat = 1))
 		ms_env(ms->env);
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_ECHO) == 0 && (stat = 1))
-		ms_echo(ms->piped_cmds->args[i]);
+		ms_echo(ms->piped_cmds->args1[i]);
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_UNSET) == 0 && (stat = 1))
-		ms_unset(ms->env, ms->piped_cmds->args[i], ms->path);
+		ms_unset(ms->env, ms->piped_cmds->args1[i], ms->path);
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_EXPORT) == 0 && (stat = 1))
 		ms_export(ms, i);
 	return (stat);
@@ -46,7 +46,7 @@ int						process_builtin(t_minishell_meta *ms, int i, char *line)
 void					search_and_execute_path(t_minishell_meta *ms, int i)
 {
 	if (ft_strchr(ms->piped_cmds->cmds[i], '/') != NULL)
-		ms_execute(ms->piped_cmds->cmds[i], ms->piped_cmds->args[i], ms->env);
+		ms_execute(ms->piped_cmds->cmds[i], ms->piped_cmds->args1[i], ms->env, ms->arg_last);
 	else if (check_and_execute_path(ms, i) == 0)
 		command_not_found(ms, i);
 }
@@ -60,11 +60,6 @@ void					process(t_minishell_meta *ms, char *line)
 	in = 0;
 	while (ms->piped_cmds->cmds[i] != NULL)
 	{
-		ms->arg = ft_strtrim(ms->piped_cmds->args[i],
-		"\t \n\v\f\r");
-		ft_free(&ms->piped_cmds->args[i]);
-		ms->piped_cmds->args[i] = ft_strdup(ms->arg);
-		ft_free(&ms->arg);
 		if (ms->piped_cmds->pipe[i] == '|')
 		{
 			process_piped_cmd(ms, line, i, &in);

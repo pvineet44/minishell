@@ -21,7 +21,7 @@ int		parse_quotes(char *line, int i, t_minishell_meta *ms)
 	quote_bit = line[i++] == '\'' ? 1 : 0;
 	while ((line[i] != '\0') && (line[i] != quote))
 	{
-		if (line[i] == '\\' && line[i + 1] == '\"' && !quote_bit)
+		if (line[i] == '\\' && ((line[i + 1] == '\"' && !quote_bit) || line[i + 1] == '\\' || line[i + 1] == '$'))
 		{
 			ms->arg = ft_stradd(ms->arg, line[i + 1]);
 			i = i + 2;
@@ -83,7 +83,7 @@ int		substitute_value(char *line, int i, t_minishell_meta *ms)
 	if (!ft_isalpha(line[i]) && line[i] != '_')
 	{
 		if (line[i] != '\'' && line[i] != '\"')
-			write(STDOUT_FILENO, "$", 1);
+			ms->arg = ft_stradd(ms->arg, '$');
 		return (i - 1);
 	}
 	while (line[i] && \
@@ -99,7 +99,7 @@ int		substitute_value(char *line, int i, t_minishell_meta *ms)
 
 void	command_not_found(t_minishell_meta *ms, int i)
 {
-	if (ms->piped_cmds->files[i][0] != '\0')
+	if (ms->piped_cmds->files1[i][0] != '\0')
 		unset_fd(ms);
 	write(STDOUT_FILENO, "minishell: ", 11);
 	write(STDOUT_FILENO, ms->piped_cmds->cmds[i],

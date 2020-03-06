@@ -12,14 +12,13 @@
 
 #include "minishell.h"
 
-void	ms_unset(char **env, char *arg, char **path)
+void	ms_unset_single(char **env, char *arg, char **path)
 {
 	int		env_len;
 	int		var_len;
 	int		i;
 
 	i = -1;
-	errno = 0;
 	if (!check_var(arg, "unset"))
 		return ;
 	var_len = ft_strlen(arg);
@@ -39,4 +38,18 @@ void	ms_unset(char **env, char *arg, char **path)
 	}
 	if (ft_strcmp(arg, "PATH") == 0)
 		free_tab(path);
+}
+
+
+void	ms_unset(char **env, char **args, char **path)
+{
+	int	i;
+
+	i = 0;
+	errno = 0;
+	while (args[i] != 0)
+	{
+		ms_unset_single(env, args[i], path);
+		i++;
+	}
 }

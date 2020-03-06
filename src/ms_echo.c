@@ -12,38 +12,26 @@
 
 #include "minishell.h"
 
-static	int			check_opt_bit(char *arg)
+void				ms_echo(char **args)
 {
-	if (ft_strncmp("-n ", arg, 3) == 0)
-		return (1);
-	if (ft_strncmp("-n", arg, 2) == 0 && arg[2] == '\0')
-		return (1);
-	return (0);
-}
+	int i;
+	int c;
 
-void				ms_echo(char *arg)
-{
-	int		i;
-	int		c;
-	char	*buff;
-
-	buff = NULL;
-	errno = 0;
-	if (arg[0] == '\0')
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		return ;
-	}
-	c = 0;
 	i = 0;
-	buff = arg;
-	c = check_opt_bit(arg);
-	if (c == 1)
-		buff = &arg[2];
-	i = ft_strlen(buff);
-	while (buff && ft_isspace(buff[i - 1]))
-		i--;
-	write(STDOUT_FILENO, buff, i);
+	c = 0;
+	if (ft_strcmp(args[i], "-n") == 0)
+	{
+		c = 1;
+		i++;
+	}
+	while(args[i])
+	{
+	
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i + 1])
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		i++;
+	}
 	if (c != 1)
-		write(STDOUT_FILENO, "\n", 1);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 }
