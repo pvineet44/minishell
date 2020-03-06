@@ -27,7 +27,7 @@ int						process_builtin(t_minishell_meta *ms, int i, char *line)
 
 	stat = 0;
 	if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_EXIT) == 0 && (stat = 1))
-		ms_exit(ms, line);
+		ms_exit(ms, line, i);
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_PWD) == 0 && (stat = 1))
 		ms_pwd();
 	else if (ft_strcmp(ms->piped_cmds->cmds[i], CMD_CD) == 0 && (stat = 1))

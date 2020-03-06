@@ -123,6 +123,7 @@ char *line, t_minishell_meta *ms)
 	i = 0;
 	quote_bit = 0;
 	(void)ms;
+	
 	file = NULL;
 	while (line[i] && ft_isspace(line[i]))
 		i++;
