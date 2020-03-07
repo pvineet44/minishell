@@ -65,6 +65,22 @@ void			set_path(t_minishell_meta *ms)
 	ft_free(&ms->arg);
 }
 
+int				is_spaces_only(char *line)
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = ft_strlen(line);
+	while (i < len)
+	{
+		if (!ft_isspace(line[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int				main(int ac, char **av, char **env)
 {
 	char				*line;
@@ -91,7 +107,7 @@ int				main(int ac, char **av, char **env)
 			write(1, " exit\n", 6);
 			exit(0);
 		}
-		if (line[0] == '\0')
+		if (line[0] == '\0' || is_spaces_only(line))
 		{
 			write(STDOUT_FILENO, SHELL_BANNER, 15);
 			free(line);
