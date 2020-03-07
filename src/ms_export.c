@@ -92,6 +92,7 @@ void			ms_export(t_minishell_meta *ms, int i)
 	int		k;
 
 	k = 0;
+	j =0;
 	errno = 0;
 	if (ft_strcmp(ms->piped_cmds->args1[i][0], "") == 0)
 	{

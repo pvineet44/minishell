@@ -181,7 +181,7 @@ void				get_files(char *line, t_minishell_meta *ms, int index)
 			i++;
 		while (line[i]  && line[i] != 26)
 		{
-			if (line[i] == 24 && quote_bit++)
+			if (line[i] == 24 && (quote_bit = quote_bit + 1))
 			{
 				i++;
 				continue;

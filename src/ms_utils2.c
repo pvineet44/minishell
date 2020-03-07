@@ -26,7 +26,9 @@ void				process_cmd(t_minishell_meta *ms, char *line, int i)
 	if (ms->piped_cmds->files1[i][0] != 0)
 		handle_fd(ms, i);
 	if (ms->process_bit >= 0 && process_builtin(ms, i, line) == 0)
+	{
 		search_and_execute_path(ms, i);
+	}
 	if (ms->piped_cmds->files1[i][0] != 0)
 		unset_fd(ms);
 }

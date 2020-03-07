@@ -42,13 +42,15 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 	{
 		if (ft_isspace(line[i]) && (quote_bit%2 == 0))
 		{
+			if (ms->arg == NULL)
+				ms->arg = ft_strdup("");
 			ms->piped_cmds->args1[index][j++] = ft_strdup(ms->arg);
 			ft_free(&ms->arg);
 			while (line[i] != '\0' && ft_isspace(line[i]))
 				i++;
 			continue;
 		}
-		if (line[i] == 24 && quote_bit++)
+		if (line[i] == 24 && (quote_bit = quote_bit + 1))
 		{
 			i++;
 			continue;
@@ -58,10 +60,10 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 		i++;
 	}
 	if (ms->arg)
-	{
 		ms->piped_cmds->args1[index][j++] = ft_strdup(ms->arg);
-		ft_free(&ms->arg);
-	}
+	else 
+		ms->piped_cmds->args1[index][j++] = ft_strdup("");
+	ft_free(&ms->arg);
 	ms->piped_cmds->args1[index][j] = 0;
 	ms->arg_last = j;
 	return (i);

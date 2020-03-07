@@ -19,8 +19,10 @@ void					unset_fd(t_minishell_meta *ms)
 	if (ms->out_fd != -1)
 		dup2(ms->out_fd, 1);
 	if (ms->in_fd != -1)
+	{
 		dup2(ms->in_fd, 0);
-	close(ms->in_fd);
+		close(ms->in_fd);
+	}
 }
 
 void					set_in_fd(t_minishell_meta *ms, char *filename)

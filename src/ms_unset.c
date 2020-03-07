@@ -46,6 +46,8 @@ void	ms_unset(char **env, char **args, char **path)
 	int	i;
 
 	i = 0;
+	(void)path;
+	(void)env;
 	errno = 0;
 	while (args[i] != 0)
 	{
