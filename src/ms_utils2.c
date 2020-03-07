@@ -16,6 +16,8 @@ void				terminate_tabs(t_minishell_meta *ms, int j)
 {
 	ms->piped_cmds->cmds[j] = 0;
 	ms->piped_cmds->args1[j] = 0;
+	ms->piped_cmds->files1[j] = 0;
+	ms->piped_cmds->redir[j] = 0;
 	ft_free(&ms->arg);
 }
 
