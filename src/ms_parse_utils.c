@@ -59,10 +59,10 @@ t_piped_minishell_meta		*init_cmds(int length)
 	if (!(pipe->cmds = (char**)malloc(sizeof(char*) + (length
 	* sizeof(char*)))))
 		return (NULL);
-	if (!(pipe->args1 = (char***)malloc(sizeof(char**) + (length / 2
+	if (!(pipe->args1 = (char***)malloc(sizeof(char**) + (length
 	* sizeof(char**)))))
 		return (NULL);
-	while (i  <= (length / 2))
+	while (i  <= (length))
 	{
 		if (!(pipe->args1[i] = (char**)malloc(sizeof(char*) + (length
 		* sizeof(char*)))))
@@ -70,10 +70,10 @@ t_piped_minishell_meta		*init_cmds(int length)
 		i++;
 	}
 	i = 0;
-	if (!(pipe->files1 = (char***)malloc(sizeof(char**) + (length / 2
+	if (!(pipe->files1 = (char***)malloc(sizeof(char**) + (length
 	* sizeof(char**)))))
 		return (NULL);
-	while (i  <= (length / 2))
+	while (i  <= (length))
 	{
 		if (!(pipe->files1[i] = (char**)malloc(sizeof(char*) + (length
 		* sizeof(char*)))))
@@ -81,10 +81,10 @@ t_piped_minishell_meta		*init_cmds(int length)
 		i++;
 	}
 	i = 0;
-	if (!(pipe->redir = (char***)malloc(sizeof(char**) + (length / 2
+	if (!(pipe->redir = (char***)malloc(sizeof(char**) + (length
 	* sizeof(char**)))))
 		return (NULL);
-	while (i  <= (length / 2))
+	while (i  <= (length))
 	{
 		if (!(pipe->redir[i] = (char**)malloc(sizeof(char*) + (length
 		* sizeof(char*)))))
