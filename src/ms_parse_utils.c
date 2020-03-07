@@ -42,6 +42,8 @@ t_minishell_meta *ms)
 			quote_bit++;
 		i++;
 	}
+	if (command == NULL)
+		command = ft_strdup("");
 	ms->arg_start = i;
 	return (command);
 }

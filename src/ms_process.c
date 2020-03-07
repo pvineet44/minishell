@@ -47,7 +47,8 @@ void					search_and_execute_path(t_minishell_meta *ms, int i)
 {
 	if (ft_strchr(ms->piped_cmds->cmds[i], '/') != NULL)
 		ms_execute(ms->piped_cmds->cmds[i], ms->piped_cmds->args1[i], ms->env, ms->arg_last);
-	else if (check_and_execute_path(ms, i) == 0)
+	else if ((ft_strcmp(ms->piped_cmds->cmds[i], "") == 0)\
+	||check_and_execute_path(ms, i) == 0)
 		command_not_found(ms, i);
 }
 
