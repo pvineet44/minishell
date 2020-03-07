@@ -41,14 +41,14 @@ void	ms_unset_single(char **env, char *arg, char **path)
 }
 
 
-void	ms_unset(char **env, char **args, char **path)
+void	ms_unset(char **env, char **args, char **path, int no_args)
 {
 	int	i;
 
 	i = 0;
-	(void)path;
-	(void)env;
 	errno = 0;
+	if (no_args)
+		return ;
 	while (args[i] != 0)
 	{
 		ms_unset_single(env, args[i], path);

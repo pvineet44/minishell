@@ -32,7 +32,7 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 	quote_bit = 0;
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
-	if (line[i] == '\0' || ft_isredir(line[i]))
+	if ((line[i] == '\0' || ft_isredir(line[i])) && (ms->no_args = 1))
 	{
 		ms->piped_cmds->args1[index][0] = ft_strdup("");
 		ms->piped_cmds->args1[index][1] = 0; 
@@ -61,7 +61,7 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 	}
 	if (ms->arg)
 		ms->piped_cmds->args1[index][j++] = ft_strdup(ms->arg);
-	else 
+	else
 		ms->piped_cmds->args1[index][j++] = ft_strdup("");
 	ft_free(&ms->arg);
 	ms->piped_cmds->args1[index][j] = 0;

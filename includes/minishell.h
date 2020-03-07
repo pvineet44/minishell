@@ -57,6 +57,7 @@ typedef struct				s_minishell_meta
 	int						file_fd;
 	int						multiline;
 	int						end_quote;
+	int						no_args;
 	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
 t_piped_minishell_meta		*init_cmds(int length);
@@ -75,7 +76,7 @@ void						proc_signal_handler(int sig);
 void						proc_sigquit_handler(int sig);
 int							get_exit_status(t_minishell_meta *ms);
 void						ms_exit(t_minishell_meta *ms, char *line, int i);
-void						ms_unset(char **env, char **args, char **path);
+void						ms_unset(char **env, char **args, char **path, int no_args);
 void						ms_unset_single(char **env, char *arg, char **path);
 void						ms_export(t_minishell_meta *ms, int i);
 void						set_path(t_minishell_meta *ms);
