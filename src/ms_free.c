@@ -19,7 +19,6 @@ void			free_tab_tab(char ***args)
 	i = 0;
 	while (args[i] != 0)
 	{
-		ft_putnbr_fd(i, 2);
 		free_tab(args[i]);
 		i++;
 	}
@@ -38,9 +37,9 @@ void					free_all(t_minishell_meta *ms, char *line)
 	if (ms->piped_cmds!= 0)
 	{
 		free_tab(ms->piped_cmds->cmds);
-		// free_tab_tab(ms->piped_cmds->args1);
-		// free_tab_tab(ms->piped_cmds->files1);
-		// free_tab_tab(ms->piped_cmds->redir);
+		free_tab_tab(ms->piped_cmds->args1);
+		free_tab_tab(ms->piped_cmds->files1);
+		free_tab_tab(ms->piped_cmds->redir);
 		ft_free(&ms->piped_cmds->pipe);
 		free(ms->piped_cmds);
 		ms->piped_cmds = 0;

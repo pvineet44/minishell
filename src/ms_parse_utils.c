@@ -152,6 +152,14 @@ void				get_files(char *line, t_minishell_meta *ms, int index)
 	quote_bit = 0;
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
+	if (line[i] == '\0')
+	{
+		ms->piped_cmds->redir[index][j] = ft_strdup("");
+		ms->piped_cmds->files1[index][j] = ft_strdup("");
+		ms->piped_cmds->files1[index][++j] = 0;
+		ms->piped_cmds->redir[index][j] = 0;
+		return ;
+	}
 	while (line[i] && line[i] != 26)
 	{
 		while (line[i] && ft_isredir(line[i]))

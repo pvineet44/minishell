@@ -44,12 +44,18 @@ static	void				numeric_arg_required(char *line)
 void						ms_exit(t_minishell_meta *ms, char *line, int i)
 {
 	int stat;
+	if (ms->arg_last > 1)
+	{
+		errno = 1;
+		too_many_args("exit");
+		return;
+	}
 	write(STDOUT_FILENO, EXIT_MSG, 5);
-	if (check_numeric_arg(ms->piped_cmds->args[i]))
-		stat = ft_atoi(ms->piped_cmds->args[i]);
+	if (check_numeric_arg(ms->piped_cmds->args1[i][0]))
+		stat = ft_atoi(ms->piped_cmds->args1[i][0]);
 	else
 	{
-		numeric_arg_required(ms->piped_cmds->args[i]);
+		numeric_arg_required(ms->piped_cmds->args1[i][0]);
 		stat = 255;
 	}
 	free_all(ms, line);

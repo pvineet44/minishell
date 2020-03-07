@@ -20,7 +20,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
-# define SHELL_BANNER "minishell-1.0$"
+# define SHELL_BANNER "minishell-1.0$ "
 # define SHELL_NAME "minishell"
 # define COMMAND_NOT_FOUND ": command not found\n"
 # define SYNTAX_ERROR ": syntax error near unexpected token `"
@@ -74,7 +74,7 @@ void						sig_quit_handler(int sig);
 void						proc_signal_handler(int sig);
 void						proc_sigquit_handler(int sig);
 int							get_exit_status(t_minishell_meta *ms);
-void						ms_exit(t_minishell_meta *ms, char *line);
+void						ms_exit(t_minishell_meta *ms, char *line, int i);
 void						ms_unset(char **env, char **args, char **path);
 void						ms_unset_single(char **env, char *arg, char **path);
 void						ms_export(t_minishell_meta *ms, int i);
@@ -123,4 +123,5 @@ char						*replace_tabs(char *line);
 void        			    no_file_or_directory(char *cmd, char *name);
 void						syntax_error(char *token);
 int             			check_line(char *line);
+void						too_many_args(char *cmd);
 #endif

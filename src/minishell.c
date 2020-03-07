@@ -54,7 +54,7 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	}
 	else
 		free_all(ms, line);
-	write(STDOUT_FILENO, SHELL_BANNER, 14);
+	write(STDOUT_FILENO, SHELL_BANNER, 15);
 }
 
 void			set_path(t_minishell_meta *ms)
@@ -80,7 +80,7 @@ int				main(int ac, char **av, char **env)
 	ms->env = env;
 	set_path(ms);
 	line = NULL;
-	write(STDOUT_FILENO, SHELL_BANNER, 14);
+	write(STDOUT_FILENO, SHELL_BANNER, 15);
 	while ((ret = get_next_line(0, &line)) >= 0)
 	{
 		if (ret == 0)
@@ -93,7 +93,7 @@ int				main(int ac, char **av, char **env)
 		}
 		if (line[0] == '\0')
 		{
-			write(STDOUT_FILENO, SHELL_BANNER, 14);
+			write(STDOUT_FILENO, SHELL_BANNER, 15);
 			free(line);
 			continue ;
 		}

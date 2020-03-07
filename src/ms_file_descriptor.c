@@ -63,9 +63,9 @@ int is_append)
 void					call_actual_handle(char *filename, char *redir, 
 t_minishell_meta *ms, int i)
 {
-	if (filename == NULL && redir == NULL)
+	if (filename[0] == '\0' && redir[0] == '\0')
 		return ;
-	if (redir == NULL)
+	if (redir[0] == '\0')
 	{
 		ms->piped_cmds->args1[i][ms->arg_last] = ft_strdup(filename);
 		ms->arg_last++;

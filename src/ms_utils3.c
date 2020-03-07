@@ -29,6 +29,14 @@ void            no_file_or_directory(char *cmd, char *name)
     ft_putstr_fd("No such file or directory\n", STDERR_FILENO);
 }
 
+void            too_many_args(char *cmd)
+{
+    ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
+    ft_putstr_fd(": ", STDERR_FILENO);
+    ft_putstr_fd(cmd, STDERR_FILENO);
+    ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
+}
+
 void            syntax_error(char *token)
 {
     ft_putstr_fd(SHELL_NAME, STDERR_FILENO);

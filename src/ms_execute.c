@@ -58,10 +58,9 @@ void			ms_execute(char *path, char **args, char **env, int len)
 
 	i = 0;
 	x = 1;
-	ft_putnbr_fd(len, 2);
 	char **av = (char**)malloc(sizeof(char*) * (len + 2));
 	if (av == NULL)
-		ms_exit(NULL, NULL);
+		ms_exit(NULL, NULL, 0);
 	av[0] = ft_strdup(path);
 	while (args[i] != 0 && len != 0)
 	{
@@ -69,7 +68,6 @@ void			ms_execute(char *path, char **args, char **env, int len)
 		i++;
 	}
 	av[i + 1] = 0;
-	check_args(av);
 	pid = fork();
 	signal(SIGINT, proc_signal_handler);
 	signal(SIGQUIT, proc_sigquit_handler);
