@@ -192,7 +192,6 @@ char					*parse(t_minishell_meta *ms, char *line)
 	// free_tab(line_splits);
 	// check_args(ms->path);
 	// check_args(ms->piped_cmds->cmds);
-	// check_args(ms->piped_cmds->args);
 	//check_args(ms->piped_cmds->args1[0]);
 	//check_args(ms->piped_cmds->files1[0]);
 	//check_args(ms->piped_cmds->redir[0]);
