@@ -59,6 +59,8 @@ void			ms_execute(char *path, char **args, char **env, int len)
 	i = 0;
 	x = 1;
 	errno = 0;
+	if (check_file_permission(path) == 0)
+		return ;
 	char **av = (char**)malloc(sizeof(char*) * (len + 2));
 	if (av == NULL)
 		ms_exit(NULL, NULL, 0);
