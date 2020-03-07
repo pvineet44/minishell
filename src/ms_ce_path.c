@@ -46,3 +46,15 @@ int				check_and_execute_path(t_minishell_meta *ms, int i)
 	}
 	return (0);
 }
+
+void			check_args3(char ***args)
+{
+	int i;
+
+	i = 0;
+	while(args[i])
+	{
+		check_args(args[i]);
+		i++;
+	}
+}

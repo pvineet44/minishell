@@ -14,11 +14,14 @@
 
 void			check_args(char **args)
 {
-	while (*args)
+	int i;
+
+	i = 0;
+	while (args[i])
 	{
-		ft_putstr_fd(*args, STDOUT_FILENO);
+		ft_putstr_fd(args[i], STDOUT_FILENO);
 			ft_putstr_fd("|\n",1);
-		args++;
+		i++;
 	}
 }
 

@@ -36,6 +36,7 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 	{
 		ms->piped_cmds->args1[index][0] = ft_strdup("");
 		ms->piped_cmds->args1[index][1] = 0; 
+		ms->arg_last = j;
 		return (i);
 	}
 	while (line && line[i] != '\0' && line[i] != 26 && !ft_isredir(line[i]))
@@ -61,8 +62,8 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 	}
 	if (ms->arg)
 		ms->piped_cmds->args1[index][j++] = ft_strdup(ms->arg);
-	else
-		ms->piped_cmds->args1[index][j++] = ft_strdup("");
+	// else if (!ms->arg && !ms->no_args)
+	// 	ms->piped_cmds->args1[index][j++] = ft_strdup("");
 	ft_free(&ms->arg);
 	ms->piped_cmds->args1[index][j] = 0;
 	ms->arg_last = j;
@@ -189,16 +190,18 @@ char					*parse(t_minishell_meta *ms, char *line)
 		line_splits[1] = NULL;
 	}
 	load_cmds_args(ms, line_splits);
-	// free_tab(line_splits);
+	 free_tab(line_splits);
 	// check_args(ms->path);
 	// check_args(ms->piped_cmds->cmds);
-	//check_args(ms->piped_cmds->args1[0]);
-	//check_args(ms->piped_cmds->files1[0]);
+	// check_args3(ms->piped_cmds->args1);
+	// check_args(ms->piped_cmds->args1[0]);
+	// ft_putendl_fd("", 2);
+	// check_args(ms->piped_cmds->args1[1]);
+	// exit (0);
 	//check_args(ms->piped_cmds->redir[0]);
 	// check_args(ms->piped_cmds->files1[1]);
 	// check_args(ms->piped_cmds->files1[2]);
 	// check_args(ms->piped_cmds->files1[3]);
 	//ft_putstr_fd(ms->piped_cmds->pipe, 1);
-	//exit(0);
 	return (line);
 }
