@@ -27,7 +27,7 @@ int				check_and_execute_path(t_minishell_meta *ms, int i)
 	char			*tmp_cmd;
 
 	j = 0;
-	if (ms->path[0] == 0)
+	if (ms->path == 0)
 		return (no_path_set(ms->piped_cmds->cmds[i]));
 	while (ms->path[j] != NULL)
 	{

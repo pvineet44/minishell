@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+void	free_path(char **args)
+{
+	int i;
+
+	i = 0;
+	while (args && args[i])
+	{
+		ft_free(&args[i]);
+		args[i] = 0;
+		i++;
+	}
+	if (args)
+		args = 0;
+}
+
+
 void	ms_unset_single(char **env, char *arg, char **path)
 {
 	int		env_len;
@@ -37,7 +53,7 @@ void	ms_unset_single(char **env, char *arg, char **path)
 		break ;
 	}
 	if (ft_strcmp(arg, "PATH") == 0)
-		free_tab(path);
+		free_path(path);
 }
 
 
