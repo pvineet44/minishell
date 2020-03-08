@@ -160,6 +160,7 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 		}
 		i++;
 	}
+	// ft_free(&line);
 	line = ft_strdup(ms->arg);
 	ft_free(&ms->arg);
 	return (line);
