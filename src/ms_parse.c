@@ -110,8 +110,6 @@ void					load_cmds_args(t_minishell_meta *ms, char **line_splits)
 		}
 		ms->piped_cmds->cmds[j] = get_command(line_splits[i], ms);
 		arg_end = get_args(ms, &line_splits[i][ms->arg_start], j);
-		//ms->piped_cmds->files[j] = get_file(ms->piped_cmds->files[j],
-		//&line_splits[i][arg_end + ms->arg_start], ms);
 		get_files(&line_splits[i][arg_end + ms->arg_start], ms, j);
 		j++;
 	}
@@ -194,6 +192,8 @@ char					*parse(t_minishell_meta *ms, char *line)
 	// check_args(ms->path);
 	// check_args(ms->piped_cmds->cmds);
 	// check_args3(ms->piped_cmds->args1);
+	// check_args3(ms->piped_cmds->files1);
+	// exit(0);
 	// check_args(ms->piped_cmds->args1[0]);
 	// ft_putendl_fd("", 2);
 	// check_args(ms->piped_cmds->args1[1]);

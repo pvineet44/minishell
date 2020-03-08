@@ -116,33 +116,6 @@ char *line, t_minishell_meta *ms)
 	return (redir);
 }
 
-char						*get_file(char *file,
-char *line, t_minishell_meta *ms)
-{
-	int		i;
-	int		quote_bit;
-
-	i = 0;
-	quote_bit = 0;
-	(void)ms;
-	
-	file = NULL;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	if (line[i] == 24 && (quote_bit = 1))
-		i++;
-	while (line[i] && !ft_isredir(line[i]))
-		i++;
-	if (line[i] == '\0' || (line[i] != '<' && line[i] != '>'))
-		return (ft_strdup(""));
-	while (line[i] != '\0' && line[i] != 26)
-	{
-		file = ft_stradd(file, line[i]);
-		i++;
-	}
-	return (file);
-}
-
 void				get_files(char *line, t_minishell_meta *ms, int index)
 {
 	int		i;
@@ -154,7 +127,7 @@ void				get_files(char *line, t_minishell_meta *ms, int index)
 	quote_bit = 0;
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
-	if (line[i] == '\0')
+	if (line[i] == '\0' || !ft_isredir(line[i]))
 	{
 		ms->piped_cmds->redir[index][j] = ft_strdup("");
 		ms->piped_cmds->files1[index][j] = ft_strdup("");
