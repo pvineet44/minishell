@@ -59,5 +59,6 @@ int             check_line(char *line)
         stat++;
         syntax_error(";");
     }
+    errno = 258;
     return (stat);
 }

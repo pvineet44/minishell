@@ -171,8 +171,10 @@ char					*parse(t_minishell_meta *ms, char *line)
 	char	**line_splits;
 
 	i = 0;
+	if (check_line(line) && (ms->multiline = 1))
+		return (line);
 	line = refine_line(line, ms);
-	if (((line == NULL) || check_line(line)) && (ms->multiline = 1))
+	if (((line == NULL) && (ms->multiline = 1)))
 		return (line);
 	ms->piped_cmds = init_cmds(ft_strlen(line));
 	if (ms->piped_cmds == NULL)
@@ -192,7 +194,7 @@ char					*parse(t_minishell_meta *ms, char *line)
 	// check_args(ms->path);
 	// check_args(ms->piped_cmds->cmds);
 	// check_args3(ms->piped_cmds->args1);
-	// check_args3(ms->piped_cmds->files1);
+	// check_args3(ms->piped_cmds->redir);
 	// exit(0);
 	// check_args(ms->piped_cmds->args1[0]);
 	// ft_putendl_fd("", 2);
