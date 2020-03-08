@@ -120,7 +120,7 @@ int				main(int ac, char **av, char **env)
 		if (line[0] == '\0' || is_spaces_only(line))
 		{
 			write(STDOUT_FILENO, SHELL_BANNER, 15);
-			free(line);
+			ft_free(&line);
 			continue ;
 		}
 		invoke_minishell(ms, line);
