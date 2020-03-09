@@ -56,11 +56,14 @@ void			ms_execute(char *path, char **args, char **env)
 	int		i;
 	int		x;
 	int len;
+	int stat;
 
 	i = 0;
 	x = 1;
 	errno = 0;
+	stat = 0;
 	len = ft_tablen(args);
+	stat = len ? 0 : 1;
 	if (check_file_permission(path) == 0)
 		return ;
 	char **av = (char**)malloc(sizeof(char*) * (len + 2));
@@ -74,8 +77,13 @@ void			ms_execute(char *path, char **args, char **env)
 	}
 	av[i + 1] = 0;
 	pid = fork();
-	signal(SIGINT, proc_signal_handler);
-	signal(SIGQUIT, proc_sigquit_handler);
+	if (stat)
+	{
+		signal(SIGINT, proc_signal_handler);
+		signal(SIGQUIT, proc_sigquit_handler);
+	}
+	else 
+		signal(SIGINT, sig_int_handler);
 	if (pid == 0)
 	{
 	 	x = execve(path, av, env);
@@ -89,4 +97,7 @@ void			ms_execute(char *path, char **args, char **env)
 	wait(&errno);
 	errno = errno / 255;
 	free_tab(av);
+	stat = 0;
+	signal(SIGINT, sig_int_handler);
+	signal(SIGQUIT, sig_quit_handler);
 }

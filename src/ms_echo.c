@@ -36,4 +36,5 @@ void				ms_echo(char **args)
 	}
 	if (c != 1)
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	errno = 0;
 }

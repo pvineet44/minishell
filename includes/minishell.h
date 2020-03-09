@@ -129,4 +129,5 @@ int					        get_line(char **line, t_minishell_meta *ms);
 void						too_many_args(char *cmd);
 void						check_args3(char ***args);
 int				ft_tablen(char **args);
+int				check_cat(char *line);
 #endif

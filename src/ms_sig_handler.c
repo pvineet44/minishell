@@ -14,15 +14,19 @@
 
 void	sig_int_handler(int sig)
 {
-	(void)sig;
-	ft_putstr(" \b\b \b\b ");
-	ft_putstr("\n");
-	write(STDERR_FILENO, SHELL_BANNER, 14);
-	signal(SIGINT, sig_int_handler);
+	if (sig == SIGINT)
+	{
+		errno = 1;
+		ft_putstr(" \b\b \b\b ");
+		ft_putstr("\n");
+		write(STDERR_FILENO, SHELL_BANNER, 15);
+		signal(SIGINT, sig_int_handler);
+	}
 }
 
 void	proc_signal_handler(int sig)
 {
+	errno = 130;
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 2);
