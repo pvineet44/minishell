@@ -101,10 +101,10 @@ void	command_not_found(t_minishell_meta *ms, int i)
 {
 	if (ms->piped_cmds->files1[i][0] != '\0')
 		unset_fd(ms);
-	write(STDOUT_FILENO, "minishell: ", 11);
-	write(STDOUT_FILENO, ms->piped_cmds->cmds[i],
+	write(STDERR_FILENO, "minishell: ", 11);
+	write(STDERR_FILENO, ms->piped_cmds->cmds[i],
 	ft_strlen(ms->piped_cmds->cmds[i]));
-	write(STDOUT_FILENO, COMMAND_NOT_FOUND, 20);
+	write(STDERR_FILENO, COMMAND_NOT_FOUND, 20);
 	errno = 127;
 }
 

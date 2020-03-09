@@ -25,7 +25,7 @@ void	ms_cd(char *path, t_minishell_meta *ms)
 	int ret;
 
 	errno = 0;
-	if (ft_strcmp(path, "") == 0)
+	if ((path == NULL) || ft_strcmp(path, "") == 0)
 	{
 		substitute_value("$HOME", 0, ms);
 		if ((ret = chdir(ms->arg)) == -1)

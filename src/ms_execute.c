@@ -50,15 +50,17 @@ void			free_used_values(char *args1, char *args2, char **av)
 	ft_free(&args2);
 }
 
-void			ms_execute(char *path, char **args, char **env, int len)
+void			ms_execute(char *path, char **args, char **env)
 {
 	pid_t	pid;
 	int		i;
 	int		x;
+	int len;
 
 	i = 0;
 	x = 1;
 	errno = 0;
+	len = ft_tablen(args);
 	if (check_file_permission(path) == 0)
 		return ;
 	char **av = (char**)malloc(sizeof(char*) * (len + 2));

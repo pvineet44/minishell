@@ -34,9 +34,8 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 		i++;
 	if ((line[i] == '\0' || line[i] == 26 || ft_isredir(line[i])) && (ms->no_args = 1))
 	{
-		ms->piped_cmds->args1[index][0] = ft_strdup("");
-		ms->piped_cmds->args1[index][1] = 0; 
-		ms->arg_last = 0;
+		ms->piped_cmds->args1[index][0] = 0;
+		// ms->piped_cmds->args1[index][1] = 0;
 		return (i);
 	}
 	while (line && line[i] != '\0' && line[i] != 26 && !ft_isredir(line[i]))
@@ -66,7 +65,6 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 		ms->piped_cmds->args1[index][j++] = ft_strdup("");
 	ft_free(&ms->arg);
 	ms->piped_cmds->args1[index][j] = 0;
-	ms->arg_last = j;
 	return (i);
 }
 

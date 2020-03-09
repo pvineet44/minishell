@@ -47,7 +47,6 @@ typedef struct				s_minishell_meta
 {
 	int						mypipe[2];
 	int						arg_start;
-	int						arg_last;
 	char					*arg;
 	int						process_bit;
 	char					**env;
@@ -88,7 +87,7 @@ int in, int i);
 void						ms_pwd();
 void						ms_env(char	**env);
 void						ms_echo(char **args);
-void						ms_execute(char *path, char **args, char **env, int len);
+void						ms_execute(char *path, char **args, char **env);
 void						free_tab(char **args);
 void						free_all(t_minishell_meta *ms, char *line);
 void						command_not_found(t_minishell_meta *ms, int i);
@@ -126,4 +125,5 @@ void						syntax_error(char *token);
 int             			check_line(char *line);
 void						too_many_args(char *cmd);
 void						check_args3(char ***args);
+int				ft_tablen(char **args);
 #endif

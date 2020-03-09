@@ -19,7 +19,9 @@ void				ms_echo(char **args)
 
 	i = 0;
 	c = 0;
-	if (ft_strcmp(args[i], "-n") == 0)
+	if (args[0] == NULL)
+		c = 0;
+	else if (ft_strcmp(args[i], "-n") == 0)
 	{
 		c = 1;
 		i++;

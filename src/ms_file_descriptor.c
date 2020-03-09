@@ -65,13 +65,18 @@ int is_append)
 void					call_actual_handle(char *filename, char *redir, 
 t_minishell_meta *ms, int i)
 {
+	int j;
+
+	j = 0;
 	if (filename[0] == '\0' && redir[0] == '\0')
 		return ;
 	if (redir[0] == '\0')
 	{
-		ms->piped_cmds->args1[i][ms->arg_last] = ft_strdup(filename);
-		ms->arg_last++;
-		ms->piped_cmds->args1[i][ms->arg_last] = 0;
+		while (ms->piped_cmds->args1[i][j] != 0)
+			j++;
+		ms->piped_cmds->args1[i][j] = ft_strdup(filename);
+		j++;
+		ms->piped_cmds->args1[i][j] = 0;
 	}
 	if (ft_strcmp(redir, ">>") == 0)
 		set_out_fd(ms, filename, 1);

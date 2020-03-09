@@ -19,8 +19,8 @@ void			check_args(char **args)
 	i = 0;
 	while (args[i])
 	{
-		ft_putstr_fd(args[i], STDOUT_FILENO);
-			ft_putstr_fd("|\n",1);
+		ft_putstr_fd(args[i], 2);
+			ft_putstr_fd("|\n",2);
 		i++;
 	}
 }
@@ -35,7 +35,6 @@ void			init_ms(t_minishell_meta *ms)
 	ms->in_fd = -1;
 	ms->multiline = 0;
 	ms->piped_cmds = 0;
-	ms->arg_last = 0;
 	ms->no_args = 0;
 	ms->path = 0;
 	set_path(ms);

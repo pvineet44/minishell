@@ -18,6 +18,8 @@ static	int					check_numeric_arg(char *line)
 	int i;
 
 	i = 0;
+	if (line == NULL)
+		return (0);
 	if (line[i] == '-')
 	{
 		if (ft_isdigit(line[i + 1]) == 0)
@@ -44,20 +46,25 @@ static	void				numeric_arg_required(char *line)
 void						ms_exit(t_minishell_meta *ms, char *line, int i)
 {
 	int stat;
-	if (ms->arg_last > 1)
+	int len_args;
+
+	len_args = ft_tablen(ms->piped_cmds->args1[i]);
+	if (len_args == 0)
+		stat = 0;
+	else if (len_args > 1)
 	{
 		errno = 1;
 		too_many_args("exit");
 		return;
 	}
-	write(STDOUT_FILENO, EXIT_MSG, 5);
-	if (check_numeric_arg(ms->piped_cmds->args1[i][0]))
+	else if (check_numeric_arg(ms->piped_cmds->args1[i][0]))
 		stat = ft_atoi(ms->piped_cmds->args1[i][0]);
 	else
 	{
 		numeric_arg_required(ms->piped_cmds->args1[i][0]);
 		stat = 255;
 	}
+	write(STDOUT_FILENO, EXIT_MSG, 5);
 	free_all(ms, line);
 	free_tab(ms->path);
 	if (ms)

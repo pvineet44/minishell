@@ -35,7 +35,7 @@ int				check_and_execute_path(t_minishell_meta *ms, int i)
 		path = ft_strjoin(tmp_cmd, ms->piped_cmds->cmds[i]);
 		if (lstat(path, &buffer) == 0)
 		{
-			ms_execute(path, ms->piped_cmds->args1[i], ms->env, ms->arg_last);
+			ms_execute(path, ms->piped_cmds->args1[i], ms->env);
 			ft_free(&tmp_cmd);
 			ft_free(&path);
 			return (1);
@@ -57,4 +57,14 @@ void			check_args3(char ***args)
 		check_args(args[i]);
 		i++;
 	}
+}
+
+int				ft_tablen(char **args)
+{
+	int i;
+
+	i = 0;
+	while (args && args[i])
+		i++;
+	return (i);
 }

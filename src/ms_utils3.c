@@ -43,6 +43,7 @@ void            syntax_error(char *token)
     ft_putstr_fd(SYNTAX_ERROR, STDERR_FILENO);
     ft_putstr_fd(token, STDERR_FILENO);
     ft_putstr_fd("'\n", STDERR_FILENO);
+    errno = 258;
 }
 
 int             check_line(char *line)
@@ -53,12 +54,13 @@ int             check_line(char *line)
     {
         stat++;
         syntax_error(";;");
+        errno = 258;
     }
     else if (line[0] == ';')
     {
         stat++;
         syntax_error(";");
+        errno = 258;
     }
-    errno = 258;
     return (stat);
 }
