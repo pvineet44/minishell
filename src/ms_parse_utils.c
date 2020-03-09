@@ -125,6 +125,8 @@ void				get_files(char *line, t_minishell_meta *ms, int index)
 	j = 0;
 	i = 0;
 	quote_bit = 0;
+	while (line[i] != '\0' && ft_isalpha(line[i]))
+		i++;
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
 	if (line[i] == '\0' || !ft_isredir(line[i]))
