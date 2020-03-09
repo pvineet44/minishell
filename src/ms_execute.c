@@ -62,8 +62,8 @@ void			ms_execute(char *path, char **args, char **env)
 	x = 1;
 	errno = 0;
 	stat = 0;
-	stat = check_cat(path);
 	len = ft_tablen(args);
+	stat = len ? 0 : 1;
 	if (check_file_permission(path) == 0)
 		return ;
 	char **av = (char**)malloc(sizeof(char*) * (len + 2));
