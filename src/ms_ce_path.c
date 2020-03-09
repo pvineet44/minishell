@@ -68,3 +68,12 @@ int				ft_tablen(char **args)
 		i++;
 	return (i);
 }
+int				check_cat(char *line)
+{
+	int len;
+
+	len = ft_strlen(line);
+	if (line[len - 1] == 't' && line[len - 2] == 'a' && line[len -3] == 'c' && line[len - 4] == '/')
+		return (1);
+	return (0);
+}

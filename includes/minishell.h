@@ -126,4 +126,5 @@ int             			check_line(char *line);
 void						too_many_args(char *cmd);
 void						check_args3(char ***args);
 int				ft_tablen(char **args);
+int				check_cat(char *line);
 #endif
