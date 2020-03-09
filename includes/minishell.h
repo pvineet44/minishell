@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
+# include <stdio.h>
 # define SHELL_BANNER "minishell-1.0$ "
 # define SHELL_NAME "minishell"
 # define COMMAND_NOT_FOUND ": command not found\n"
@@ -123,6 +124,8 @@ char						*replace_tabs(char *line);
 void        			    no_file_or_directory(char *cmd, char *name);
 void						syntax_error(char *token);
 int             			check_line(char *line);
+char				        *join_tmp_line(char **tmp_line, char *line);
+int					        get_line(char **line, t_minishell_meta *ms);
 void						too_many_args(char *cmd);
 void						check_args3(char ***args);
 int				ft_tablen(char **args);

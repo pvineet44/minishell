@@ -95,7 +95,7 @@ int				main(int ac, char **av, char **env)
 {
 	char				*line;
 	t_minishell_meta	*ms;
-	int					ret;
+	char				*tmp_line;
 
 	(void)ac;
 	(void)av;
@@ -104,18 +104,14 @@ int				main(int ac, char **av, char **env)
 	if (!(ms = malloc(sizeof(t_minishell_meta))))
 		return (0);
 	ms->env = env;
+	ms->path = 0;
+	tmp_line = NULL;
 	line = NULL;
 	write(STDOUT_FILENO, SHELL_BANNER, 15);
-	while ((ret = get_next_line(0, &line)) >= 0)
+	while (1)
 	{
-		if (ret == 0)
-		{
-			ft_free(&line);
-			free_tab(ms->path);
-			free(ms);
-			write(1, " exit\n", 6);
-			exit(0);
-		}
+		if (get_line(&line,ms))
+			continue ;
 		if (line[0] == '\0' || is_spaces_only(line))
 		{
 			write(STDOUT_FILENO, SHELL_BANNER, 15);
