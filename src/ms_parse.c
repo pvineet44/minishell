@@ -137,6 +137,13 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 		}
 		else if (line[i] == '$')
 			i = substitute_value(line, i, ms);
+		else if (ft_isredir(line[i]))
+		{
+			i = check_invalid_redir(line, i, ms);
+			if (i == 0)
+				return (0);
+			continue ;
+		}
 		else 
 		{
 			if (line[i] == '\\')
@@ -151,7 +158,14 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 				continue;
 			}
 			else if (line[i] == ';')
+			{
+				if (line[i + 1] == ';')
+				{
+					syntax_error(";;");
+					return (0);
+				}
 				line[i] = 25;
+			}
 			else if (line[i] == '|' )
 				line[i] = 26;
 			ms->arg = ft_stradd(ms->arg, line[i]);

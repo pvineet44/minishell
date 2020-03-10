@@ -64,3 +64,51 @@ int             check_line(char *line)
     }
     return (stat);
 }
+
+char            *fetch_redir(char *line, int *i)
+{
+    char *redir_seq;
+    int j;
+
+    j = *i;
+    redir_seq = NULL;
+    redir_seq = ft_stradd(redir_seq, line[*i]);
+    j++;
+    if (line[j] == '>')
+    {
+        redir_seq = ft_stradd(redir_seq, line[j]);
+        j++;
+    }
+    *i = j;
+    return (redir_seq);
+}
+
+int             check_invalid_redir(char *line, int i, t_minishell_meta *ms)
+{
+    char *redir_seq;
+
+    if (line[i] == '|' && i == 0)
+    {
+        syntax_error("|");
+        return (0);
+    }
+    redir_seq = NULL;
+    redir_seq = fetch_redir(line, &i);
+    ms->arg = ft_strjoin(ms->arg, redir_seq);
+    ft_free(&redir_seq);
+    if (line[i] == 0)
+    {
+        syntax_error("newline");
+        ft_free(&ms->arg);
+        return (0);
+    }
+    else if (ft_isredir(line[i]))
+    {
+        redir_seq = fetch_redir(line, &i);
+        syntax_error(redir_seq);
+        ft_free(&ms->arg);
+        return (0);
+    }
+    ft_free(&redir_seq);
+    return(i);
+}

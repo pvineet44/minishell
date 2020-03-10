@@ -102,6 +102,7 @@ void						handle_pipe(t_minishell_meta *ms, int i);
 void						ms_cd(char *path, t_minishell_meta *ms);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
+int				            check_invalid_redir(char *line, int i, t_minishell_meta *ms);
 int							check_and_execute_path(t_minishell_meta *ms,
 int i);
 int							substitute_value(char *line, int i,
