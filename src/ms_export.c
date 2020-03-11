@@ -115,3 +115,22 @@ void			ms_export(t_minishell_meta *ms, int i)
 		k++;
 	}
 }
+
+
+
+
+
+
+
+/*
+set env
+set export_table
+
+if export without arguments, display export_table
+
+if export has arguments and argument has '=' add to env table and also export table
+(replace existing entries in those tables)
+
+if export has arguments and argument does not have '=', add only to export table
+(do not replace existing entry in the export table)
+*/
