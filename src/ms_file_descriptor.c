@@ -62,7 +62,7 @@ int is_append)
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 }
 
-void					call_actual_handle(char *filename, char *redir, 
+void					call_actual_handle(char *filename, char *redir,\
 t_minishell_meta *ms, int i)
 {
 	int j;
@@ -81,14 +81,15 @@ t_minishell_meta *ms, int i)
 	if (ft_strcmp(redir, ">>") == 0)
 		set_out_fd(ms, filename, 1);
 	else if ((ft_strcmp(redir, "><") == 0) && (ms->process_bit = -1))
-		return syntax_error("<");
-	else if ((ft_strcmp(redir, "<>") == 0) &&(ms->multiline = -99))
+		return (syntax_error("<"));
+	else if ((ft_strcmp(redir, "<>") == 0) && (ms->multiline = -99))
 		set_in_fd(ms, filename);
 	else if (redir[0] == '>')
 		set_out_fd(ms, filename, 0);
 	else if (redir[0] == '<')
 		set_in_fd(ms, filename);
 }
+
 void					handle_fd(t_minishell_meta *ms, int index)
 {
 	int i;
@@ -96,7 +97,8 @@ void					handle_fd(t_minishell_meta *ms, int index)
 	i = 0;
 	while (ms->piped_cmds->files1[index][i])
 	{
-		call_actual_handle(ms->piped_cmds->files1[index][i], ms->piped_cmds->redir[index][i], ms, index);
+		call_actual_handle(ms->piped_cmds->files1[index][i],\
+		ms->piped_cmds->redir[index][i], ms, index);
 		i++;
 	}
 }

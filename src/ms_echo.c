@@ -26,9 +26,8 @@ void				ms_echo(char **args)
 		c = 1;
 		i++;
 	}
-	while(args[i])
+	while (args[i])
 	{
-	
 		ft_putstr_fd(args[i], STDOUT_FILENO);
 		if (args[i + 1])
 			ft_putstr_fd(" ", STDOUT_FILENO);

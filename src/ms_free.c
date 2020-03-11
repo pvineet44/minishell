@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void			free_tab_tab(char ***args)
+void					free_tab_tab(char ***args)
 {
 	int i;
 
@@ -34,7 +34,7 @@ void					free_all(t_minishell_meta *ms, char *line)
 	int				i;
 
 	i = 0;
-	if (ms->piped_cmds!= 0)
+	if (ms->piped_cmds != 0)
 	{
 		free_tab(ms->piped_cmds->cmds);
 		free_tab_tab(ms->piped_cmds->args1);

@@ -52,7 +52,7 @@ void			check_args3(char ***args)
 	int i;
 
 	i = 0;
-	while(args[i])
+	while (args[i])
 	{
 		check_args(args[i]);
 		i++;

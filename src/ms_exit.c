@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 static	int					check_numeric_arg(char *line)
 {
 	int i;
@@ -26,10 +25,10 @@ static	int					check_numeric_arg(char *line)
 			return (0);
 		i++;
 	}
-	while(line && line[i])
+	while (line && line[i])
 	{
 		if (ft_isdigit(line[i]) == 0)
-			return(0);
+			return (0);
 		i++;
 	}
 	return (1);
@@ -55,7 +54,7 @@ void						ms_exit(t_minishell_meta *ms, char *line, int i)
 	{
 		errno = 1;
 		too_many_args("exit");
-		return;
+		return ;
 	}
 	else if (check_numeric_arg(ms->piped_cmds->args1[i][0]))
 		stat = ft_atoi(ms->piped_cmds->args1[i][0]);
