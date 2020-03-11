@@ -51,6 +51,7 @@ typedef struct				s_minishell_meta
 	char					*arg;
 	int						process_bit;
 	char					**env;
+    char                    **export;
 	char					**path;
 	int						in_fd;
 	int						out_fd;

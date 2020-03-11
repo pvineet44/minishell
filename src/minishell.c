@@ -25,6 +25,28 @@ void			check_args(char **args)
 	}
 }
 
+void            set_export(t_minishell_meta *ms)
+{
+    int i;
+    int env_len;
+
+    i = 0;
+    while (ms->env[env_len] != 0)
+        env_len++;
+    ms->export = (char**)malloc(sizeof(char*) * (env_len + 1));
+    if(ms->export == NULL)
+        exit(0); //Properly exit here
+    while (i < env_len)
+    {
+        ms->export[i] = ft_strdup(ms->env[i]);
+        i++;
+    }
+    ms->export[i] = 0;
+    return ;
+    // check_args(ms->export);
+    // exit(0);
+}
+
 void			init_ms(t_minishell_meta *ms)
 {
 	ms->arg_start = 0;
@@ -104,6 +126,7 @@ int				main(int ac, char **av, char **env)
 	if (!(ms = malloc(sizeof(t_minishell_meta))))
 		return (0);
 	ms->env = env;
+    set_export(ms);
 	ms->path = 0;
 	tmp_line = NULL;
 	line = NULL;

@@ -37,8 +37,8 @@ int				check_var(char *var, char *cmd)
 		}
 		i++;
 	}
-	if (var[i] == '\0' && (ft_strcmp(cmd, "export") == 0))
-		return (0);
+	//if (var[i] == '\0' && (ft_strcmp(cmd, "export") == 0))
+	//	return (0);
 	if (var[i] != '\0' && (ft_strcmp(cmd, "unset") == 0))
 	{
 		print_invalid(var, cmd);
@@ -47,7 +47,7 @@ int				check_var(char *var, char *cmd)
 	return (1);
 }
 
-static void		print_export_env(char **env)
+static void		print_export_env(char **env, char **exp)
 {
 	int		i;
 	int		j;
@@ -64,7 +64,20 @@ static void		print_export_env(char **env)
 				ft_putchar_fd('\"', STDOUT_FILENO);
 			j++;
 		}
-		ft_putstr_fd("\"\n", STDOUT_FILENO);
+        ft_putstr_fd("\"\n", STDOUT_FILENO);
+		i++;
+	}
+    i = 0;
+    while (exp[i] != 0)
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		j = 0;
+		while (exp[i][j] != '\0')
+		{
+			ft_putchar_fd(exp[i][j], STDOUT_FILENO);
+			j++;
+		}
+        ft_putstr_fd("\n", STDOUT_FILENO);
 		i++;
 	}
 }
@@ -82,6 +95,7 @@ void			unset_var(char *var, t_minishell_meta *ms)
 		i++;
 	}
 	ms_unset_single(ms->env, tmp_var, ms->path);
+    ms_unset_single(ms->export, tmp_var, ms->path);
 	ft_free(&tmp_var);
 	return ;
 }
@@ -90,13 +104,13 @@ void			ms_export(t_minishell_meta *ms, int i)
 {
 	int		j;
 	int		k;
-
+    
 	k = 0;
 	j =0;
 	errno = 0;
 	if (ms->piped_cmds->args1[i][0] == NULL && ms->no_args)
 	{
-		print_export_env(ms->env);
+		print_export_env(ms->env, ms->export);
 		return ;
 	}
 	while (ms->piped_cmds->args1[i][k] != 0)
@@ -104,11 +118,22 @@ void			ms_export(t_minishell_meta *ms, int i)
 		j = 0;
 		if (check_var(ms->piped_cmds->args1[i][k], "export"))
 		{
-			unset_var(ms->piped_cmds->args1[i][k], ms);
-			while (ms->env[j] != 0)
-				j++;
-			ms->env[j] = ft_strdup(ms->piped_cmds->args1[i][k]);
-			ms->env[++j] = 0;
+			if (ft_strchr(ms->piped_cmds->args1[i][k], '=') != NULL)
+            {
+                unset_var(ms->piped_cmds->args1[i][k], ms);
+			    while (ms->env[j] != 0)
+				    j++;
+			    ms->env[j] = ft_strdup(ms->piped_cmds->args1[i][k]);
+			    ms->env[++j] = 0;
+                j = 0;
+            }
+            else
+            {
+                while (ms->export[j] != 0)
+				    j++;
+			    ms->export[j] = ft_strdup(ms->piped_cmds->args1[i][k]);
+			    ms->export[++j] = 0;
+            }
 		}
 		if (ft_strncmp(ms->piped_cmds->args1[i][k], "PATH=",5) == 0)
 			set_path(ms);
