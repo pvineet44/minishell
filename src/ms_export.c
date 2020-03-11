@@ -37,8 +37,6 @@ int				check_var(char *var, char *cmd)
 		}
 		i++;
 	}
-	//if (var[i] == '\0' && (ft_strcmp(cmd, "export") == 0))
-	//	return (0);
 	if (var[i] != '\0' && (ft_strcmp(cmd, "unset") == 0))
 	{
 		print_invalid(var, cmd);
@@ -47,12 +45,13 @@ int				check_var(char *var, char *cmd)
 	return (1);
 }
 
-static void		print_export_env(char **env, char **exp)
+static void 	print_export_env(char **env)
 {
-	int		i;
-	int		j;
+	int i;
+	int j;
 
 	i = 0;
+	j = 0;
 	while (env[i] != 0)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
@@ -64,20 +63,9 @@ static void		print_export_env(char **env, char **exp)
 				ft_putchar_fd('\"', STDOUT_FILENO);
 			j++;
 		}
-        ft_putstr_fd("\"\n", STDOUT_FILENO);
-		i++;
-	}
-    i = 0;
-    while (exp[i] != 0)
-	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		j = 0;
-		while (exp[i][j] != '\0')
-		{
-			ft_putchar_fd(exp[i][j], STDOUT_FILENO);
-			j++;
-		}
-        ft_putstr_fd("\n", STDOUT_FILENO);
+        if (ft_strchr(env[i], '=') != NULL)
+			ft_putstr_fd("\"", STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		i++;
 	}
 }
@@ -100,6 +88,28 @@ void			unset_var(char *var, t_minishell_meta *ms)
 	return ;
 }
 
+int				not_in_env(char **env, char *var)
+{
+	int		env_len;
+	int		var_len;
+	int		i;
+
+	i = -1;
+	var_len = ft_strlen(var);
+	while (env[++i] != '\0')
+	{
+		env_len = 0;
+		while (env[i][env_len] != '=' && env[i][env_len] != '\0')
+			env_len++;
+		if (var_len != env_len)
+			continue;
+		if (ft_strncmp(var, env[i], var_len) != 0)
+			continue;
+		return (0);
+	}
+	return (1);
+}
+
 void			ms_export(t_minishell_meta *ms, int i)
 {
 	int		j;
@@ -110,7 +120,8 @@ void			ms_export(t_minishell_meta *ms, int i)
 	errno = 0;
 	if (ms->piped_cmds->args1[i][0] == NULL && ms->no_args)
 	{
-		print_export_env(ms->env, ms->export);
+		print_export_env(ms->env);
+		print_export_env(ms->export);
 		return ;
 	}
 	while (ms->piped_cmds->args1[i][k] != 0)
@@ -127,8 +138,9 @@ void			ms_export(t_minishell_meta *ms, int i)
 			    ms->env[++j] = 0;
                 j = 0;
             }
-            else
+            else if (not_in_env(ms->env, ms->piped_cmds->args1[i][k]))
             {
+				ms_unset_single(ms->export, ms->piped_cmds->args1[i][k], ms->path);
                 while (ms->export[j] != 0)
 				    j++;
 			    ms->export[j] = ft_strdup(ms->piped_cmds->args1[i][k]);
@@ -140,22 +152,3 @@ void			ms_export(t_minishell_meta *ms, int i)
 		k++;
 	}
 }
-
-
-
-
-
-
-
-/*
-set env
-set export_table
-
-if export without arguments, display export_table
-
-if export has arguments and argument has '=' add to env table and also export table
-(replace existing entries in those tables)
-
-if export has arguments and argument does not have '=', add only to export table
-(do not replace existing entry in the export table)
-*/

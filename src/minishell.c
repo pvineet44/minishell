@@ -31,20 +31,15 @@ void            set_export(t_minishell_meta *ms)
     int env_len;
 
     i = 0;
+	env_len = 0;
     while (ms->env[env_len] != 0)
         env_len++;
     ms->export = (char**)malloc(sizeof(char*) * (env_len + 1));
     if(ms->export == NULL)
         exit(0); //Properly exit here
-    while (i < env_len)
-    {
-        ms->export[i] = ft_strdup(ms->env[i]);
-        i++;
-    }
     ms->export[i] = 0;
     return ;
-    // check_args(ms->export);
-    // exit(0);
+
 }
 
 void			init_ms(t_minishell_meta *ms)
