@@ -46,6 +46,16 @@ void            syntax_error(char *token)
     errno = 258;
 }
 
+void			print_invalid(char *var, char *cmd)
+{
+	errno = 1;
+	ft_putstr_fd("minishell: ", STDOUT_FILENO);
+	ft_putstr_fd(cmd, STDOUT_FILENO);
+	ft_putstr_fd(": `", STDOUT_FILENO);
+	ft_putstr_fd(var, STDOUT_FILENO);
+	ft_putstr_fd("\': not a valid identifier\n", STDOUT_FILENO);
+}
+
 int             check_line(char *line)
 {
     int stat;

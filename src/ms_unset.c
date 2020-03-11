@@ -12,6 +12,24 @@
 
 #include "minishell.h"
 
+void	unset_var(char *var, t_minishell_meta *ms)
+{
+	int		i;
+	char	*tmp_var;
+
+	i = 0;
+	tmp_var = NULL;
+	while (var[i] != '=')
+	{
+		tmp_var = ft_stradd(tmp_var, var[i]);
+		i++;
+	}
+	ms_unset_single(ms->env, tmp_var, ms->path);
+	ms_unset_single(ms->export, tmp_var, ms->path);
+	ft_free(&tmp_var);
+	return ;
+}
+
 void	free_path(char **args)
 {
 	int i;
@@ -26,7 +44,6 @@ void	free_path(char **args)
 	if (args)
 		args = 0;
 }
-
 
 void	ms_unset_single(char **env, char *arg, char **path)
 {
@@ -56,18 +73,18 @@ void	ms_unset_single(char **env, char *arg, char **path)
 		free_path(path);
 }
 
-
-void	ms_unset(char **env, char **args, char **path, int no_args)
+void	ms_unset(t_minishell_meta *ms, int i)
 {
-	int	i;
+	int	j;
 
-	i = 0;
+	j = 0;
 	errno = 0;
-	if (no_args)
+	if (ms->no_args)
 		return ;
-	while (args[i] != 0)
+	while (ms->piped_cmds->args1[i][j] != 0)
 	{
-		ms_unset_single(env, args[i], path);
-		i++;
+		ms_unset_single(ms->env, ms->piped_cmds->args1[i][j], ms->path);
+		ms_unset_single(ms->export, ms->piped_cmds->args1[i][j], ms->path);
+		j++;
 	}
 }

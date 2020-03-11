@@ -77,8 +77,9 @@ void						proc_signal_handler(int sig);
 void						proc_sigquit_handler(int sig);
 int							get_exit_status(t_minishell_meta *ms);
 void						ms_exit(t_minishell_meta *ms, char *line, int i);
-void						ms_unset(char **env, char **args, char **path, int no_args);
+void						ms_unset(t_minishell_meta *ms, int i);
 void						ms_unset_single(char **env, char *arg, char **path);
+void						unset_var(char *var, t_minishell_meta *ms);
 void						ms_export(t_minishell_meta *ms, int i);
 void						set_path(t_minishell_meta *ms);
 int							check_var(char *var, char *cmd);
@@ -124,6 +125,7 @@ void						process_piped_cmd(t_minishell_meta *ms, char *line,
 int i, int *in);
 char						*replace_tabs(char *line);
 void        			    no_file_or_directory(char *cmd, char *name);
+void						print_invalid(char *var, char *cmd);
 void						syntax_error(char *token);
 int             			check_line(char *line);
 char				        *join_tmp_line(char **tmp_line, char *line);
