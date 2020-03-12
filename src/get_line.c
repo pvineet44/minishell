@@ -12,37 +12,6 @@
 
 #include "minishell.h"
 
-// char        *get_line(char *line, char *tmp_line)
-// {
-//     int     i;
-
-//     ft_putstr_fd("  \b\b", STDOUT_FILENO);
-//     if (tmp_line != NULL)
-//         return (tmp_line);
-//     i = 0;
-//     while (line[i] != '\0')
-//     {
-//         tmp_line = ft_stradd(tmp_line, line[i]);
-//         i++;
-//     }
-//     return (tmp_line);
-// }
-
-// char        *join_tmp_line(char **tmp_line, char *line)
-// {
-//     char *ret_line;
-
-//     ret_line = 0;
-//     ft_putendl_fd(*tmp_line, 2);
-//     if (*tmp_line == 0)
-//         return (line);
-//     ret_line = ft_strjoin(*tmp_line, line);
-//     *tmp_line = 0;
-//     line = 0;
-//     return (ret_line);
-// }
-
-
 static int
 	previous_is_eof(int *ret, int *eof, char **line,\
     t_minishell_meta *ms)
@@ -59,9 +28,32 @@ static int
 		free(ms);
         exit(0);
     }
-	*line = ft_strjoin(bef_line, new_line);
-	free(bef_line);
-	free(new_line);
+	if (*ret == 0 && errno == 1 && !ft_strlen(new_line))
+	{
+		ft_free(&bef_line);
+		ft_free(&new_line);
+		free_tab(ms->path);
+		free(ms);
+		write(1, " exit\n", 6);
+		exit(0);
+	}
+	if (errno != 1)
+	{
+		*line = ft_strjoin(bef_line, new_line);
+		free(bef_line);
+		free(new_line);
+	}
+	else
+	{
+		ft_free(line);
+		*line = ft_strdup(new_line);
+		ft_free(&new_line);
+	}
+	if (*ret == 1 && errno == 2)
+	{
+		ft_putstr("  \b\b");
+		return (0);
+	}
 	if (*ret > 0)
 		*eof = 0;
 	if (*ret == 0)
@@ -84,6 +76,12 @@ static int
 		free(ms);
         exit(0);
     }
+	if (*ret == 1 && errno == 2)
+	{
+		*eof = 1;
+		ft_putstr("  \b\b");
+		return (0);
+	}
 	if ((*ret == 0 && ft_strlen(*line)))
 	{
 		*eof = 1;
@@ -106,16 +104,28 @@ int    get_line(char **line, t_minishell_meta *ms)
 {
     static int	ret;
 	static int	eof;
+	int			tmp_errno;
 
+	tmp_errno = errno;
     if (eof)
 	{
 		if (!previous_is_eof(&ret, &eof, line, ms))
+		{
+			if (errno != 1)
+				errno = tmp_errno;
 			return (1);
+		}
 	}
     else
 	{
 		if (!current_line_handle(&ret, &eof, line, ms))
+		{
+			if (errno != 1)
+				errno = tmp_errno;
 			return (1);
+		}
 	}
+	if (errno != 1)
+		errno = tmp_errno;
    	return (0);
 }

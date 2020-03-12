@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
 static int			validate(int fd, char **line)
 {
@@ -64,7 +65,7 @@ static int			ft_some(char **p, int value, char *buffer, char **line)
 	i = 0;
 	while (i < value)
 	{
-		if (buffer[i] == '\n')
+		if ((buffer[i] == '\n') || (buffer[i + 1] == '\0'))
 		{
 			if (!(*p = process_new_line(*p, value, i, buffer)))
 				return (-1);
@@ -72,6 +73,11 @@ static int			ft_some(char **p, int value, char *buffer, char **line)
 			{
 				*line = malloc(sizeof(char));
 				*line[0] = '\0';
+			}
+			if ((buffer[i]) != '\n' && (buffer[i + 1] == '\0'))
+			{
+				errno = 2;
+				*line = ft_stradd(*line, buffer[i]);
 			}
 			ft_free(&buffer);
 			return (1);
@@ -94,6 +100,7 @@ int					get_next_line(int fd, char **line)
 
 	value = 1;
 	*line = 0;
+	errno = 0;
 	if (validate(fd, line))
 		return (-1);
 	while (value > 0)

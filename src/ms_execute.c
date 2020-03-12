@@ -77,13 +77,13 @@ void			ms_execute(char *path, char **args, char **env)
 	}
 	av[i + 1] = 0;
 	pid = fork();
-	if (stat)
+	if (1)
 	{
 		signal(SIGINT, proc_signal_handler);
 		signal(SIGQUIT, proc_sigquit_handler);
 	}
-	else 
-		signal(SIGINT, sig_int_handler);
+	// else 
+	// 	signal(SIGINT, sig_int_handler);
 	if (pid == 0)
 	{
 	 	x = execve(path, av, env);
