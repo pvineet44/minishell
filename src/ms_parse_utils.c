@@ -69,6 +69,7 @@ t_piped_minishell_meta		*init_cmds(int length)
 			return (NULL);
 		i++;
 	}
+	pipe->length = length + 1;
 	i = 0;
 	if (!(pipe->files1 = (char***)malloc(sizeof(char**) + (length
 	* sizeof(char**)))))

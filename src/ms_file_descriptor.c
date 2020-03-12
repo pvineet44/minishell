@@ -82,11 +82,12 @@ t_minishell_meta *ms, int i)
 		set_out_fd(ms, filename, 1);
 	else if ((ft_strcmp(redir, "><") == 0) && (ms->process_bit = -1))
 		return (syntax_error("<"));
-	else if ((ft_strcmp(redir, "<>") == 0) && (ms->multiline = -99))
+	else if ((ft_strcmp(redir, "<>") == 0) )
 	{
 		set_out_fd(ms, filename, 0);
 		set_in_fd(ms, filename);
-		//unset_fd(ms);
+		if ((ms->piped_cmds->pipe[i] != '|') && (ms->multiline = -99))
+			unset_fd(ms);
 	}
 	else if (redir[0] == '>')
 		set_out_fd(ms, filename, 0);

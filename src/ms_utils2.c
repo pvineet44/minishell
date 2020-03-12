@@ -31,7 +31,7 @@ void				process_cmd(t_minishell_meta *ms, char *line, int i)
 	{
 		search_and_execute_path(ms, i);
 	}
-	if (ms->piped_cmds->files1[i][0] != 0)
+	if (ms->piped_cmds->files1[i][0] != 0 && ms->multiline != -99)
 	{
 		unset_fd(ms);
 	}

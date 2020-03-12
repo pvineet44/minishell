@@ -42,6 +42,7 @@ typedef	struct				s_piped_minishell_meta
 	char	***files1;
 	char	***redir;
 	char	*pipe;
+	int		length;
 }							t_piped_minishell_meta;
 
 typedef struct				s_minishell_meta
