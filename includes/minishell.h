@@ -78,7 +78,7 @@ void						proc_sigquit_handler(int sig);
 int							get_exit_status(t_minishell_meta *ms);
 void						ms_exit(t_minishell_meta *ms, char *line, int i);
 void						ms_unset(t_minishell_meta *ms, int i);
-void						ms_unset_single(char **env, char *arg, char **path);
+int							ms_unset_single(char **env, char *arg, char **path);
 void						unset_var(char *var, t_minishell_meta *ms);
 void						ms_export(t_minishell_meta *ms, int i);
 void						set_path(t_minishell_meta *ms);

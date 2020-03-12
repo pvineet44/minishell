@@ -98,11 +98,6 @@ int				check_invalid_redir(char *line, int i, t_minishell_meta *ms)
 {
 	char *redir_seq;
 
-	if (line[i] == '|' && i == 0)
-	{
-		syntax_error("|");
-		return (0);
-	}
 	redir_seq = fetch_redir(line, &i);
 	ms->arg = ft_strjoin(ms->arg, redir_seq);
 	ft_free(&redir_seq);

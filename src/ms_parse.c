@@ -137,7 +137,7 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 		}
 		else if (line[i] == '$')
 			i = substitute_value(line, i, ms);
-		else if (ft_isredir(line[i]))
+		else if (line[i] != '|' && ft_isredir(line[i]))
 		{
 			i = check_invalid_redir(line, i, ms);
 			if (i == 0)
@@ -167,7 +167,14 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 				line[i] = 25;
 			}
 			else if (line[i] == '|' )
+			{
+				if (line[i] == '|' && i == 0)
+				{
+					syntax_error("|");
+					return (0);
+				}
 				line[i] = 26;
+			}
 			ms->arg = ft_stradd(ms->arg, line[i]);
 		}
 		i++;

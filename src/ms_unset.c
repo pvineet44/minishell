@@ -45,7 +45,7 @@ void	free_path(char **args)
 		args = 0;
 }
 
-void	ms_unset_single(char **env, char *arg, char **path)
+int		ms_unset_single(char **env, char *arg, char **path)
 {
 	int		env_len;
 	int		var_len;
@@ -53,11 +53,11 @@ void	ms_unset_single(char **env, char *arg, char **path)
 
 	i = -1;
 	if (!check_var(arg, "unset"))
-		return ;
+		return 0;
 	var_len = ft_strlen(arg);
 	while (env[++i] != '\0')
 	{
-		env_len = 0;
+		env_len = (0);
 		while (env[i][env_len] != '=' && env[i][env_len] != '\0')
 			env_len++;
 		if (var_len != env_len)
@@ -71,11 +71,13 @@ void	ms_unset_single(char **env, char *arg, char **path)
 	}
 	if (ft_strcmp(arg, "PATH") == 0)
 		free_path(path);
+	return (1);
 }
 
 void	ms_unset(t_minishell_meta *ms, int i)
 {
 	int	j;
+	int valid_var;
 
 	j = 0;
 	errno = 0;
@@ -83,7 +85,13 @@ void	ms_unset(t_minishell_meta *ms, int i)
 		return ;
 	while (ms->piped_cmds->args1[i][j] != 0)
 	{
-		ms_unset_single(ms->env, ms->piped_cmds->args1[i][j], ms->path);
+		valid_var = ms_unset_single(ms->env, ms->piped_cmds->args1[i][j],\
+		ms->path);
+		if (valid_var == 0)
+		{
+			j++;
+			continue ;
+		}
 		ms_unset_single(ms->export, ms->piped_cmds->args1[i][j], ms->path);
 		j++;
 	}
