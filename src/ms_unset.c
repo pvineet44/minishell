@@ -64,6 +64,7 @@ int		ms_unset_single(char **env, char *arg, char **path)
 			continue;
 		if (ft_strncmp(arg, env[i], var_len) != 0)
 			continue;
+		ft_free(&env[i]);
 		while (env[++i] != 0)
 			env[i - 1] = env[i];
 		env[--i] = 0;

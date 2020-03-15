@@ -62,5 +62,6 @@ int		get_exit_status(t_minishell_meta *ms)
 		ms->arg = ft_stradd(ms->arg, errno_str[x]);
 		x++;
 	}
+	ft_free(&errno_str);
 	return (0);
 }

@@ -65,7 +65,7 @@ void						ms_exit(t_minishell_meta *ms, char *line, int i)
 	}
 	write(STDOUT_FILENO, EXIT_MSG, 5);
 	free_all(ms, line);
-	free_tab(ms->path);
+	free_tab(ms->env);
 	free_tab(ms->export);
 	if (ms)
 		free(ms);

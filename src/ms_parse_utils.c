@@ -67,6 +67,7 @@ t_piped_minishell_meta		*init_cmds(int length)
 		if (!(pipe->args1[i] = (char**)malloc(sizeof(char*) + (length
 		* sizeof(char*)))))
 			return (NULL);
+		pipe->args1[i][0] = 0;
 		i++;
 	}
 	pipe->length = length + 1;
@@ -79,6 +80,7 @@ t_piped_minishell_meta		*init_cmds(int length)
 		if (!(pipe->files1[i] = (char**)malloc(sizeof(char*) + (length
 		* sizeof(char*)))))
 			return (NULL);
+		pipe->files1[i][0] = 0;
 		i++;
 	}
 	i = 0;
@@ -90,6 +92,7 @@ t_piped_minishell_meta		*init_cmds(int length)
 		if (!(pipe->redir[i] = (char**)malloc(sizeof(char*) + (length
 		* sizeof(char*)))))
 			return (NULL);
+			pipe->redir[i][0] = 0;
 		i++;
 	}
 	if (!(pipe->pipe = (char*)malloc(sizeof(char) * (length + 1))))
@@ -132,10 +135,14 @@ void				get_files(char *line, t_minishell_meta *ms, int index)
 		i++;
 	if (line[i] == '\0' || !ft_isredir(line[i]))
 	{
-		ms->piped_cmds->redir[index][j] = ft_strdup("");
-		ms->piped_cmds->files1[index][j] = ft_strdup("");
-		ms->piped_cmds->files1[index][++j] = 0;
-		ms->piped_cmds->redir[index][j] = 0;
+		// ms->piped_cmds->redir[index][0] = ft_strdup("");
+		// ms->piped_cmds->redir[index][1] = 0;
+		// ms->piped_cmds->files1[index][0] = ft_strdup("");
+		// ms->piped_cmds->redir[index][1] = 0;
+		// ms->piped_cmds->redir[index][0] = ft_strdup("");
+		// ms->piped_cmds->files1[index][j] = ft_strdup("");
+		// ms->piped_cmds->files1[index][++j] = 0;
+		// ms->piped_cmds->redir[index][j] = 0;
 		return ;
 	}
 	while (line[i] && line[i] != 26)
@@ -152,7 +159,7 @@ void				get_files(char *line, t_minishell_meta *ms, int index)
 		}
 		else
 		{
-			ms->piped_cmds->redir[index][j] = ft_strdup("");
+		//	ms->piped_cmds->redir[index][j] = ft_strdup("");
 			ft_free(&ms->arg);
 		}
 		while (line[i] != '\0' && ft_isspace(line[i]))

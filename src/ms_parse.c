@@ -34,7 +34,7 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 		i++;
 	if ((line[i] == '\0' || line[i] == 26 || ft_isredir(line[i])) && (ms->no_args = 1))
 	{
-		ms->piped_cmds->args1[index][0] = 0;
+		// ms->piped_cmds->args1[index][0] = 0;
 		// ms->piped_cmds->args1[index][1] = 0;
 		return (i);
 	}
@@ -61,7 +61,7 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 	}
 	if (ms->arg)
 		ms->piped_cmds->args1[index][j++] = ft_strdup(ms->arg);
-	else if (line[i -1] == 24 && line[i - 2] ==24)
+	else if (line[i - 1] == 24 && line[i - 2] == 24)
 		ms->piped_cmds->args1[index][j++] = ft_strdup("");
 	ft_free(&ms->arg);
 	ms->piped_cmds->args1[index][j] = 0;
@@ -130,6 +130,7 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 			i = parse_quotes(line, i, ms);
 			if (i == 0)
 			{
+				ft_free(&line);
 				free_on_multiline(ms);
 				return (0);
 			}
@@ -141,7 +142,10 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 		{
 			i = check_invalid_redir(line, i, ms);
 			if (i == 0)
+			{
+				ft_free(&line);
 				return (0);
+			}
 			continue ;
 		}
 		else 

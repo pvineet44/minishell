@@ -97,9 +97,16 @@ char			*fetch_redir(char *line, int *i)
 int				check_invalid_redir(char *line, int i, t_minishell_meta *ms)
 {
 	char *redir_seq;
+	char *tmp;
 
 	redir_seq = fetch_redir(line, &i);
-	ms->arg = ft_strjoin(ms->arg, redir_seq);
+	if (ms->arg == NULL)
+		tmp = ft_strdup(redir_seq);
+	else
+		tmp = ft_strjoin(ms->arg, redir_seq);
+	ft_free(&ms->arg);
+	ms->arg = ft_strdup(tmp);
+	ft_free(&tmp);
 	ft_free(&redir_seq);
 	if (line[i] == 0)
 	{
@@ -111,6 +118,7 @@ int				check_invalid_redir(char *line, int i, t_minishell_meta *ms)
 	{
 		redir_seq = fetch_redir(line, &i);
 		syntax_error(redir_seq);
+		ft_free(&redir_seq);
 		ft_free(&ms->arg);
 		return (0);
 	}

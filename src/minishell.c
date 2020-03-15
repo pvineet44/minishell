@@ -42,6 +42,26 @@ void            set_export(t_minishell_meta *ms)
 
 }
 
+void			set_env(t_minishell_meta *ms, char **env)
+{
+	int i;
+    int env_len;
+
+    i = 0;
+	env_len = 0;
+	while (env[env_len] != 0)
+        env_len++;
+	ms->env = (char**)malloc(sizeof(char*) * (env_len + 100));
+    if(ms->env == NULL)
+        exit(0);
+	while (i < env_len)
+	{
+		ms->env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	ms->env[i] = 0;
+}
+
 void			init_ms(t_minishell_meta *ms)
 {
 	ms->arg_start = 0;
@@ -81,13 +101,13 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 
 void			set_path(t_minishell_meta *ms)
 {
-	ms->arg = 0;
+ 	ms->arg = 0;
 	substitute_value("$PATH", 0, ms);
-	if (ms->path != 0)
-	{
-		free(ms->path);
-		ms->path = 0;
-	}
+	// if (ms->path != 0)
+	// {
+	// 	free_tab(ms->path);
+	// 	ms->path = 0;
+	// }
 	ms->path = ft_split(ms->arg, ':');
 	ft_free(&ms->arg);
 }
@@ -120,8 +140,8 @@ int				main(int ac, char **av, char **env)
 	signal(SIGQUIT, sig_quit_handler);
 	if (!(ms = malloc(sizeof(t_minishell_meta))))
 		return (0);
-	ms->env = env;
-    set_export(ms);
+	set_env(ms, env);
+	set_export(ms);
 	ms->path = 0;
 	tmp_line = NULL;
 	line = NULL;

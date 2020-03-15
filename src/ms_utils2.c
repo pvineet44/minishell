@@ -15,9 +15,10 @@
 void				terminate_tabs(t_minishell_meta *ms, int j)
 {
 	ms->piped_cmds->cmds[j] = 0;
-	ms->piped_cmds->args1[j] = 0;
-	ms->piped_cmds->files1[j] = 0;
-	ms->piped_cmds->redir[j] = 0;
+	// ms->piped_cmds->args1[j] = 0;
+	// exit (0);
+	// ms->piped_cmds->files1[j] = 0;
+	// ms->piped_cmds->redir[j] = 0;
 	ft_free(&ms->arg);
 }
 
@@ -31,7 +32,7 @@ void				process_cmd(t_minishell_meta *ms, char *line, int i)
 	{
 		search_and_execute_path(ms, i);
 	}
-	if (ms->piped_cmds->files1[i][0] != 0 && ms->multiline != -99)
+	if ((ms->piped_cmds->files1[i][0] != 0) && (ms->multiline != -99))
 	{
 		unset_fd(ms);
 	}
