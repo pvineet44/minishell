@@ -33,8 +33,9 @@ static int
 		ft_free(&bef_line);
 		ft_free(&new_line);
 		free_tab(ms->path);
-		free(ms);
 		write(1, " exit\n", 6);
+		free_tab(ms->export);
+		free(ms);
 		exit(0);
 	}
 	if (errno != 1)
@@ -73,6 +74,7 @@ static int
 	{
         ft_free(line);
 		free_tab(ms->path);
+		free_tab(ms->env);
 		free(ms);
         exit(0);
     }
@@ -92,8 +94,10 @@ static int
 	{
         ft_free(line);
 		free_tab(ms->path);
-		free(ms);
 		write(1, " exit\n", 6);
+		free_tab(ms->export);
+		free_tab(ms->env);
+		free(ms);
 		exit(0);
 	}
 	return (1);
