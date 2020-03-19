@@ -22,7 +22,7 @@ int		parse_quotes(char *line, int i, t_minishell_meta *ms)
 	while ((line[i] != '\0') && (line[i] != quote))
 	{
 		if (line[i] == '\\' && ((line[i + 1] == '\"' && !quote_bit)\
-		|| line[i + 1] == '\\' || line[i + 1] == '$'))
+		|| (line[i + 1] == '\\' && !quote_bit) || line[i + 1] == '$'))
 		{
 			ms->arg = ft_stradd(ms->arg, line[i + 1]);
 			i = i + 2;

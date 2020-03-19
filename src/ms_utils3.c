@@ -94,7 +94,8 @@ char			*fetch_redir(char *line, int *i)
 	return (redir_seq);
 }
 
-int				check_invalid_redir(char *line, int i, t_minishell_meta *ms)
+int				check_invalid_redir(char *line, int i,\
+t_minishell_meta *ms)
 {
 	char *redir_seq;
 	char *tmp;
