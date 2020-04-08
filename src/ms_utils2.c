@@ -15,10 +15,6 @@
 void				terminate_tabs(t_minishell_meta *ms, int j)
 {
 	ms->piped_cmds->cmds[j] = 0;
-	// ms->piped_cmds->args1[j] = 0;
-	// exit (0);
-	// ms->piped_cmds->files1[j] = 0;
-	// ms->piped_cmds->redir[j] = 0;
 	ft_free(&ms->arg);
 }
 
@@ -43,10 +39,7 @@ int i, int *in)
 {
 	static	pid_t	pid;
 	int				stat;
-/*
-	pipe has x||xxxxxxxxx of the length line. Please check if there isn't any case that will go
-	into this if because of this reason
-*/
+
 	if (!ms->piped_cmds->pipe[i + 1] || (ms->piped_cmds->pipe[i + 1] != '|'))
 	{
 		if ((pid = fork()) == 0)
@@ -81,4 +74,24 @@ char				*replace_tabs(char *line)
 		i++;
 	}
 	return (line);
+}
+
+int					check_line(char *line)
+{
+	int stat;
+
+	stat = 0;
+	if (line[0] == ';' && line[1] == ';')
+	{
+		stat++;
+		syntax_error(";;");
+		errno = 258;
+	}
+	else if (line[0] == ';')
+	{
+		stat++;
+		syntax_error(";");
+		errno = 258;
+	}
+	return (stat);
 }

@@ -42,6 +42,15 @@ static	void				numeric_arg_required(char *line)
 	ft_putstr_fd(NUMERIC_ARGUMENT_REQUIRED, STDERR_FILENO);
 }
 
+void						free_before_exit(t_minishell_meta *ms, char *line)
+{
+	free_all(ms, line);
+	free_tab(ms->env);
+	free_tab(ms->export);
+	if (ms)
+		free(ms);
+}
+
 void						ms_exit(t_minishell_meta *ms, char *line, int i)
 {
 	int stat;
@@ -64,10 +73,6 @@ void						ms_exit(t_minishell_meta *ms, char *line, int i)
 		stat = 255;
 	}
 	write(STDOUT_FILENO, EXIT_MSG, 5);
-	free_all(ms, line);
-	free_tab(ms->env);
-	free_tab(ms->export);
-	if (ms)
-		free(ms);
+	free_before_exit(ms, line);
 	exit(stat);
 }

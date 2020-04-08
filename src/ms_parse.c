@@ -33,14 +33,10 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
 	if ((line[i] == '\0' || line[i] == 26 || ft_isredir(line[i])) && (ms->no_args = 1))
-	{
-		// ms->piped_cmds->args1[index][0] = 0;
-		// ms->piped_cmds->args1[index][1] = 0;
 		return (i);
-	}
 	while (line && line[i] != '\0' && line[i] != 26 && !ft_isredir(line[i]))
 	{
-		if (ft_isspace(line[i]) && (quote_bit%2 == 0))
+		if (ft_isspace(line[i]) && (quote_bit % 2 == 0))
 		{
 			if (ms->arg == NULL)
 				ms->arg = ft_strdup("");
@@ -124,7 +120,8 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 	len = ft_strlen(line);
 	while (i < len)
 	{
-		if ((line[i] == '\'' || line[i] == '\"') && (i == 0 || line[i - 1] != '\\'))
+		if ((line[i] == '\'' || line[i] == '\"')\
+		&& (i == 0 || line[i - 1] != '\\'))
 		{
 			ms->arg = ft_stradd(ms->arg, 24);
 			i = parse_quotes(line, i, ms);
@@ -148,7 +145,7 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 			}
 			continue ;
 		}
-		else 
+		else
 		{
 			if (line[i] == '\\')
 			{
@@ -170,7 +167,7 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 				}
 				line[i] = 25;
 			}
-			else if (line[i] == '|' )
+			else if (line[i] == '|')
 			{
 				if (line[i] == '|' && i == 0)
 				{
@@ -214,21 +211,6 @@ char					*parse(t_minishell_meta *ms, char *line)
 		line_splits[1] = NULL;
 	}
 	load_cmds_args(ms, line_splits);
-	 free_tab(line_splits);
-	// check_args(ms->path);
-	//check_args(ms->piped_cmds->cmds);
-	// check_args3(ms->piped_cmds->files1);
-	// exit(0);
-	// check_args(ms->piped_cmds->args1[0]);
-	// exit(0);
-	// ft_putendl_fd("", 2);
-	// check_args(ms->piped_cmds->args1[1]);
-	// exit (0);
-	//check_args(ms->piped_cmds->redir[0]);
-	// check_args(ms->piped_cmds->files1[1]);
-	// check_args(ms->piped_cmds->files1[2]);
-	// check_args(ms->piped_cmds->files1[3]);
-	//ft_putstr_fd(ms->piped_cmds->pipe, 1);
-	// exit (0);
+	free_tab(line_splits);
 	return (line);
 }

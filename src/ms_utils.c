@@ -37,9 +37,7 @@ int		parse_quotes(char *line, int i, t_minishell_meta *ms)
 		ms->arg = ft_stradd(ms->arg, line[i]);
 		i++;
 	}
-	if (line[i] != quote)
-		return (0);
-	return (i);
+	return (line[i] != quote ? 0 : i);
 }
 
 void	add_env(t_minishell_meta *ms, char *var)

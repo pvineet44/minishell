@@ -52,7 +52,7 @@ typedef struct				s_minishell_meta
 	char					*arg;
 	int						process_bit;
 	char					**env;
-    char                    **export;
+	char					**export;
 	char					**path;
 	int						in_fd;
 	int						out_fd;
@@ -105,7 +105,9 @@ void						handle_pipe(t_minishell_meta *ms, int i);
 void						ms_cd(char *path, t_minishell_meta *ms);
 int							parse_quotes(char *line, int i,
 							t_minishell_meta *ms);
-int				            check_invalid_redir(char *line, int i, t_minishell_meta *ms);
+char						*fetch_redir(char *line, int *i);
+int							check_invalid_redir(char *line, int i,\
+t_minishell_meta *ms);
 int							check_and_execute_path(t_minishell_meta *ms,
 int i);
 int							substitute_value(char *line, int i,
@@ -115,7 +117,8 @@ char						*get_redir(char *redir, char *line,
 							t_minishell_meta *ms);
 char						*get_file(char *file, char *line,
 							t_minishell_meta *ms);
-void						get_files(char *line, t_minishell_meta *ms, int index);
+void						get_files(char *line,\
+t_minishell_meta *ms, int index);
 char						*parse_input_line(char *line, t_minishell_meta *ms);
 char						*replace_semi(char *line, int i, char quote,\
 							t_minishell_meta *ms);
@@ -125,14 +128,14 @@ int i);
 void						process_piped_cmd(t_minishell_meta *ms, char *line,
 int i, int *in);
 char						*replace_tabs(char *line);
-void        			    no_file_or_directory(char *cmd, char *name);
+void						no_file_or_directory(char *cmd, char *name);
 void						print_invalid(char *var, char *cmd);
 void						syntax_error(char *token);
-int             			check_line(char *line);
-char				        *join_tmp_line(char **tmp_line, char *line);
-int					        get_line(char **line, t_minishell_meta *ms);
+int							check_line(char *line);
+char						*join_tmp_line(char **tmp_line, char *line);
+int							get_line(char **line, t_minishell_meta *ms);
 void						too_many_args(char *cmd);
 void						check_args3(char ***args);
-int				ft_tablen(char **args);
-int				check_cat(char *line);
+int							ft_tablen(char **args);
+int							check_cat(char *line);
 #endif

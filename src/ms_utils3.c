@@ -56,73 +56,18 @@ void			print_invalid(char *var, char *cmd)
 	ft_putstr_fd("\': not a valid identifier\n", STDOUT_FILENO);
 }
 
-int				check_line(char *line)
+int				get_frequency(char *str, char c)
 {
-	int stat;
+	int i;
+	int count;
 
-	stat = 0;
-	if (line[0] == ';' && line[1] == ';')
+	i = 0;
+	count = 0;
+	while (str && str[i] != '\0')
 	{
-		stat++;
-		syntax_error(";;");
-		errno = 258;
+		if (str[i] == c)
+			count++;
+		i++;
 	}
-	else if (line[0] == ';')
-	{
-		stat++;
-		syntax_error(";");
-		errno = 258;
-	}
-	return (stat);
-}
-
-char			*fetch_redir(char *line, int *i)
-{
-	char	*redir_seq;
-	int		j;
-
-	j = *i;
-	redir_seq = NULL;
-	redir_seq = ft_stradd(redir_seq, line[*i]);
-	j++;
-	if (line[j] == '>')
-	{
-		redir_seq = ft_stradd(redir_seq, line[j]);
-		j++;
-	}
-	*i = j;
-	return (redir_seq);
-}
-
-int				check_invalid_redir(char *line, int i,\
-t_minishell_meta *ms)
-{
-	char *redir_seq;
-	char *tmp;
-
-	redir_seq = fetch_redir(line, &i);
-	if (ms->arg == NULL)
-		tmp = ft_strdup(redir_seq);
-	else
-		tmp = ft_strjoin(ms->arg, redir_seq);
-	ft_free(&ms->arg);
-	ms->arg = ft_strdup(tmp);
-	ft_free(&tmp);
-	ft_free(&redir_seq);
-	if (line[i] == 0)
-	{
-		syntax_error("newline");
-		ft_free(&ms->arg);
-		return (0);
-	}
-	else if (ft_isredir(line[i]))
-	{
-		redir_seq = fetch_redir(line, &i);
-		syntax_error(redir_seq);
-		ft_free(&redir_seq);
-		ft_free(&ms->arg);
-		return (0);
-	}
-	ft_free(&redir_seq);
-	return (i);
+	return (count);
 }

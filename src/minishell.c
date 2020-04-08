@@ -20,40 +20,39 @@ void			check_args(char **args)
 	while (args[i])
 	{
 		ft_putstr_fd(args[i], 2);
-			ft_putstr_fd("|\n",2);
+		ft_putstr_fd("|\n", 2);
 		i++;
 	}
 }
 
-void            set_export(t_minishell_meta *ms)
+void			set_export(t_minishell_meta *ms)
 {
-    int i;
-    int env_len;
+	int i;
+	int env_len;
 
-    i = 0;
+	i = 0;
 	env_len = 0;
-    while (ms->env[env_len] != 0)
-        env_len++;
-    ms->export = (char**)malloc(sizeof(char*) * (env_len + 1));
-    if(ms->export == NULL)
-        exit(0); //Properly exit here
-    ms->export[i] = 0;
-    return ;
-
+	while (ms->env[env_len] != 0)
+		env_len++;
+	ms->export = (char**)malloc(sizeof(char*) * (env_len + 1));
+	if (ms->export == NULL)
+		exit(0); //Properly exit here
+	ms->export[i] = 0;
+	return ;
 }
 
 void			set_env(t_minishell_meta *ms, char **env)
 {
 	int i;
-    int env_len;
+	int env_len;
 
-    i = 0;
+	i = 0;
 	env_len = 0;
 	while (env[env_len] != 0)
-        env_len++;
+		env_len++;
 	ms->env = (char**)malloc(sizeof(char*) * (env_len + 100));
-    if(ms->env == NULL)
-        exit(0);
+	if (ms->env == NULL)
+		exit(0);
 	while (i < env_len)
 	{
 		ms->env[i] = ft_strdup(env[i]);
@@ -79,7 +78,7 @@ void			init_ms(t_minishell_meta *ms)
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)
 {
-	int 	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;
@@ -101,13 +100,8 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 
 void			set_path(t_minishell_meta *ms)
 {
- 	ms->arg = 0;
+	ms->arg = 0;
 	substitute_value("$PATH", 0, ms);
-	// if (ms->path != 0)
-	// {
-	// 	free_tab(ms->path);
-	// 	ms->path = 0;
-	// }
 	ms->path = ft_split(ms->arg, ':');
 	ft_free(&ms->arg);
 }
@@ -148,7 +142,7 @@ int				main(int ac, char **av, char **env)
 	write(STDOUT_FILENO, SHELL_BANNER, 15);
 	while (1)
 	{
-		if (get_line(&line,ms))
+		if (get_line(&line, ms))
 			continue ;
 		if (line[0] == '\0' || is_spaces_only(line))
 		{

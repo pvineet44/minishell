@@ -12,9 +12,8 @@
 
 #include "minishell.h"
 
-static int
-	previous_is_eof(int *ret, int *eof, char **line,\
-    t_minishell_meta *ms)
+static int	previous_is_eof(int *ret, int *eof, char **line,\
+	t_minishell_meta *ms)
 {
 	char		*bef_line;
 	char		*new_line;
@@ -23,11 +22,11 @@ static int
 	new_line = 0;
 	if ((*ret = get_next_line(0, &new_line)) < 0)
 	{
-        ft_free(line);
+		ft_free(line);
 		free_tab(ms->path);
 		free(ms);
-        exit(0);
-    }
+		exit(0);
+	}
 	if (*ret == 0 && errno == 1 && !ft_strlen(new_line))
 	{
 		ft_free(&bef_line);
@@ -67,17 +66,17 @@ static int
 
 static int
 	current_line_handle(int *ret, int *eof, char **line,\
-    t_minishell_meta *ms)
+	t_minishell_meta *ms)
 {
 	*ret = get_next_line(0, &(*line));
 	if (*ret == -1)
 	{
-        ft_free(line);
+		ft_free(line);
 		free_tab(ms->path);
 		free_tab(ms->env);
 		free(ms);
-        exit(0);
-    }
+		exit(0);
+	}
 	if (*ret == 1 && errno == 2)
 	{
 		*eof = 1;
@@ -92,7 +91,7 @@ static int
 	}
 	if (*ret == 0 && !ft_strlen(*line))
 	{
-        ft_free(line);
+		ft_free(line);
 		free_tab(ms->path);
 		write(1, " exit\n", 6);
 		free_tab(ms->export);
@@ -103,15 +102,14 @@ static int
 	return (1);
 }
 
-
-int    get_line(char **line, t_minishell_meta *ms)
+int		get_line(char **line, t_minishell_meta *ms)
 {
-    static int	ret;
+	static int	ret;
 	static int	eof;
 	int			tmp_errno;
 
 	tmp_errno = errno;
-    if (eof)
+	if (eof)
 	{
 		if (!previous_is_eof(&ret, &eof, line, ms))
 		{
@@ -120,7 +118,7 @@ int    get_line(char **line, t_minishell_meta *ms)
 			return (1);
 		}
 	}
-    else
+	else
 	{
 		if (!current_line_handle(&ret, &eof, line, ms))
 		{
@@ -131,5 +129,5 @@ int    get_line(char **line, t_minishell_meta *ms)
 	}
 	if (errno != 1)
 		errno = tmp_errno;
-   	return (0);
+	return (0);
 }

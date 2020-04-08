@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 void					free_tab1(char **args, int length)
 {
 	int i;
@@ -24,7 +23,6 @@ void					free_tab1(char **args, int length)
 		args[i] = 0;
 		i++;
 	}
-
 	if (args)
 	{
 		free(args);
@@ -37,7 +35,7 @@ void					free_tab_tab_v1(char ***args, int len)
 	int i;
 
 	i = 0;
-	while(i < len)
+	while (i < len)
 	{
 		if (args[i][0] != 0)
 			free_tab(args[i]);
@@ -49,26 +47,27 @@ void					free_tab_tab_v1(char ***args, int len)
 	return ;
 }
 
-void                    free_tab_tab(char ***args, int len)
+void					free_tab_tab(char ***args, int len)
 {
-    int i;
-    i = 0;
-    while (args[i] != 0)
-    {
-        free_tab(args[i]);
-        i++;
-    }
-    while (i < (len))
-    {
-        free(args[i]);
+	int i;
+
+	i = 0;
+	while (args[i] != 0)
+	{
+		free_tab(args[i]);
+		i++;
+	}
+	while (i < (len))
+	{
+		free(args[i]);
 		args[i] = 0;
-        i++;
-    }
-    if (args)
-    {
-        free(args);
-        args = 0;
-    }
+		i++;
+	}
+	if (args)
+	{
+		free(args);
+		args = 0;
+	}
 }
 
 void					free_all(t_minishell_meta *ms, char *line)
@@ -107,4 +106,3 @@ void					free_tab(char **args)
 		args = 0;
 	}
 }
-

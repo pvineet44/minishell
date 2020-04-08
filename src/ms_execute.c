@@ -55,8 +55,8 @@ void			ms_execute(char *path, char **args, char **env)
 	pid_t	pid;
 	int		i;
 	int		x;
-	int len;
-	int stat;
+	int		len;
+	int		stat;
 
 	i = 0;
 	x = 1;
@@ -82,12 +82,8 @@ void			ms_execute(char *path, char **args, char **env)
 		signal(SIGINT, proc_signal_handler);
 		signal(SIGQUIT, proc_sigquit_handler);
 	}
-	// else 
-	// 	signal(SIGINT, sig_int_handler);
 	if (pid == 0)
-	{
-	 	x = execve(path, av, env);
-	}
+		x = execve(path, av, env);
 	if (x == -1)
 	{
 		write_error(path);

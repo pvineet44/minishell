@@ -48,21 +48,19 @@ void	free_path(char **args)
 int		ms_unset_single(char **env, char *arg, char **path)
 {
 	int		env_len;
-	int		var_len;
 	int		i;
 
 	i = -1;
 	if (!check_var(arg, "unset"))
-		return 0;
-	var_len = ft_strlen(arg);
+		return (0);
 	while (env[++i] != '\0')
 	{
 		env_len = (0);
 		while (env[i][env_len] != '=' && env[i][env_len] != '\0')
 			env_len++;
-		if (var_len != env_len)
+		if (ft_strlen(arg) != env_len)
 			continue;
-		if (ft_strncmp(arg, env[i], var_len) != 0)
+		if (ft_strncmp(arg, env[i], env_len) != 0)
 			continue;
 		ft_free(&env[i]);
 		while (env[++i] != 0)

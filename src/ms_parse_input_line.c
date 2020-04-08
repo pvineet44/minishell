@@ -46,18 +46,56 @@ char						*parse_input_line(char *line, t_minishell_meta *ms)
 	return (line);
 }
 
-int							get_frequency(char *str, char c)
+char						*fetch_redir(char *line, int *i)
 {
-	int i;
-	int count;
+	char	*redir_seq;
+	int		j;
 
-	i = 0;
-	count = 0;
-	while (str && str[i] != '\0')
+	j = *i;
+	redir_seq = NULL;
+	redir_seq = ft_stradd(redir_seq, line[*i]);
+	j++;
+	if (line[j] == '>')
 	{
-		if (str[i] == c)
-			count++;
-		i++;
+		redir_seq = ft_stradd(redir_seq, line[j]);
+		j++;
 	}
-	return (count);
+	*i = j;
+	return (redir_seq);
+}
+
+int							throw_newline_error(t_minishell_meta *ms)
+{
+	syntax_error("newline");
+	ft_free(&ms->arg);
+	return (0);
+}
+
+int							check_invalid_redir(char *line, int i,\
+t_minishell_meta *ms)
+{
+	char *redir_seq;
+	char *tmp;
+
+	redir_seq = fetch_redir(line, &i);
+	if (ms->arg == NULL)
+		tmp = ft_strdup(redir_seq);
+	else
+		tmp = ft_strjoin(ms->arg, redir_seq);
+	ft_free(&ms->arg);
+	ms->arg = ft_strdup(tmp);
+	ft_free(&tmp);
+	ft_free(&redir_seq);
+	if (line[i] == 0)
+		return (throw_newline_error(ms));
+	else if (ft_isredir(line[i]))
+	{
+		redir_seq = fetch_redir(line, &i);
+		syntax_error(redir_seq);
+		ft_free(&redir_seq);
+		ft_free(&ms->arg);
+		return (0);
+	}
+	ft_free(&redir_seq);
+	return (i);
 }
