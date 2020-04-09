@@ -74,10 +74,8 @@ static char		**ft_process_split(char **result, const char *s, int i, char c)
 static	char	**ft_pre_process_split(char **result, const char *s, char c)
 {
 	int			i;
-	char		*partition;
 
 	i = -1;
-	partition = 0;
 	while (s[++i] == c)
 		;
 	i--;

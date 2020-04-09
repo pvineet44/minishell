@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+static int pre_process_cmd(char **command, int i, char *line, int *quote_bit)
+{
+	while (line[i] != '\0' && ft_isspace(line[i]))
+		i++;
+	if (line[i] == 24 && (*quote_bit = 1))
+		i++;
+	while (line[i] && ft_isspace(line[i]))
+	{
+		*command = ft_stradd(*command, line[i]);
+		i++;
+	}
+	return (i);
+}
 char						*get_command(char *line,
 t_minishell_meta *ms)
 {
@@ -22,15 +35,7 @@ t_minishell_meta *ms)
 	i = 0;
 	quote_bit = 0;
 	command = NULL;
-	while (line[i] != '\0' && ft_isspace(line[i]))
-		i++;
-	if (line[i] == 24 && (quote_bit = 1))
-		i++;
-	while (line[i] && ft_isspace(line[i]))
-	{
-		command = ft_stradd(command, line[i]);
-		i++;
-	}
+	i = pre_process_cmd(&command, i, line, &quote_bit);
 	while (line[i] && (!ft_isspace(line[i]) || quote_bit % 2)\
 	&& line[i] != '\0' && line[i] != 26)
 	{

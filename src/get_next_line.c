@@ -70,11 +70,8 @@ static int			ft_some(char **p, int value, char *buffer, char **line)
 		{
 			if (!(*p = process_new_line(*p, value, i, buffer)))
 				return (-1);
-			if (*line == NULL)
-			{
-				*line = malloc(sizeof(char));
+			if (*line == NULL && (*line = malloc(sizeof(char))))
 				*line[0] = '\0';
-			}
 			if ((buffer[i]) != '\n' && (buffer[i + 1] == '\0'))
 			{
 				errno = 2;

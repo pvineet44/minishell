@@ -72,9 +72,6 @@ void					free_tab_tab(char ***args, int len)
 
 void					free_all(t_minishell_meta *ms, char *line)
 {
-	int				i;
-
-	i = 0;
 	free_tab(ms->path);
 	if (ms->piped_cmds != 0)
 	{

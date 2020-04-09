@@ -138,4 +138,13 @@ void						too_many_args(char *cmd);
 void						check_args3(char ***args);
 int							ft_tablen(char **args);
 int							check_cat(char *line);
+void						check_ret_lt_zero(int *ret, char *new_line,\
+char **line, t_minishell_meta *ms);
+void						check_ret_eq_zero(int *ret, char *new_line,\
+char *bef_line, t_minishell_meta *ms);
+void            			check_ret_and_line(int *ret, char **line,\
+t_minishell_meta *ms);
+void						errno_ne_one(char **line, char *bef_line,\
+char *new_line);
+void						errno_eq_one(char **line, char *new_line);
 #endif

@@ -12,43 +12,21 @@
 
 #include "minishell.h"
 
-static int	previous_is_eof(int *ret, int *eof, char **line,\
-	t_minishell_meta *ms)
+static int			previous_is_eof(int *ret, int *eof, char **line,\
+t_minishell_meta *ms)
 {
 	char		*bef_line;
 	char		*new_line;
 
 	bef_line = *line;
 	new_line = 0;
-	if ((*ret = get_next_line(0, &new_line)) < 0)
-	{
-		ft_free(line);
-		free_tab(ms->path);
-		free(ms);
-		exit(0);
-	}
-	if (*ret == 0 && errno == 1 && !ft_strlen(new_line))
-	{
-		ft_free(&bef_line);
-		ft_free(&new_line);
-		free_tab(ms->path);
-		write(1, " exit\n", 6);
-		free_tab(ms->export);
-		free(ms);
-		exit(0);
-	}
+	*ret = get_next_line(0, &new_line);
+	check_ret_lt_zero(ret, new_line, line, ms);
+	check_ret_eq_zero(ret, new_line, bef_line, ms);
 	if (errno != 1)
-	{
-		*line = ft_strjoin(bef_line, new_line);
-		free(bef_line);
-		free(new_line);
-	}
+		errno_ne_one(line, bef_line, new_line);
 	else
-	{
-		ft_free(line);
-		*line = ft_strdup(new_line);
-		ft_free(&new_line);
-	}
+		errno_eq_one(line, new_line);
 	if (*ret == 1 && errno == 2)
 	{
 		ft_putstr("  \b\b");
@@ -64,15 +42,13 @@ static int	previous_is_eof(int *ret, int *eof, char **line,\
 	return (1);
 }
 
-static int
-	current_line_handle(int *ret, int *eof, char **line,\
-	t_minishell_meta *ms)
+static int			current_line_handle(int *ret, int *eof, char **line,\
+t_minishell_meta *ms)
 {
 	*ret = get_next_line(0, &(*line));
 	if (*ret == -1)
 	{
 		ft_free(line);
-		free_tab(ms->path);
 		free_tab(ms->env);
 		free(ms);
 		exit(0);
@@ -89,27 +65,18 @@ static int
 		ft_putstr("  \b\b");
 		return (0);
 	}
-	if (*ret == 0 && !ft_strlen(*line))
-	{
-		ft_free(line);
-		free_tab(ms->path);
-		write(1, " exit\n", 6);
-		free_tab(ms->export);
-		free_tab(ms->env);
-		free(ms);
-		exit(0);
-	}
+	check_ret_and_line(ret, line, ms);
 	return (1);
 }
 
-int		reset_errno_and_return(int tmp_errno)
+int					reset_errno_and_return(int tmp_errno)
 {
 	if (errno != 1)
 		errno = tmp_errno;
 	return (1);
 }
 
-int		get_line(char **line, t_minishell_meta *ms)
+int					get_line(char **line, t_minishell_meta *ms)
 {
 	static int	ret;
 	static int	eof;

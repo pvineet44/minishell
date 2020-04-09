@@ -78,10 +78,8 @@ void			init_ms(t_minishell_meta *ms)
 
 void			invoke_minishell(t_minishell_meta *ms, char *line)
 {
-	int		i;
 	char	*tmp;
 
-	i = 0;
 	tmp = ft_strtrim(line, "\t \n\v\f\r");
 	ft_free(&line);
 	line = ft_strdup(tmp);
@@ -126,7 +124,6 @@ int				main(int ac, char **av, char **env)
 {
 	char				*line;
 	t_minishell_meta	*ms;
-	char				*tmp_line;
 
 	(void)ac;
 	(void)av;
@@ -137,7 +134,6 @@ int				main(int ac, char **av, char **env)
 	set_env(ms, env);
 	set_export(ms);
 	ms->path = 0;
-	tmp_line = NULL;
 	line = NULL;
 	write(STDOUT_FILENO, SHELL_BANNER, 15);
 	while (1)

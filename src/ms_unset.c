@@ -53,7 +53,7 @@ int		ms_unset_single(char **env, char *arg, char **path)
 	i = -1;
 	if (!check_var(arg, "unset"))
 		return (0);
-	while (env[++i] != '\0')
+	while (env[++i] != 0)
 	{
 		env_len = (0);
 		while (env[i][env_len] != '=' && env[i][env_len] != '\0')

@@ -68,7 +68,7 @@ int				not_in_env(char **env, char *var)
 
 	i = -1;
 	var_len = ft_strlen(var);
-	while (env[++i] != '\0')
+	while (env[++i] != 0)
 	{
 		env_len = 0;
 		while (env[i][env_len] != '=' && env[i][env_len] != '\0')

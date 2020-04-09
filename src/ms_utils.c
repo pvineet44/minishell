@@ -69,11 +69,9 @@ void	add_env(t_minishell_meta *ms, char *var)
 
 int		substitute_value(char *line, int i, t_minishell_meta *ms)
 {
-	int		j;
 	char	*var;
 
 	var = NULL;
-	j = i;
 	i++;
 	if (line[i] == '?')
 		return (i + get_exit_status(ms));
@@ -98,7 +96,7 @@ int		substitute_value(char *line, int i, t_minishell_meta *ms)
 
 void	command_not_found(t_minishell_meta *ms, int i)
 {
-	if (ms->piped_cmds->files1[i][0] != '\0')
+	if (ms->piped_cmds->files1[i][0] != 0)
 		unset_fd(ms);
 	write(STDERR_FILENO, "minishell: ", 11);
 	write(STDERR_FILENO, ms->piped_cmds->cmds[i],

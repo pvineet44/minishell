@@ -188,10 +188,8 @@ char					*refine_line(char *line, t_minishell_meta *ms)
 
 char					*parse(t_minishell_meta *ms, char *line)
 {
-	int		i;
 	char	**line_splits;
 
-	i = 0;
 	if (check_line(line) && (ms->multiline = 1))
 		return (line);
 	line = refine_line(line, ms);
