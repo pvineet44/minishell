@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_file_descriptor.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:23:50 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/15 16:46:00 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/04/09 23:00:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,15 @@ int is_append)
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 }
 
+void					handle_in_out_redir(t_minishell_meta *ms,\
+char *filename, int i)
+{
+	set_out_fd(ms, filename, 0);
+	set_in_fd(ms, filename);
+	if ((ms->piped_cmds->pipe[i] != '|') && (ms->multiline = -99))
+		unset_fd(ms);
+}
+
 void					call_actual_handle(char *filename, char *redir,\
 t_minishell_meta *ms, int i)
 {
@@ -83,12 +92,7 @@ t_minishell_meta *ms, int i)
 	else if ((ft_strcmp(redir, "><") == 0) && (ms->process_bit = -1))
 		return (syntax_error("<"));
 	else if ((ft_strcmp(redir, "<>") == 0))
-	{
-		set_out_fd(ms, filename, 0);
-		set_in_fd(ms, filename);
-		if ((ms->piped_cmds->pipe[i] != '|') && (ms->multiline = -99))
-			unset_fd(ms);
-	}
+		handle_in_out_redir(ms, filename, i);
 	else if (redir[0] == '>')
 		set_out_fd(ms, filename, 0);
 	else if (redir[0] == '<')
