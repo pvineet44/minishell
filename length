@@ -1,0 +1,14 @@
+src/ms_parse_utils.c:65:	if (!(pipe->cmds = (char**)malloc(sizeof(char*) + (length
+src/ms_parse_utils.c:68:	if (!(pipe->args1 = (char***)malloc(sizeof(char**) + (length
+src/ms_parse_utils.c:73:		if (!(pipe->args1[i] = (char**)malloc(sizeof(char*) + (length
+src/ms_parse_utils.c:76:		pipe->args1[i][0] = 0;
+src/ms_parse_utils.c:79:	pipe->length = length + 1;
+src/ms_parse_utils.c:81:	if (!(pipe->files1 = (char***)malloc(sizeof(char**) + (length
+src/ms_parse_utils.c:86:		if (!(pipe->files1[i] = (char**)malloc(sizeof(char*) + (length
+src/ms_parse_utils.c:89:		pipe->files1[i][0] = 0;
+src/ms_parse_utils.c:93:	if (!(pipe->redir = (char***)malloc(sizeof(char**) + (length
+src/ms_parse_utils.c:98:		if (!(pipe->redir[i] = (char**)malloc(sizeof(char*) + (length
+src/ms_parse_utils.c:101:		pipe->redir[i][0] = 0;
+src/ms_parse_utils.c:104:	if (!(pipe->pipe = (char*)malloc(sizeof(char) * (length + 1))))
+src/ms_parse_utils.c:106:	pipe->pipe = ft_memset(pipe->pipe, 'x', length);
+src/ms_parse_utils.c:107:	pipe->pipe[length] = '\0';

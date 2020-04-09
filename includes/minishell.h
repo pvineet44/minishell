@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/03/02 11:53:14 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/04/09 22:18:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef	struct				s_piped_minishell_meta
 	char	***files1;
 	char	***redir;
 	char	*pipe;
-	int		length;
+	int 	length;
 }							t_piped_minishell_meta;
 
 typedef struct				s_minishell_meta
@@ -147,4 +147,11 @@ t_minishell_meta *ms);
 void						errno_ne_one(char **line, char *bef_line,\
 char *new_line);
 void						errno_eq_one(char **line, char *new_line);
+void						set_export(t_minishell_meta *ms);
+void						set_env(t_minishell_meta *ms, char **env);
+void						set_path(t_minishell_meta *ms);
+void						set_env_export(t_minishell_meta *ms, char **env);
+int							add_ms_arg(t_minishell_meta *ms, int index, int j,\
+int flag);
+
 #endif

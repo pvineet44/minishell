@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mashar <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 15:35:06 by mashar            #+#    #+#             */
-/*   Updated: 2020/02/22 18:18:11 by mashar           ###   ########.fr       */
+/*   Updated: 2020/04/09 20:13:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void			ms_execute(char *path, char **args, char **env)
 	int		i;
 	int		x;
 	int		len;
+	char 	**av;
 
 	i = 0;
 	x = 1;
@@ -63,7 +64,7 @@ void			ms_execute(char *path, char **args, char **env)
 	len = ft_tablen(args);
 	if (check_file_permission(path) == 0)
 		return ;
-	char **av = (char**)malloc(sizeof(char*) * (len + 2));
+	av = (char**)malloc(sizeof(char*) * (len + 2));
 	if (av == NULL)
 		ms_exit(NULL, NULL, 0);
 	av[0] = ft_strdup(path);

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mashar <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:52:37 by mashar            #+#    #+#             */
-/*   Updated: 2020/02/15 17:24:18 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/04/09 22:31:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int pre_process_cmd(char **command, int i, char *line, int *quote_bit)
+static int					pre_process_cmd(char **command, int i, char *line,\
+int *quote_bit)
 {
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
@@ -25,8 +26,8 @@ static int pre_process_cmd(char **command, int i, char *line, int *quote_bit)
 	}
 	return (i);
 }
-char						*get_command(char *line,
-t_minishell_meta *ms)
+
+char						*get_command(char *line, t_minishell_meta *ms)
 {
 	int		i;
 	char	*command;
@@ -53,53 +54,40 @@ t_minishell_meta *ms)
 	return (command);
 }
 
+char						***create_3d_array(int length)
+{
+	char	***array;
+	int		i;
+
+	i = 0;
+	if (!(array = (char***)malloc(sizeof(char**) + length * sizeof(char**))))
+		return (NULL);
+	while (i <= length)
+	{
+		if (!(array[i] = (char**)malloc(sizeof(char*) * (length + 1))))
+			return (NULL);
+		array[i][0] = 0;
+		i++;
+	}
+	return (array);
+}
+
 t_piped_minishell_meta		*init_cmds(int length)
 {
 	t_piped_minishell_meta	*pipe;
-	int						i;
 
-	i = 0;
 	if (!(pipe = malloc(sizeof(t_piped_minishell_meta))))
 		return (NULL);
 	if (!(pipe->cmds = (char**)malloc(sizeof(char*) + (length
 	* sizeof(char*)))))
 		return (NULL);
-	if (!(pipe->args1 = (char***)malloc(sizeof(char**) + (length
-	* sizeof(char**)))))
-		return (NULL);
-	while (i <= (length))
-	{
-		if (!(pipe->args1[i] = (char**)malloc(sizeof(char*) + (length
-		* sizeof(char*)))))
-			return (NULL);
-		pipe->args1[i][0] = 0;
-		i++;
-	}
 	pipe->length = length + 1;
-	i = 0;
-	if (!(pipe->files1 = (char***)malloc(sizeof(char**) + (length
-	* sizeof(char**)))))
+	if (!(pipe->args1 = create_3d_array(length)))
 		return (NULL);
-	while (i <= (length))
-	{
-		if (!(pipe->files1[i] = (char**)malloc(sizeof(char*) + (length
-		* sizeof(char*)))))
-			return (NULL);
-		pipe->files1[i][0] = 0;
-		i++;
-	}
-	i = 0;
-	if (!(pipe->redir = (char***)malloc(sizeof(char**) + (length
-	* sizeof(char**)))))
+	if (!(pipe->files1 = create_3d_array(length)))
 		return (NULL);
-	while (i <= (length))
-	{
-		if (!(pipe->redir[i] = (char**)malloc(sizeof(char*) + (length
-		* sizeof(char*)))))
-			return (NULL);
-		pipe->redir[i][0] = 0;
-		i++;
-	}
+	if (!(pipe->redir = create_3d_array(length)))
+		return (NULL);
 	if (!(pipe->pipe = (char*)malloc(sizeof(char) * (length + 1))))
 		return (NULL);
 	pipe->pipe = ft_memset(pipe->pipe, 'x', length);
@@ -125,16 +113,42 @@ char *line, t_minishell_meta *ms)
 	return (redir);
 }
 
+int						get_file_name(char *line, int i, int *quote_bit,\
+char **str)
+{
+	while (line[i] && line[i] != 26)
+	{
+		if (line[i] == 24 && (*quote_bit = *quote_bit + 1))
+		{
+			i++;
+			continue;
+		}
+		if ((ft_isspace(line[i]) || ft_isredir(line[i])) && (*quote_bit % 2))
+		{
+			str[0] = ft_stradd(str[0], line[i]);
+			i++;
+			continue;
+		}
+		if (!ft_isspace(line[i]) && (!ft_isredir(line[i])))
+		{
+			str[0] = ft_stradd(str[0], line[i]);
+			i++;
+			continue ;
+		}
+		return (i);
+	}
+	return (i);
+}
+
 void				get_files(char *line, t_minishell_meta *ms, int index)
 {
 	int		i;
 	int		quote_bit;
 	int		j;
 
-	j = 0;
 	i = 0;
 	quote_bit = 0;
-	while (line[i] != '\0' && ft_isalpha(line[i]))
+	while ((j = 0) && line[i] != '\0' && ft_isalpha(line[i]))
 		i++;
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
@@ -143,51 +157,14 @@ void				get_files(char *line, t_minishell_meta *ms, int index)
 	while (line[i] && line[i] != 26)
 	{
 		while (line[i] && ft_isredir(line[i]))
-		{
-			ms->arg = ft_stradd(ms->arg, line[i]);
-			i++;
-		}
-		if (ms->arg)
-		{
-			ms->piped_cmds->redir[index][j] = ft_strdup(ms->arg);
-			ft_free(&ms->arg);
-		}
-		else
-			ft_free(&ms->arg);
+			ms->arg = ft_stradd(ms->arg, line[i++]);
+		j = add_ms_arg(ms, index, j, 0);
 		while (line[i] != '\0' && ft_isspace(line[i]))
 			i++;
-		while (line[i] && line[i] != 26)
-		{
-			if (line[i] == 24 && (quote_bit = quote_bit + 1))
-			{
-				i++;
-				continue;
-			}
-			if ((ft_isspace(line[i]) || ft_isredir(line[i])) && (quote_bit % 2))
-			{
-				ms->arg = ft_stradd(ms->arg, line[i]);
-				i++;
-				continue;
-			}
-			if (!ft_isspace(line[i]) && (!ft_isredir(line[i])))
-			{
-				ms->arg = ft_stradd(ms->arg, line[i]);
-				i++;
-				continue ;
-			}
-			break ;
-		}
-		if (ms->arg)
-		{
-			ms->piped_cmds->files1[index][j++] = ft_strdup(ms->arg);
-			ft_free(&ms->arg);
-		}
+		i = get_file_name(line, i, &quote_bit, &ms->arg);
+		j = add_ms_arg(ms, index, j, 1);
 	}
-	if (ms->arg)
-	{
-		ms->piped_cmds->files1[index][j++] = ft_strdup(ms->arg);
-		ft_free(&ms->arg);
-	}
+	j = add_ms_arg(ms, index, j, 1);
 	ms->piped_cmds->redir[index][j] = 0;
 	ms->piped_cmds->files1[index][j] = 0;
 }

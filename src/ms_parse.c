@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:58:42 by vparekh           #+#    #+#             */
-/*   Updated: 2020/03/02 11:44:55 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/04/09 20:27:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void				free_on_multiline(t_minishell_meta *ms)
 	return ;
 }
 
-static int			get_args(t_minishell_meta *ms, char *line, int index)
+static int				get_args(t_minishell_meta *ms, char *line, int index)
 {
 	int		i;
 	int		quote_bit;
@@ -32,7 +32,8 @@ static int			get_args(t_minishell_meta *ms, char *line, int index)
 	quote_bit = 0;
 	while (line[i] != '\0' && ft_isspace(line[i]))
 		i++;
-	if ((line[i] == '\0' || line[i] == 26 || ft_isredir(line[i])) && (ms->no_args = 1))
+	if ((line[i] == '\0' || line[i] == 26 || ft_isredir(line[i]))\
+	&& (ms->no_args = 1))
 		return (i);
 	while (line && line[i] != '\0' && line[i] != 26 && !ft_isredir(line[i]))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/09 15:49:57 by mashar           ###   ########.fr       */
+/*   Updated: 2020/04/09 19:55:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,6 @@ void			check_args(char **args)
 		ft_putstr_fd("|\n", 2);
 		i++;
 	}
-}
-
-void			set_export(t_minishell_meta *ms)
-{
-	int i;
-	int env_len;
-
-	i = 0;
-	env_len = 0;
-	while (ms->env[env_len] != 0)
-		env_len++;
-	ms->export = (char**)malloc(sizeof(char*) * (env_len + 1));
-	if (ms->export == NULL)
-		exit(0); //Properly exit here
-	ms->export[i] = 0;
-	return ;
-}
-
-void			set_env(t_minishell_meta *ms, char **env)
-{
-	int i;
-	int env_len;
-
-	i = 0;
-	env_len = 0;
-	while (env[env_len] != 0)
-		env_len++;
-	ms->env = (char**)malloc(sizeof(char*) * (env_len + 100));
-	if (ms->env == NULL)
-		exit(0);
-	while (i < env_len)
-	{
-		ms->env[i] = ft_strdup(env[i]);
-		i++;
-	}
-	ms->env[i] = 0;
 }
 
 void			init_ms(t_minishell_meta *ms)
@@ -96,14 +60,6 @@ void			invoke_minishell(t_minishell_meta *ms, char *line)
 	write(STDOUT_FILENO, SHELL_BANNER, 15);
 }
 
-void			set_path(t_minishell_meta *ms)
-{
-	ms->arg = 0;
-	substitute_value("$PATH", 0, ms);
-	ms->path = ft_split(ms->arg, ':');
-	ft_free(&ms->arg);
-}
-
 int				is_spaces_only(char *line)
 {
 	int i;
@@ -127,23 +83,19 @@ int				main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	line = NULL;
 	signal(SIGINT, sig_int_handler);
 	signal(SIGQUIT, sig_quit_handler);
 	if (!(ms = malloc(sizeof(t_minishell_meta))))
-		return (0);
-	set_env(ms, env);
-	set_export(ms);
-	ms->path = 0;
-	line = NULL;
-	write(STDOUT_FILENO, SHELL_BANNER, 15);
+		return (1);
+	set_env_export(ms, env);
 	while (1)
 	{
 		if (get_line(&line, ms))
 			continue ;
-		if (line[0] == '\0' || is_spaces_only(line))
+		if ((line[0] == '\0' || is_spaces_only(line)) && ft_free(&line))
 		{
 			write(STDOUT_FILENO, SHELL_BANNER, 15);
-			ft_free(&line);
 			continue ;
 		}
 		invoke_minishell(ms, line);
