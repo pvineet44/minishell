@@ -102,6 +102,13 @@ static int
 	return (1);
 }
 
+int		reset_errno_and_return(int tmp_errno)
+{
+	if (errno != 1)
+		errno = tmp_errno;
+	return (1);
+}
+
 int		get_line(char **line, t_minishell_meta *ms)
 {
 	static int	ret;
@@ -112,20 +119,12 @@ int		get_line(char **line, t_minishell_meta *ms)
 	if (eof)
 	{
 		if (!previous_is_eof(&ret, &eof, line, ms))
-		{
-			if (errno != 1)
-				errno = tmp_errno;
-			return (1);
-		}
+			return (reset_errno_and_return(tmp_errno));
 	}
 	else
 	{
 		if (!current_line_handle(&ret, &eof, line, ms))
-		{
-			if (errno != 1)
-				errno = tmp_errno;
-			return (1);
-		}
+			return (reset_errno_and_return(tmp_errno));
 	}
 	if (errno != 1)
 		errno = tmp_errno;

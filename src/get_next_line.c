@@ -19,6 +19,7 @@ static int			validate(int fd, char **line)
 		return (1);
 	if (line == NULL)
 		return (1);
+	*line = 0;
 	return (0);
 }
 
@@ -83,9 +84,7 @@ static int			ft_some(char **p, int value, char *buffer, char **line)
 			return (1);
 		}
 		else if (ft_free(p))
-		{
 			*line = ft_stradd(*line, buffer[i++]);
-		}
 	}
 	ft_free(&buffer);
 	return (2);
@@ -99,7 +98,6 @@ int					get_next_line(int fd, char **line)
 	int				ret;
 
 	value = 1;
-	*line = 0;
 	errno = 0;
 	if (validate(fd, line))
 		return (-1);
