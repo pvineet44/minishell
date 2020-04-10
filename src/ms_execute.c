@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 15:35:06 by mashar            #+#    #+#             */
-/*   Updated: 2020/04/09 20:13:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/10 19:25:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		write_error(char *path)
 	ft_putstr_fd("No such file or directory\n", STDERR_FILENO);
 }
 
-static void		write_permission_denied(char *path)
+void			write_permission_denied(char *path)
 {
 	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
@@ -31,18 +31,6 @@ static void		write_permission_denied(char *path)
 	errno = 126;
 }
 
-int				check_file_permission(char *path)
-{
-	struct stat file_stat;
-
-	if (stat(path, &file_stat) >= 0 && ((file_stat.st_mode & S_IXUSR) == 0))
-	{
-		write_permission_denied(path);
-		return (0);
-	}
-	return (1);
-}
-
 void			free_used_values(char *args1, char *args2, char **av)
 {
 	free_tab(av);
@@ -50,30 +38,12 @@ void			free_used_values(char *args1, char *args2, char **av)
 	ft_free(&args2);
 }
 
-void			ms_execute(char *path, char **args, char **env)
+void			fork_process(char *path, char **av, char **env)
 {
 	pid_t	pid;
-	int		i;
 	int		x;
-	int		len;
-	char 	**av;
 
-	i = 0;
 	x = 1;
-	errno = 0;
-	len = ft_tablen(args);
-	if (check_file_permission(path) == 0)
-		return ;
-	av = (char**)malloc(sizeof(char*) * (len + 2));
-	if (av == NULL)
-		ms_exit(NULL, NULL, 0);
-	av[0] = ft_strdup(path);
-	while (args[i] != 0 && len != 0)
-	{
-		av[i + 1] = ft_strdup(args[i]);
-		i++;
-	}
-	av[i + 1] = 0;
 	pid = fork();
 	if (1)
 	{
@@ -93,4 +63,28 @@ void			ms_execute(char *path, char **args, char **env)
 	free_tab(av);
 	signal(SIGINT, sig_int_handler);
 	signal(SIGQUIT, sig_quit_handler);
+}
+
+void			ms_execute(char *path, char **args, char **env)
+{
+	int		i;
+	int		len;
+	char	**av;
+
+	i = 0;
+	errno = 0;
+	len = ft_tablen(args);
+	if (check_file_permission(path) == 0)
+		return ;
+	av = (char**)malloc(sizeof(char*) * (len + 2));
+	if (av == NULL)
+		ms_exit(NULL, NULL, 0);
+	av[0] = ft_strdup(path);
+	while (args[i] != 0 && len != 0)
+	{
+		av[i + 1] = ft_strdup(args[i]);
+		i++;
+	}
+	av[i + 1] = 0;
+	fork_process(path, av, env);
 }

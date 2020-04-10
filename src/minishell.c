@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:20:14 by vparekh           #+#    #+#             */
-/*   Updated: 2020/04/09 19:55:50 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/10 11:31:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			init_ms(t_minishell_meta *ms)
 	ms->piped_cmds = 0;
 	ms->no_args = 0;
 	ms->path = 0;
+	ms->n = 0;
 	set_path(ms);
 }
 

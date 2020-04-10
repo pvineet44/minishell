@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:27:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/04/09 22:18:03 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/10 19:25:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef	struct				s_piped_minishell_meta
 	char	***files1;
 	char	***redir;
 	char	*pipe;
-	int 	length;
+	int		length;
 }							t_piped_minishell_meta;
 
 typedef struct				s_minishell_meta
@@ -60,6 +60,7 @@ typedef struct				s_minishell_meta
 	int						multiline;
 	int						end_quote;
 	int						no_args;
+	int						n;
 	t_piped_minishell_meta	*piped_cmds;
 }							t_minishell_meta;
 t_piped_minishell_meta		*init_cmds(int length);
@@ -130,7 +131,7 @@ int i, int *in);
 char						*replace_tabs(char *line);
 void						no_file_or_directory(char *cmd, char *name);
 void						print_invalid(char *var, char *cmd);
-void						syntax_error(char *token);
+int							syntax_error(char *token);
 int							check_line(char *line);
 char						*join_tmp_line(char **tmp_line, char *line);
 int							get_line(char **line, t_minishell_meta *ms);
@@ -142,7 +143,7 @@ void						check_ret_lt_zero(int *ret, char *new_line,\
 char **line, t_minishell_meta *ms);
 void						check_ret_eq_zero(int *ret, char *new_line,\
 char *bef_line, t_minishell_meta *ms);
-void            			check_ret_and_line(int *ret, char **line,\
+void						check_ret_and_line(int *ret, char **line,\
 t_minishell_meta *ms);
 void						errno_ne_one(char **line, char *bef_line,\
 char *new_line);
@@ -153,5 +154,18 @@ void						set_path(t_minishell_meta *ms);
 void						set_env_export(t_minishell_meta *ms, char **env);
 int							add_ms_arg(t_minishell_meta *ms, int index, int j,\
 int flag);
-
+int							check_endline(char *line, t_minishell_meta *ms,\
+int *j, int *q);
+int							return_value(t_minishell_meta *ms, int index,\
+int j, char *line);
+char						*return_line(char *line, t_minishell_meta *ms);
+int							add_to_line(char *line, int i,\
+t_minishell_meta *ms);
+int							free_on_multiline(t_minishell_meta *ms);
+int							check_red_err(char *line, int i,\
+t_minishell_meta *ms);
+int							check_file_permission(char *path);
+void						write_permission_denied(char *path);
+char						*refine_line(char *line, t_minishell_meta *ms);
+char						***create_3d_array(int length);
 #endif

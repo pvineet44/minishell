@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 19:46:19 by mashar            #+#    #+#             */
-/*   Updated: 2020/04/09 22:22:00 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/10 09:10:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			set_env_export(t_minishell_meta *ms, char **env)
 	write(STDOUT_FILENO, SHELL_BANNER, 15);
 }
 
-int     add_ms_arg(t_minishell_meta *ms, int index, int j, int flag)
+int				add_ms_arg(t_minishell_meta *ms, int index, int j, int flag)
 {
 	if (flag == 0)
 	{

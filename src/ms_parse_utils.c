@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:52:37 by mashar            #+#    #+#             */
-/*   Updated: 2020/04/09 22:31:00 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/10 18:47:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,47 +54,6 @@ char						*get_command(char *line, t_minishell_meta *ms)
 	return (command);
 }
 
-char						***create_3d_array(int length)
-{
-	char	***array;
-	int		i;
-
-	i = 0;
-	if (!(array = (char***)malloc(sizeof(char**) + length * sizeof(char**))))
-		return (NULL);
-	while (i <= length)
-	{
-		if (!(array[i] = (char**)malloc(sizeof(char*) * (length + 1))))
-			return (NULL);
-		array[i][0] = 0;
-		i++;
-	}
-	return (array);
-}
-
-t_piped_minishell_meta		*init_cmds(int length)
-{
-	t_piped_minishell_meta	*pipe;
-
-	if (!(pipe = malloc(sizeof(t_piped_minishell_meta))))
-		return (NULL);
-	if (!(pipe->cmds = (char**)malloc(sizeof(char*) + (length
-	* sizeof(char*)))))
-		return (NULL);
-	pipe->length = length + 1;
-	if (!(pipe->args1 = create_3d_array(length)))
-		return (NULL);
-	if (!(pipe->files1 = create_3d_array(length)))
-		return (NULL);
-	if (!(pipe->redir = create_3d_array(length)))
-		return (NULL);
-	if (!(pipe->pipe = (char*)malloc(sizeof(char) * (length + 1))))
-		return (NULL);
-	pipe->pipe = ft_memset(pipe->pipe, 'x', length);
-	pipe->pipe[length] = '\0';
-	return (pipe);
-}
-
 char						*get_redir(char *redir,
 char *line, t_minishell_meta *ms)
 {
@@ -113,8 +72,8 @@ char *line, t_minishell_meta *ms)
 	return (redir);
 }
 
-int						get_file_name(char *line, int i, int *quote_bit,\
-char **str)
+int							get_file_name(char *line, int i,\
+int *quote_bit, char **str)
 {
 	while (line[i] && line[i] != 26)
 	{
@@ -140,7 +99,8 @@ char **str)
 	return (i);
 }
 
-void				get_files(char *line, t_minishell_meta *ms, int index)
+void						get_files(char *line,\
+t_minishell_meta *ms, int index)
 {
 	int		i;
 	int		quote_bit;

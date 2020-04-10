@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 17:18:55 by vparekh           #+#    #+#             */
-/*   Updated: 2020/03/02 11:46:41 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/04/10 19:25:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void			unset_fd(t_minishell_meta *ms)
+{
+	if (ms->file_fd == 1)
+		close(ms->file_fd);
+	if (ms->out_fd != -1)
+		dup2(ms->out_fd, 1);
+	if (ms->in_fd != -1)
+	{
+		dup2(ms->in_fd, 0);
+		close(ms->in_fd);
+	}
+}
 
 void			spawn_proc(t_minishell_meta *ms, char *line, int in, int i)
 {

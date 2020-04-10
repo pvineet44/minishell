@@ -6,24 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:23:50 by vparekh           #+#    #+#             */
-/*   Updated: 2020/04/09 23:00:00 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/10 19:22:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void					unset_fd(t_minishell_meta *ms)
-{
-	if (ms->file_fd == 1)
-		close(ms->file_fd);
-	if (ms->out_fd != -1)
-		dup2(ms->out_fd, 1);
-	if (ms->in_fd != -1)
-	{
-		dup2(ms->in_fd, 0);
-		close(ms->in_fd);
-	}
-}
 
 void					set_in_fd(t_minishell_meta *ms, char *filename)
 {
@@ -89,8 +76,9 @@ t_minishell_meta *ms, int i)
 	}
 	if (ft_strcmp(redir, ">>") == 0)
 		set_out_fd(ms, filename, 1);
-	else if ((ft_strcmp(redir, "><") == 0) && (ms->process_bit = -1))
-		return (syntax_error("<"));
+	else if ((ft_strcmp(redir, "><") == 0)\
+	&& syntax_error("<") && (ms->process_bit = -1))
+		return ;
 	else if ((ft_strcmp(redir, "<>") == 0))
 		handle_in_out_redir(ms, filename, i);
 	else if (redir[0] == '>')

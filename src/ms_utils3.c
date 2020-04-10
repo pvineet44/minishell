@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 13:20:21 by vparekh           #+#    #+#             */
-/*   Updated: 2020/03/03 13:20:22 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/04/10 12:41:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ void			too_many_args(char *cmd)
 	ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
 }
 
-void			syntax_error(char *token)
+int				syntax_error(char *token)
 {
 	ft_putstr_fd(SHELL_NAME, STDERR_FILENO);
 	ft_putstr_fd(SYNTAX_ERROR, STDERR_FILENO);
 	ft_putstr_fd(token, STDERR_FILENO);
 	ft_putstr_fd("'\n", STDERR_FILENO);
 	errno = 258;
+	return (1);
 }
 
 void			print_invalid(char *var, char *cmd)
