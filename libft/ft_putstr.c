@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/11 22:53:02 by user42            #+#    #+#             */
+/*   Updated: 2020/04/11 22:53:42 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
-    int len;
+	int len;
 
-    len = ft_strlen(str);
-    write(1, str, len);
-    return ;
+	len = ft_strlen(str);
+	write(1, str, len);
+	return ;
 }
