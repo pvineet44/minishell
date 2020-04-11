@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_sig_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 12:54:48 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 12:54:49 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/04/11 15:11:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	sig_quit_handler(int sig)
 {
 	(void)sig;
 	ft_putstr(" \b\b \b\b \b");
+	ft_putstr("\n");
 	signal(SIGQUIT, sig_quit_handler);
 }
 

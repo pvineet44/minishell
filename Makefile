@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/05 12:43:24 by vparekh           #+#    #+#              #
-#    Updated: 2020/04/10 16:09:22 by user42           ###   ########.fr        #
+#    Updated: 2020/04/11 18:56:29 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ LIBFT = ./libft/libft.a
 LIBFT_SRC := $(wildcard libft/*.c)
 LIBFT_OBJ := $(patsubst libft/%.c, libft/%.o, $(LIBFT_SRC))
 
-COMP = gcc -Wall -Wextra -fsanitize=address -g3
-# COMP = gcc -Wall -Wextra  -g3
+# COMP = gcc -Wall -Wextra -fsanitize=address -g3
+COMP = gcc -Wall -Wextra -g3
 INCLUDES = -Iincludes -Llibft -lft
 SRC := $(wildcard src/*.c)
 OBJ := $(patsubst src/%.c, obj/%.o, $(SRC))
