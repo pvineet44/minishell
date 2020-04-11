@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 11:10:08 by vparekh           #+#    #+#             */
-/*   Updated: 2020/04/10 16:33:54 by user42           ###   ########.fr       */
+/*   Updated: 2020/04/11 22:42:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		parse_quotes(char *line, int i, t_minishell_meta *ms)
 			i = i + 2;
 			continue;
 		}
-		if (line[i] == '$' && !quote_bit)
+		if (line[i] == '$' && !quote_bit && ft_isalpha(line[i + 1]))
 		{
 			i = substitute_value(line, i, ms);
 			i++;
