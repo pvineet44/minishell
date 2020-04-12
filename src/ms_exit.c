@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vparekh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:06:45 by vparekh           #+#    #+#             */
-/*   Updated: 2020/02/07 11:21:25 by vparekh          ###   ########.fr       */
+/*   Updated: 2020/04/12 07:13:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void						ms_exit(t_minishell_meta *ms, char *line, int i)
 	int len_args;
 
 	len_args = ft_tablen(ms->piped_cmds->args1[i]);
+	write(STDOUT_FILENO, EXIT_MSG, 5);
 	if (len_args == 0)
 		stat = 0;
 	else if (len_args > 1)
@@ -72,7 +73,6 @@ void						ms_exit(t_minishell_meta *ms, char *line, int i)
 		numeric_arg_required(ms->piped_cmds->args1[i][0]);
 		stat = 255;
 	}
-	write(STDOUT_FILENO, EXIT_MSG, 5);
 	free_before_exit(ms, line);
 	exit(stat);
 }
